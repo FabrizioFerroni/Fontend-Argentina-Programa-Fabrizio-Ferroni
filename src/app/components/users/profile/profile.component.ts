@@ -1,8 +1,9 @@
+import { DOCUMENT } from '@angular/common';
 import { Title } from '@angular/platform-browser';
 import { Router } from '@angular/router';
 import { TokenService } from './../../../services/token.service';
 import { PortfolioService } from 'src/app/services/portfolio.service';
-import { Component, ElementRef, OnInit, ViewChild } from '@angular/core';
+import { Component, ElementRef, OnInit, ViewChild, Renderer2, Inject } from '@angular/core';
 import { AuthService } from 'src/app/services/auth.service';
 import swal from 'sweetalert2';
 
@@ -54,10 +55,18 @@ export class ProfileComponent implements OnInit {
     private authService: AuthService,
     private tokenService: TokenService,
     private router: Router,
-    private titleService: Title
+    private titleService: Title,
+    private _renderer2: Renderer2,
+    @Inject(DOCUMENT) private _document: Document,
   ) { }
 
   ngOnInit(): void {
+    let body = this._document.body;
+    let script = this._renderer2.createElement('script');
+    script.type = 'application/javascript';
+    script.src = 'assets/js/script.js';
+    this._renderer2.appendChild(body, script);
+
     this.portfolioService.get_home().subscribe(
       res => {
         console.log(res.mensaje);

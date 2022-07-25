@@ -1,6 +1,7 @@
+import { DOCUMENT } from '@angular/common';
 import { Title } from '@angular/platform-browser';
 import { PortfolioService } from 'src/app/services/portfolio.service';
-import { Component, OnInit } from '@angular/core';
+import { Component, Inject, OnInit, Renderer2 } from '@angular/core';
 import { Router } from '@angular/router';
 import swal from 'sweetalert2';
 import { isEmpty } from 'rxjs';
@@ -43,12 +44,20 @@ export class ContactameComponent implements OnInit {
     private _portfolioService: PortfolioService,
     private _router: Router,
     private titleService: Title,
-    private tokenService:TokenService
+    private tokenService:TokenService,
+    private _renderer2: Renderer2,
+    @Inject(DOCUMENT) private _document: Document,
   ) {
     titleService.setTitle('Contactame - Fabrizio Dev - Argentina Programa #YoProgramo')
   }
 
   ngOnInit(): void {
+    let body = this._document.body;
+    let script = this._renderer2.createElement('script');
+    script.type = 'application/javascript';
+    script.src = 'assets/js/script.js';
+    this._renderer2.appendChild(body, script);
+
     this._portfolioService.get_home().subscribe(
       res => {
         console.log(res.mensaje);

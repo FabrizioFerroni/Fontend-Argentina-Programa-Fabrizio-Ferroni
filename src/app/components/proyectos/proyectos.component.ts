@@ -62,6 +62,12 @@ export class ProyectosComponent implements OnInit {
    }
 
   ngOnInit(): void {
+    let body = this._document.body;
+    let script = this._renderer2.createElement('script');
+    script.type = 'application/javascript';
+    script.src = 'assets/js/script.js';
+    this._renderer2.appendChild(body, script);
+
     moment.locale('es');
     this._portfolioService.get_home().subscribe(
       res => {
