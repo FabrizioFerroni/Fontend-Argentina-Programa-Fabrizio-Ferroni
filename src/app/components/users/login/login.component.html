@@ -1,0 +1,82 @@
+<a href="#" id="pulsaBoton" class="cargar d-none"></a>
+<app-modal></app-modal>
+<div class="limiter">
+  <div class="container-login100">
+    <div class="wrap-login100">
+
+      <form class="login100-form validate-form" id="form_login" autocomplete="nope" #login="ngForm" (ngSubmit)="onLogin()">
+        <div class="center-panel">
+          <a [routerLink]="['/']"><img src="assets/img/APLogo-20-20.png" alt="Argentina Programa Logo" width="250px"></a>
+          <!-- <span>#YoProgramo - Argentina Programa</span> -->
+          <span class="login100-form-title p-b-43">
+            Inicia sesión <br>
+            <span class="txt2">
+              Inicie sesión en su cuenta utilizando el usuario y la contraseña proporcionados durante
+              el registro.
+            </span>
+          </span>
+
+          <div class="alert alert-success text-center " role="alert" *ngIf="isSucced">
+            Has iniciado sesión correctamente.{{ mensaje }}
+          </div>
+          <div class="alert alert-danger text-center " role="alert" *ngIf="isError">
+            {{ mensaje }}
+          </div>
+          <div class="wrap-input100 validate-input mb-4"
+            data-validate="Se requiere un correo electrónico válido: ex@abc.xyz">
+            <input class="input100" type="text" name="nombreUsuario" [(ngModel)]="nombreUsuario" autocomplete="nope">
+            <span class="focus-input100"></span>
+            <span class="label-input100"><i class="pr-2 bi bi-person-circle"></i> Email o usuario</span>
+          </div>
+
+
+          <div class="wrap-input100 validate-input" data-validate="Se requiere una contraseña">
+            <input class="input100" type="password" name="password" id="password" [(ngModel)]="password" autocomplete="nope">
+            <span class="focus-input100"></span>
+            <span class="label-input100"><i class="pr-2 bi bi-key"></i> Contraseña</span>
+          </div>
+
+          <div class="flex-sb-m w-full p-t-3 p-b-32">
+            <div class="contact100-form-checkbox">
+              <input class="input-checkbox100" id="ckb1" type="checkbox" name="showpassword" (click)="cambiarTipo()">
+              <label class="label-checkbox100" for="ckb1">
+                Mostrar contraseña
+              </label>
+            </div>
+
+            <div>
+              <a [routerLink]="['/olvide-mi-contrasena']" class="txt1">
+               ¿Has olvidado tu contraseña?
+              </a>
+            </div>
+          </div>
+
+
+          <div class="container-login100-form-btn">
+            <button class="login100-form-btn" *ngIf="!btn_load" [disabled]="!login.valid">
+              <i class="pr-2 bi bi-box-arrow-in-right"></i>
+              Iniciar sesión
+            </button>
+
+            <button class="login100-form-btn" *ngIf="btn_load" disabled>
+              <span class="spinner-grow spinner-grow-sm mr-2" role="status" aria-hidden="true"></span>
+                    {{ mensaje_btn }}
+            </button>
+          </div>
+
+          <div class="text-center p-t-46 p-b-20 txt2">
+            <i class="pr-2 bi bi-person-plus"></i> No tenes una cuenta? Mejor,
+            <a [routerLink]="['/registrarse']" class="txt2">
+               registrate ahora
+            </a>
+          </div>
+      <!-- </form> -->
+
+        </div>
+      </form>
+
+      <div class="login100-more" style="background-image: url('assets/img/moto2.jpg');">
+      </div>
+    </div>
+  </div>
+</div>

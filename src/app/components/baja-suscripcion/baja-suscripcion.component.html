@@ -1,0 +1,34 @@
+<ng-container *ngIf="isLoader == true">
+  <app-loader></app-loader>
+</ng-container>
+<ng-container *ngIf="isLoader == false">
+  <ng-container *ngIf="isSucced">
+    <div class="container-error">
+      <img src="../../../assets/img/APLogo-20-20.png" alt="" width="250px">
+      <img src="../../../assets/img/error.svg" class="" alt="Error" width="250px">
+      <h3 class="mt-4 mb-2 text-center">Lamento haberte llenado de spam, ahora ya no recibira mas ningún correo mío.</h3>
+     <div class="text-center alert alert-success">
+      <img src="../../../assets/img/success.svg" class="" alt="Error" width="20px">
+      <span class="mb-4 text-center fst-italic vamml16"><span class="">{{ success }}</span></span>
+      <!-- <span class="mb-4 text-center fst-italic vamml16"><span class="text-primary">{{ success }}</span></span> -->
+     </div>
+
+      <button class="btn btn-primary outnone mb-movil-4" (click)="backtohome()">Volver a inicio</button>
+    </div>
+  </ng-container>
+
+  <ng-container *ngIf="isError">
+    <div class="container-error">
+      <img src="../../../assets/img/APLogo-20-20.png" alt="" width="250px">
+      <img src="../../../assets/img/error.svg" class="" alt="Error" width="250px">
+      <h3 class="mt-4 mb-2 text-center">Lo siento mucho, no encontramos ningún suscriptor con el token proporcionado.</h3>
+     <div class="text-center  alert alert-danger">
+      <img src="../../../assets/img/error2.svg" class="" alt="Error" width="20px">
+      <span class="mb-4 text-center fst-italic vamml16"> <span class="">{{ error }}</span></span>
+      <!-- <span class="mb-4 text-center fst-italic vamml16"> <span class="text-primary">{{ error }}</span></span> -->
+     </div>
+
+      <button class="btn btn-primary outnone mb-movil-4" (click)="backtohome()">Volver a inicio</button>
+    </div>
+  </ng-container>
+</ng-container>

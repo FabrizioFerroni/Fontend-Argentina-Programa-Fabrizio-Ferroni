@@ -1,0 +1,59 @@
+<div class="limiter">
+  <div class="container-login100">
+    <div class="wrap-login100">
+      <form #recovery="ngForm" (ngSubmit)="onSendEmail()" class="login100-form validate-form">
+        <div class="center-panel">
+          <a [routerLink]="['/']"><img src="assets/img/APLogo-20-20.png" alt="Argentina Programa Logo" width="250px"></a>
+
+          <span class="login100-form-title p-b-43">
+            Recuperar contraseña <br>
+            <span class="txt2" >
+              Ingrese su email con cual se registro para recuperar la contraseña
+            </span>
+          </span>
+
+          <div class="alert alert-success text-center " role="alert" *ngIf="isSucced">
+            {{ mensaje }}
+           </div>
+
+           <div class="alert alert-danger text-center " role="alert" *ngIf="isError">
+             {{ mensaje }}
+           </div>
+
+          <div class="wrap-input100 validate-input"
+            data-validate="Se requiere un correo electrónico o nombre de usuario válido: ex@abc.xyz // username">
+            <input class="input100" type="text" name="mailTo" [(ngModel)]="mailTo">
+            <span class="focus-input100"></span>
+            <span class="label-input100"><i class="pr-2 bi bi-at"></i>  Email o nombre de usuario</span>
+          </div>
+
+          <div class="flex-sb-m w-full p-t-3 p-b-32">
+            <div>
+              <span class="txt2">
+                <i class="pr-2 bi bi-person-bounding-box"></i> ¿Te has acordado tu contraseña?,
+              </span>
+              <a [routerLink]="['/iniciarsesion']" class="txt2">
+                 inicia sesion
+              </a>
+            </div>
+          </div>
+
+
+          <div class="container-login100-form-btn">
+            <button class="login100-form-btn" *ngIf="!btn_load" [disabled]="!recovery.valid">
+             <i class="pr-2 bi bi-key"></i> Recuperar contraseña
+            </button>
+
+            <button *ngIf="btn_load" type="button" class="button-contact mr-3" disabled>
+              <span class="spinner-grow spinner-grow-sm mr-2" role="status" aria-hidden="true"></span>
+              {{ mensaje_btn }}
+          </button>
+          </div>
+        </div>
+      </form>
+
+      <div class="login100-more bp-center" style="background-image: url('assets/img/moto6.jpg');">
+      </div>
+    </div>
+  </div>
+</div>

@@ -1,0 +1,25 @@
+:root{
+  --body: #171718;
+  /* --primary: #EC5C5C; */
+  --primary: #5c62ec;
+  --white: #fff;
+  --card: #1c1e22;
+  --separator: #26292d;
+  --secondary: #7B61FF;
+  /* --secondary: #FF6161; */
+  --social: #85bfd1;
+}
+.form-file{
+  background-color: #1C1E22;
+  margin-bottom: 24px;
+  color: #A0A0A1;
+  margin-top: 8px;
+  height: 38x;
+}
+
+.form-file:hover, .form-file:focus{
+  background-color: #1C1E22;
+  color: #A0A0A1;
+  border: 1px solid var(--primary);
+
+}

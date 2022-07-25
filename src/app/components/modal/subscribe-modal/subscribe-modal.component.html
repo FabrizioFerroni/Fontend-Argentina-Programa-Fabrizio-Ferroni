@@ -1,0 +1,59 @@
+<!-- Modal -->
+<div class="modal fade" id="subscribe"  data-bs-keyboard="false" tabindex="-1"
+ aria-labelledby="staticBackdropLabel" aria-hidden="true">
+ <div class="modal-dialog modal-dialog-centered ">
+     <div class="modal-content">
+      <form #subs="ngForm" (ngSubmit)="onSubmit(subs)">
+         <div class="modal-header">
+             <h5 class="modal-title" id="exampleModalLabel"><i class="pr-2 bi bi-box-arrow-in-up-right"></i>
+                 Subscribirme</h5>
+             <!-- <button type="button" class="outnone btn-close" data-bs-dismiss="modal" aria-label="Close"><i
+       class="bi bi-x-lg"></i></button> -->
+             <button type="button" class="outnone btn-close btn-close-white" (click)="resetSus()" data-bs-dismiss="modal"
+                 aria-label="Close"></button>
+         </div>
+         <div class="modal-body">
+             <div class="container-fluid">
+
+                     <div class="row">
+                       <p class="card-text">Si te quieres enterar de mis ultimos proyectos y novedades,
+                           te puedes subscribir a mi boletin de noticias</p>
+                      <div class="col-md-12">
+                        <label for="nombre"><i class="bi bi-person"></i> Nombre y Apellido:</label>
+                        <input type="text" name="nombre" [(ngModel)]="nombre" class="form-login outnone form-control"
+                            placeholder="Ingrese su nombre completo ej: Facundo Pérez" required
+                            autocomplete="ÑaoC0mplete">
+                    </div>
+
+                         <div class="col-md-12 mt-6">
+                             <label for="email"><i class="bi bi-at"></i> Correo Electronico:</label>
+                             <input type="email" name="email" [(ngModel)]="email" class="form-login outnone form-control"
+                                 placeholder="Ingrese su email ej: fperez@gmail.com" required
+                                 autocomplete="ÑaoC0mplete">
+                         </div>
+
+
+
+                     </div>
+                     <!-- </form> -->
+             </div>
+         </div>
+         <div class="modal-footer">
+             <div class="d-flex me-auto">
+                 <button type="button" class="mr-auto outnone btn btn-secondary" data-bs-dismiss="modal" (click)="resetSus()"><i
+                         class="pr-2  bi bi-x-lg"></i> Cancelar</button>
+             </div>
+             <div class="d-flex">
+                 <button type="submit" *ngIf="!load_btn" class="outnone btn login-btn" [disabled]="!subs.valid"><i
+                         class="pr-2 bi bi-box-arrow-in-up-right"></i> Subscribirme</button>
+                         <button *ngIf="load_btn" type="button" class="outnone btn login-btn" disabled>
+                          <span class="spinner-grow spinner-grow-sm mr-2" role="status" aria-hidden="true"></span>
+                          Suscribiendose ...
+                      </button>
+             </div>
+            </div>
+          </form>
+          </div>
+ </div>
+</div>
+<!-- fin modal -->

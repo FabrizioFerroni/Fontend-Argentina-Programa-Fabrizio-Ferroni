@@ -1,0 +1,120 @@
+<!-- Nav -->
+<nav class="navbar sticky-top navbar-expand-lg navbar-dark">
+  <div class="container-fluid">
+    <a class="navbar-brand px-2 d-flex align-items-center" [routerLink]="['/']">
+      <img src="../../../assets/img/APLogo-20-20.png" class="vertical-align-middle" width="95px">
+      <!-- Fabrizio DEV -->
+      <span class="fs-6 ap-title">
+        Argentina Programa <br>
+         #YoProgramo
+      </span>
+    </a>
+
+
+
+    <button class="outnone navbar-toggler" type="button"  data-bs-toggle="collapse"
+      data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false"
+      aria-label="Toggle navigation">
+      <ng-container *ngIf="is_open == false">
+        <i class=" bi bi-grid" (click)="open_menu()"></i>
+      </ng-container>
+      <ng-container *ngIf="is_open == true">
+        <i class="  bi bi-x-lg" (click)="open_menu()"></i>
+      </ng-container>
+    </button>
+
+    <div class="collapse navbar-collapse" id="navbarSupportedContent">
+      <ul class="navbar-nav ms-auto mb-2 mb-lg-0 ">
+        <li class="nav-item px-2">
+          <a class="nav-link " aria-current="page" [routerLink]="['/']" routerLinkActive="active"
+            [routerLinkActiveOptions]="{exact: true}"><i class="pr-2 bi bi-house-door"></i> Inicio</a>
+        </li>
+        <li class="nav-item px-2">
+          <a class="nav-link" [routerLink]="['/quien-soy']" routerLinkActive="active"><i
+              class="pr-2 bi bi-person-square"></i> Quien Soy</a>
+        </li>
+
+        <li class="nav-item px-2">
+          <a class="nav-link" [routerLink]="['/proyectos']" tabindex="-1" aria-disabled="true"
+            routerLinkActive="active"><i class="pr-2 bi bi-layers"></i> Proyectos</a>
+        </li>
+
+        <li class="nav-item px-2">
+          <a class="nav-link" [routerLink]="['/contactame']" tabindex="-1" aria-disabled="true"
+            routerLinkActive="active"><i class="pr-2 bi bi-send"></i> Contactame</a>
+        </li>
+
+        <ng-container *ngIf="is_loged == false">
+          <li class="nav-item px-2">
+            <a class="outnone login-btn btn mb-login" [routerLink]="['/iniciarsesion']" tabindex="-1" aria-disabled="true"
+              routerLinkActive="active"><i class="pr-2 bi bi-box-arrow-in-right"></i> Iniciar Sesion</a>
+          </li>
+        </ng-container>
+        <ng-container *ngIf="is_loged == true">
+          <li class="nav-item dropdown px-2 ">
+            <a class="nav-link dropdown-toggle sn-br" [routerLinkActive]="['/mi-perfil']" routerLinkActive="active" href="#" id="navbarDropdown" role="button" data-bs-toggle="dropdown"
+              aria-expanded="false">
+              <i class="pr-2 bi bi-person"></i> Hola:  <span class="text-user">{{ nombre }}</span>
+            </a>
+            <ul class="dropdown-menu dropdown-menu-dark dropdown-menu-lg-end mb-2" aria-labelledby="navbarDropdown">
+              <li><a [routerLink]="['/mi-perfil']" routerLinkActive="active" class="dropdown-item"><i class="pr-2 bi bi-person"></i> Mi Perfil</a></li>
+              <li><hr class="dropdown-divider"></li>
+              <li><a class="dropdown-item " style="cursor: pointer;" (click)="logout()"><i class="pr-2 bi bi-box-arrow-right"></i> Cerrar Sesión</a></li>
+            </ul>
+          </li>
+
+        </ng-container>
+
+
+        <li class="nav-item dropdown px-2 mobile-no" id="rrss">
+          <a class="nav-link dropdown-toggle js-activated" href="#" id="droprrss"  role="button" data-bs-toggle="dropdown"
+            aria-expanded="false" data-bs-toggle="tooltip" data-bs-placement="left" title="Seguime en mis redes!">
+            <i class="bi bi-share"></i>
+          </a>
+          <ul class="dropdown-menu dropdown-menu-dark dropdown-menu-sm-end mw-0 r-5" id="uldrop" aria-labelledby="navbarDropdown">
+            <li>
+              <a href="https://facebook.com/Fabrizio.Ferroni.96" id="" class="dropdown-item br-8" target="_blank" data-bs-toggle="tooltip" data-bs-placement="bottom" title="Facebook"><i class="bi bi-facebook"></i></a>
+            </li>
+              <li><a href="mailto:fabrizioferroni@outlook.com" target="_blank" class="dropdown-item br-8" data-bs-toggle="tooltip" data-bs-placement="bottom" title="Correo Electrónico"><i class="bi bi-envelope" ></i></a></li>
+              <li><a href="https://github.com/FabrizioFerroni" target="_blank" class="dropdown-item br-8" data-bs-toggle="tooltip" data-bs-placement="bottom" title="Github"><i class="bi bi-github"></i></a></li>
+              <li><a href="https://instagram.com/fabriiferroni" class="dropdown-item br-8" target="_blank" data-bs-toggle="tooltip" data-bs-placement="bottom" title="Instagram"><i class="bi bi-instagram"></i></a></li>
+              <li><a href="tel:543536579619" target="_blank" class="dropdown-item br-8" data-bs-toggle="tooltip" data-bs-placement="bottom" title="Llamame"><i class="bi bi-telephone-inbound"></i></a></li>
+              <li><a href="https://linkedin.com/in/fabrizio-ferroni" target="_blank" class="dropdown-item br-8" data-bs-toggle="tooltip" data-bs-placement="bottom" title="LinkedIn"><i class="bi bi-linkedin"></i></a></li>
+              <li><a href="https://www.messenger.com/t/Fabrizio.Ferroni.96" class="dropdown-item br-8" target="_blank" data-bs-toggle="tooltip" data-bs-placement="bottom" title="Messenger"><i class="bi bi-messenger"></i></a></li>
+              <li><a href="https://t.me/FabriiFerroni" class="dropdown-item br-8" target="_blank" data-bs-toggle="tooltip" data-bs-placement="bottom" title="Telegram"><i class="bi bi-telegram"></i></a></li>
+              <li><a href="https://www.twitch.tv/fabriiferroni" class="dropdown-item br-8" target="_blank" data-bs-toggle="tooltip" data-bs-placement="bottom" title="Twitch"><i class="bi bi-twitch"></i></a></li>
+              <li><a href="https://twitter.com/FabrizioFerroni" class="dropdown-item br-8" target="_blank" data-bs-toggle="tooltip" data-bs-placement="bottom" title="Twitter"><i class="bi bi-twitter"></i></a></li>
+              <li><a href="https://wa.me/543536579619" class="dropdown-item br-8" target="_blank" data-bs-toggle="tooltip" data-bs-placement="bottom" title="Whatsapp"><i class="bi bi-whatsapp"></i></a></li>
+              <li><a href="https://www.youtube.com/channel/UCZoRPyOVhf4FiBt_GHw_p1A" class="dropdown-item br-8" target="_blank" data-bs-toggle="tooltip" data-bs-placement="bottom" title="Youtube"><i class="bi bi-youtube"></i></a></li>
+          </ul>
+        </li>
+
+        <div class="div-mb-p nn">
+          <div class="nav-item div-mb-2">
+            <span class="nav-link px-2 text-muted no-color" id="mrrss" >
+              <i class="bi bi-share pr-2"></i>
+           Seguime en mis redes sociales:
+            </span>
+          </div>
+
+          <div class="text-white div-mb mobile-si" id="dmb" >
+            <a href="https://facebook.com/Fabrizio.Ferroni.96" id="" class="dmob text-white dropdown-item" target="_blank" data-bs-toggle="tooltip" data-bs-placement="top" title="Facebook"><i class="bi bi-facebook"></i></a>
+            <a href="mailto:fabrizioferroni@outlook.com" target="_blank"class="dmob text-white dropdown-item" data-bs-toggle="tooltip" data-bs-placement="top" title="Correo Electrónico"><i class="bi bi-envelope" ></i></a>
+            <a href="https://github.com/FabrizioFerroni" target="_blank"class="dmob text-white dropdown-item" data-bs-toggle="tooltip" data-bs-placement="top" title="Github"><i class="bi bi-github"></i></a>
+            <a href="https://instagram.com/fabriiferroni" class="dmob text-white dropdown-item" target="_blank" data-bs-toggle="tooltip" data-bs-placement="top" title="Instagram"><i class="bi bi-instagram"></i></a>
+            <a href="tel:543536579619" target="_blank"class="dmob text-white dropdown-item" data-bs-toggle="tooltip" data-bs-placement="top" title="Llamame"><i class="bi bi-telephone-inbound"></i></a>
+            <a href="https://linkedin.com/in/fabrizio-ferroni" target="_blank"class="dmob text-white dropdown-item" data-bs-toggle="tooltip" data-bs-placement="top" title="LinkedIn"><i class="bi bi-linkedin"></i></a>
+            <a href="https://www.messenger.com/t/Fabrizio.Ferroni.96" class="dmob text-white dropdown-item" target="_blank" data-bs-toggle="tooltip" data-bs-placement="top" title="Messenger"><i class="bi bi-messenger"></i></a>
+            <a href="https://t.me/FabriiFerroni" class="dmob text-white dropdown-item" target="_blank" data-bs-toggle="tooltip" data-bs-placement="top" title="Telegram"><i class="bi bi-telegram"></i></a>
+            <a href="https://www.twitch.tv/fabriiferroni" class="dmob text-white dropdown-item" target="_blank" data-bs-toggle="tooltip" data-bs-placement="top" title="Twitch"><i class="bi bi-twitch"></i></a>
+            <a href="https://twitter.com/FabrizioFerroni" class="dmob text-white dropdown-item" target="_blank" data-bs-toggle="tooltip" data-bs-placement="top" title="Twitter"><i class="bi bi-twitter"></i></a>
+            <a href="https://wa.me/543536579619" class="dmob text-white dropdown-item" target="_blank" data-bs-toggle="tooltip" data-bs-placement="top" title="Whatsapp"><i class="bi bi-whatsapp"></i></a>
+            <a href="https://www.youtube.com/channel/UCZoRPyOVhf4FiBt_GHw_p1A" class="dmob text-white dropdown-item" target="_blank" data-bs-toggle="tooltip" data-bs-placement="top" title="Youtube"><i class="bi bi-youtube"></i></a>
+          </div>
+        </div>
+      </ul>
+
+    </div>
+  </div>
+</nav>
+<!-- fin nav -->

@@ -1,0 +1,101 @@
+.profile{
+  margin-top: 3rem;
+  margin-bottom: 3rem;
+}
+
+.btn-primary{
+background-color: var(--primary);
+border-color: var(--primary);
+color: var(--text);
+align-items: center;
+
+padding: 11px;
+}
+
+
+button:disabled{
+  background-color: transparent !important;
+  cursor: not-allowed;
+}
+
+.form-file{
+  background-color: #1C1E22;
+  margin-bottom: 24px;
+  color: #A0A0A1;
+  margin-top: 8px;
+  height: 38x;
+}
+
+.form-file:hover, .form-file:focus{
+  background-color: #1C1E22;
+  color: #A0A0A1;
+  border: 1px solid var(--primary);
+
+}
+
+.input-contact:read-only{
+  background-color: transparent !important;
+}
+
+
+.bgc{
+ background-color: var(--body);
+ border-color:  var(--body);
+}
+
+
+
+.btn-edit , .btn-edit2{
+  background-color: transparent;
+  border-color: transparent;
+  font-size: 20px;
+  vertical-align: middle;
+}
+
+.label{
+  font-size: 2rem !important;
+}
+
+.props{
+  color: var(--primary);
+  font-size: 1.5rem;
+}
+
+.mit-4{
+  margin-top: 1.5rem !important;
+}
+
+.profiles{
+  margin: auto !important;
+  padding-left: 100px !important;
+}
+.btn-primary:hover{
+  background-color: var(--secondary);
+  border-color: var(--secondary);
+  color: var(--text)
+  }
+
+  .m15a{
+    margin: auto !important;
+  }
+
+  .text-primary{
+    color: var(--primary) !important;
+  }
+
+
+  @media  (max-width: 479px){
+  .w-85{
+    width: 85%;
+  }
+
+  .mit-4{
+    margin-top: 0rem !important;
+  }
+
+  .profiles{
+    padding-left: 0px !important;
+    padding-top: 25px !important;
+    text-align: center !important;
+  }
+}

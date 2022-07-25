@@ -1,0 +1,126 @@
+<ng-container *ngIf="isLoader == true">
+  <app-loader></app-loader>
+</ng-container>
+<ng-container *ngIf="isLoader == false">
+  <app-nav></app-nav>
+<section id="contactame">
+  <div class="container contact">
+    <div class="contact-header">
+      <p class="p-title-contact">¡Hablemos!</p>
+      <p class="p-subtitle-contact">Si estás interesado en mi trabajo o tienes alguna inquietud, no dudes en
+        escribirme!</p>
+      <div class="row">
+        <div class="col-md-12">
+          <div class="card card-contact">
+            <form #sendmail="ngForm" (ngSubmit)="send_email(sendmail)">
+
+                <label for="nombre" class="label-contact">Nombre</label>
+                <input type="text" name="nombre" [(ngModel)]="nombre" class="mayusfirst form-control input-contact outnone" placeholder="Juan Pablo" required>
+
+                <label for="apellido" class="label-contact">Apellido</label>
+                <input type="text" name="apellido" [(ngModel)]="apellido" class="mayusfirst form-control input-contact outnone" placeholder="Perez" required>
+
+
+              <label for="email" class="label-contact">Correo Electrónico</label>
+              <input type="email" name="email" [(ngModel)]="email" class="form-control input-contact outnone"
+                placeholder="ejemplo@hotmail.com" required>
+
+              <ng-container *ngIf="phone == true">
+                <label for="telefono" class="label-contact">Número de telefóno</label>
+                <input type="tel" name="telefono" class="form-control input-contact outnone"
+                  onkeypress='return validaNumericosError(event)' placeholder="+54 11 4582 357" [(ngModel)]="telefono" required>
+              </ng-container>
+
+              <ng-container *ngIf="subject == true">
+                <label for="asunto" class="label-contact">Asunto</label>
+                <input type="text" name="asunto" class="form-control input-contact outnone"
+                  placeholder="Quiero que me desarrolles un proyecto" [(ngModel)]="asunto" required>
+              </ng-container>
+
+              <label for="mensaje" class="label-contact">Mensaje</label>
+              <textarea name="mensaje" class="form-control text-contact outnone" [(ngModel)]="mensaje" cols="30" rows="10"
+                placeholder="Hola..." required></textarea>
+
+              <button type="submit" *ngIf="!load_btn" class="outnone btn button-contact" [disabled]="!sendmail.valid"><i class=" bi bi-envelope-plus"></i> Enviar</button>
+
+              <button *ngIf="load_btn" type="button" class="outnone btn button-contact" disabled>
+                <span class="spinner-grow spinner-grow-sm mr-2" role="status" aria-hidden="true"></span>
+                Enviando mail ...
+            </button>
+            </form>
+            <div class="buttons-cont d-flex mt-3 ml-auto">
+              <button class="mr-2 btn-edit text-primary float-end order-2" (click)="borrar_datos()"><i
+                  class="bi bi-trash"></i> Borrar</button>
+              <button data-bs-toggle="modal" data-bs-target="#edit-form-contact"
+                class="mr-2 btn-edit text-primary float-end order-1"><i class="bi bi-pencil"></i> Editar</button>
+            </div>
+          </div>
+
+        </div>
+
+      </div>
+
+
+    </div>
+  </div>
+</section>
+<section id="modal">
+  <!-- Modal -->
+  <ng-container *ngIf="is_open == true">
+    <div class="modal fade" id="edit-form-contact" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1"
+      aria-labelledby="staticBackdropLabel" aria-hidden="true">
+      <div class="modal-dialog modal-dialog-centered ">
+        <div class="modal-content">
+          <form #editcontactForm="ngForm" (ngSubmit)="editcontact(editcontactForm)">
+            <div class="modal-header">
+              <h5 class="modal-title" id="exampleModalLabel"><i class="pr-2 bi bi-pencil"></i>
+                Editar formulario de contacto</h5>
+              <button type="button" class="outnone btn-close btn-close-white" (click)="reset()" data-bs-dismiss="modal"
+                aria-label="Close"></button>
+            </div>
+            <div class="modal-body">
+              <div class="container-fluid">
+
+                <label for="phone_form" class="label-contact"> ¿Mostrar número de telefóno?</label>
+                <select name="phone_form" [(ngModel)]="phone_form" class="form-select input-contact outnone" required>
+                  <option value="" selected disabled>Seleccione una opción</option>
+                  <option value="si">Sí</option>
+                  <option value="no">No</option>
+                </select>
+
+                <label for="subject_form" class="label-contact">¿Mostrar el asunto?</label>
+                <select name="subject_form" [(ngModel)]="subject_form" class="form-select input-contact outnone"
+                  required>
+                  <option value="" selected disabled>Seleccione una opción</option>
+                  <option value="si">Sí</option>
+                  <option value="no">No</option>
+                </select>
+
+
+              </div>
+            </div>
+            <div class="modal-footer">
+              <div class="d-flex me-auto">
+                 <button type="button" class="mr-auto outnone btn btn-secondary" (click)="reset()" data-bs-dismiss="modal"><i
+                    class="pr-2  bi bi-x-lg"></i> Cancelar</button>
+              </div>
+              <div class="d-flex">
+                <button type="submit" class="outnone btn login-btn"><i class="pr-2 bi bi-pencil"></i> Editar</button>
+              </div>
+            </div>
+          </form>
+        </div>
+      </div>
+    </div>
+  </ng-container>
+  <!-- fin modal -->
+</section>
+
+<a class="ir-arriba" data-bs-toggle="tooltip" data-bs-placement="left" title="Ir arriba">
+  <span class="fa-stack">
+    <i class="fa fa-arrow-up fa-stack-1x fa-inverse"></i>
+  </span>
+</a>
+
+<app-footer></app-footer>
+</ng-container>

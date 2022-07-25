@@ -1,0 +1,210 @@
+<ng-container *ngIf="isLoader == true">
+  <app-loader></app-loader>
+</ng-container>
+<ng-container *ngIf="isLoader == false">
+  <app-nav></app-nav>
+ <!-- Proyectos -->
+ <section id="proyectos">
+  <div class="container proyectos">
+      <div class="proyectos-header">
+          <p class="p-title-proyectos">
+            Mis Proyectos
+            <ng-container *ngIf="projects == true">
+              <ng-container *ngIf="is_loged == true && isAdmin == true || isProfesor == true">
+                <button class="btn-add" data-bs-toggle="modal" data-bs-target="#agr-proy" title="Agregar Proyecto"><i
+                    class="bi bi-plus-circle"></i> Agregar</button>
+              </ng-container>
+            </ng-container>
+          </p>
+      </div>
+      <div class="proyectos-body">
+<ng-container *ngIf="projects == true">
+  <div class="row">
+    <div class="col-md-12" *ngFor="let project of proyectos">
+      <div class="card proyectos-card mb-3">
+        <img src="{{ project.imagenUrl  }}" class="card-img-top proyectos-img-card" alt="...">
+        <div class="card-body">
+            <h5 class="card-title float-start text-primary-custom">{{ project.titulo }}</h5>
+            <p class="card-text">
+              <small class="text-muted act-proyectos float-end" >
+                Última actualización: {{ upd(project.editedAt) }}
+              </small>
+
+            </p>
+            <p class="card-text pt-20">{{project.descripcion}}
+            </p>
+            <span>Creado el: <span class="text-primary">{{ project.creado }}</span></span>
+
+
+                <div class="buttons-proy">
+                  <div class="buttons-pro">
+                    <a href="{{ project.link_demo }}" class="outnone btn btn-primary btn-viewmore"  target="_blank"><i class="bi bi-box-arrow-up-right"></i> Ver Demo</a>
+                    <a href="{{ project.link_github }}" class="ml-2 outnone btn btn-github "  target="_blank"><i class="bi bi-github"></i> Ver Repositorio</a>
+                  </div>
+                  <div class="buttons-serv">
+                    <ng-container *ngIf="is_loged == true && isAdmin == true || isProfesor == true">
+                      <button data-bs-toggle="modal" data-bs-toggle="modal" (click)="onEditProy(project.id)" [attr.data-bs-target]="'#edit-proy-' + project.id"
+                          class="mr-2 btn-edit text-primary  order-1"><i class="bi bi-pencil"></i>
+                          Editar</button>
+                        <button class="mr-2 btn-edit text-primary  order-2" (click)="delete_project(project.id)"><i
+                            class="bi bi-trash"></i> Borrar</button>
+                    </ng-container>
+                  </div>
+                </div>
+
+        </div>
+    </div>
+     <!-- services agg -->
+  <!-- Modal -->
+  <div class="modal fade" id="edit-proy-{{ project.id }}" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1"
+  aria-labelledby="staticBackdropLabel" aria-hidden="true">
+  <div class="modal-dialog modal-dialog-centered ">
+    <div class="modal-content">
+        <form #editproy="ngForm" (ngSubmit)="edit_project(editproy)" >
+          <div class="modal-header">
+              <h5 class="modal-title" id="exampleModalLabel"><i class="pr-2 bi bi-pencil"></i>
+                  Editar Proyecto: {{ project.titulo }}</h5>
+              <button type="button" class="outnone btn-close btn-close-white" data-bs-dismiss="modal"
+                  aria-label="Close" (click)="onResetproy_edit()"></button>
+          </div>
+          <div class="modal-body">
+              <div class="container-fluid">
+
+               <label for="titulo_edit" class="label-contact"><i class="bi bi-card-text"></i> Titulo</label>
+               <input type="text" name="titulo_edit" id="titulo_edit" [(ngModel)]="titulo_edit" class="mayusfirst form-control input-contact outnone" placeholder="Ingrese un titulo" required  autocomplete="off">
+
+               <label for="subtitulo_edit" class="label-contact"><i class="bi bi-card-text"></i> Subtitulo</label>
+               <input type="text" name="subtitulo_edit" id="subtitulo_edit" [(ngModel)]="subtitulo_edit" class="form-control input-contact outnone" placeholder="Ingrese un subtitulo" required  autocomplete="off">
+
+               <label for="foto" class="label-contact"><i class="bi bi-image"></i> Imagen</label>
+               <input class="outnone form-control form-file" required type="file" #myInput  id="file-input" name="file" (change)="fileChangeEvent($event)" accept="image/gif, image/jpg, image/jpeg, image/png, image/webp">
+
+               <label for="descripcion_edit" class="label-contact"><i class="bi bi-body-text"></i> Descripción</label>
+               <textarea name="descripcion_edit" id="descripcion_edit" [(ngModel)]="descripcion_edit" class="form-control text-contact outnone" placeholder="Ingrese la descripción"   cols="30" rows="10" required maxlength="1024" autocomplete="off"></textarea>
+
+               <label for="link_demo_edit" class="label-contact"><i class="bi bi-link-45deg"></i> Link Demo</label>
+               <input type="url" name="link_demo_edit" id="link_demo_edit" [(ngModel)]="link_demo_edit" class="form-control input-contact outnone" autocomplete="off"  placeholder="Ingrese el link de la demo" required>
+
+               <label for="link_github_edit" class="label-contact"><i class="bi bi-link-45deg"></i> Link repositorio Github</label>
+               <input type="url" name="link_github_edit" id="link_github_edit" [(ngModel)]="link_github_edit" class="form-control input-contact outnone" autocomplete="off"  placeholder="Ingrese el link del repositorio de github" required>
+
+              </div>
+          </div>
+          <div class="modal-footer">
+              <div class="d-flex me-auto">
+                  <button type="button" class="mr-auto outnone btn btn-secondary" data-bs-dismiss="modal" (click)="onResetproy_edit()"><i
+                          class="pr-2  bi bi-x-lg"></i> Cancelar</button>
+              </div>
+              <div class="d-flex">
+                  <button type="submit" *ngIf="!load_btn" class="outnone btn login-btn" [disabled]="!editproy.valid"><i
+                          class="pr-2 bi bi-pencil"></i> Editar</button>
+
+                          <button *ngIf="load_btn" type="button" class="outnone btn login-btn" disabled>
+                           <span class="spinner-grow spinner-grow-sm mr-2" role="status" aria-hidden="true"></span>
+                           Editando ...
+                       </button>
+              </div>
+          </div>
+         </form>
+      </div>
+  </div>
+  </div>
+  <!-- fin modal -->
+  <!-- fin services agg -->
+    </div>  <!--Fin div for-->
+</div>
+</ng-container>
+<ng-container *ngIf="projects == false">
+  <div class="row">
+    <div class="col-md-12">
+        <div class="card proyectos-card mb-3">
+            <img src="../../../assets/img/no-image.jpg" class="card-img-top proyectos-img-card" alt="...">
+            <div class="card-body">
+                <h5 class="card-title float-start text-primary-custom">Agregar título</h5>
+                <p class="card-text"><small class="text-muted act-proyectos float-end">Última
+                        actualización hace x
+                        minutos</small></p>
+                <p class="card-text pt-20">Agregar descripción del proyecto
+                </p>
+                <span>Creado el: <span class="text-primary">dd/mm/yyyy</span></span>
+
+                    <div class="d-flex d-add" *ngIf="is_loged == true && isAdmin == true || isProfesor == true">
+                      <button data-bs-toggle="modal" data-bs-target="#agr-proy" title="Agregar Proyecto"
+                    class=" mt-6 btn-edit text-primary  order-1" ><i class="bi bi-plus-lg"></i>
+                    Agregar</button>
+                    </div>
+
+            </div>
+        </div>
+    </div>
+    </div>
+</ng-container>
+      </div>
+  </div>
+
+   <!-- services agg -->
+  <!-- Modal -->
+  <div class="modal fade" id="agr-proy" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1"
+  aria-labelledby="staticBackdropLabel" aria-hidden="true">
+  <div class="modal-dialog modal-dialog-centered ">
+    <div class="modal-content">
+        <form #addproy="ngForm" (ngSubmit)="add_project(addproy)" >
+          <div class="modal-header">
+              <h5 class="modal-title" id="exampleModalLabel"><i class="pr-2 bi bi-plus-lg"></i>
+                  Agregar Proyecto</h5>
+              <button type="button" class="outnone btn-close btn-close-white" data-bs-dismiss="modal"
+                  aria-label="Close" (click)="onResetproy()"></button>
+          </div>
+          <div class="modal-body">
+              <div class="container-fluid">
+
+               <label for="name" class="label-contact"><i class="bi bi-card-text"></i> Titulo</label>
+               <input type="text" name="titulo" id="titulo" [(ngModel)]="titulo" class="mayusfirst form-control input-contact outnone" placeholder="Ingrese un titulo" required  autocomplete="off">
+
+               <label for="subtitle" class="label-contact"><i class="bi bi-card-text"></i> Subtitulo</label>
+               <input type="text" name="subtitle" id="subtitle" [(ngModel)]="subtitulo" class="form-control input-contact outnone" placeholder="Ingrese un subtitulo" required  autocomplete="off">
+
+               <label for="foto" class="label-contact"><i class="bi bi-image"></i> Imagen</label>
+               <input class="outnone form-control form-file" required type="file" #myInput  id="file-input" name="file" (change)="fileChangeEvent($event)" accept="image/gif, image/jpg, image/jpeg, image/png, image/webp">
+
+               <label for="descripcion" class="label-contact"><i class="bi bi-body-text"></i> Descripción</label>
+               <textarea name="descripcion" id="descripcion" [(ngModel)]="descripcion" class="form-control text-contact outnone" placeholder="Ingrese la descripción"   cols="30" rows="10" required maxlength="1024" autocomplete="off"></textarea>
+
+               <label for="link_demo" class="label-contact"><i class="bi bi-link-45deg"></i> Link Demo</label>
+               <input type="url" name="link_demo" id="link_demo" [(ngModel)]="link_demo" class="form-control input-contact outnone" autocomplete="off"  placeholder="Ingrese el link de la demo" required>
+
+               <label for="link_github" class="label-contact"><i class="bi bi-link-45deg"></i> Link repositorio Github</label>
+               <input type="url" name="link_github" id="link_github" [(ngModel)]="link_github" class="form-control input-contact outnone" autocomplete="off"  placeholder="Ingrese el link del repositorio de github" required>
+
+              </div>
+          </div>
+          <div class="modal-footer">
+              <div class="d-flex me-auto">
+                  <button type="button" class="mr-auto outnone btn btn-secondary" data-bs-dismiss="modal" (click)="onResetproy()"><i
+                          class="pr-2  bi bi-x-lg"></i> Cancelar</button>
+              </div>
+              <div class="d-flex">
+                  <button type="submit" *ngIf="!load_btn" class="outnone btn login-btn" [disabled]="!addproy.valid"><i
+                          class="pr-2 bi bi-plus-lg"></i> Agregar</button>
+
+                          <button *ngIf="load_btn" type="button" class="outnone btn login-btn" disabled>
+                           <span class="spinner-grow spinner-grow-sm mr-2" role="status" aria-hidden="true"></span>
+                           Agregando ...
+                       </button>
+              </div>
+          </div>
+         </form>
+      </div>
+  </div>
+  </div>
+  <!-- fin modal -->
+  <!-- fin services agg -->
+</section>
+
+<a class="ir-arriba" data-bs-toggle="tooltip" data-bs-placement="left" title="Ir arriba">
+  <span class="fa-stack">
+    <i class="fa fa-arrow-up fa-stack-1x fa-inverse"></i>
+  </span>
+</a>
+<app-footer></app-footer>
+</ng-container>

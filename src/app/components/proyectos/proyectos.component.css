@@ -1,0 +1,147 @@
+.form-file {
+  background-color: #1C1E22;
+  margin-bottom: 24px;
+  color: #A0A0A1;
+  margin-top: 8px;
+  height: 38x;
+}
+
+.form-file:hover,
+.form-file:focus {
+  background-color: #1C1E22;
+  color: #A0A0A1;
+  border: 1px solid var(--primary);
+
+}
+
+.error {
+  border: 1px solid #DC3545;
+  color: #DC3545;
+}
+
+.success {
+  border: 1px solid #28A745;
+  color: #28A745;
+}
+
+.mayusfirst {
+  text-transform: capitalize;
+}
+
+button:disabled{
+  background-color: transparent !important;
+  cursor: not-allowed;
+}
+
+.btn-primary:focus {
+  background-color: #7b61ff;
+  border-color: #7b61ff;
+  /* background-color: #5c62ec; */
+}
+
+.btn-github {
+  background-color: transparent;
+  color: #fafafa !important;
+  border: 1px solid #fafafa;
+}
+
+.btn-github:hover,
+.btn-github:focus {
+  background-color: #fafafa;
+  color: black !important;
+  border-color: #fafafa;
+}
+
+.ml-2 {
+  margin-left: 0.5rem !important;
+}
+
+.btn-edit {
+  background-color: transparent;
+  border-color: transparent;
+  font-size: 20px;
+  vertical-align: middle;
+}
+
+.text-primary {
+  color: #5c62ec !important;
+}
+
+.text-primary:hover {
+  color: #7b61ff !important;
+}
+
+.buttons-pro {
+  position: absolute;
+  bottom: 15px;
+  left: 15px;
+}
+
+.buttons-serv {
+  position: absolute;
+  bottom: 15px;
+  right: 15px;
+}
+
+.buttons-proy {
+  margin-top: 4rem;
+}
+
+.btn-add {
+  background-color: transparent !important;
+  border-color: transparent !important;
+  color: white;
+  font-size: 25px !important;
+}
+
+.btn-add i {
+  font-size: 25px !important;
+}
+
+.d-add {
+  padding: 0;
+  margin-top: 1rem;
+}
+
+@media (max-width: 420px) {
+
+  /* .proyectos-card {
+    width: 250% !important;
+  } */
+  .buttons-proy {
+    margin: auto 3px;
+    margin-top: 1rem;
+
+  }
+
+  .buttons-pro {
+    position: inherit;
+  }
+
+  .buttons-serv {
+    position: inherit;
+    margin-left: 2.5rem;
+    margin-top: 0.5rem;
+  }
+}
+
+@media (min-width: 421px) and (max-width: 479px) {
+  .proyectos-card {
+    width: 250% !important;
+  }
+
+  .buttons-proy {
+    margin: auto 16px;
+    margin-top: 1rem;
+  }
+
+  .buttons-pro {
+    position: inherit;
+  }
+
+  .buttons-serv {
+    position: inherit;
+    margin-left: 2.5rem;
+    margin-top: 0.5rem;
+  }
+}

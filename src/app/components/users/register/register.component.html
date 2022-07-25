@@ -1,0 +1,106 @@
+<app-modal></app-modal>
+<div class="limiter">
+  <div class="container-login100">
+    <div class="wrap-login100">
+      <form class="login100-form validate-form" #register="ngForm" (ngSubmit)="onRegister()">
+        <div class="center-panel pt-50">
+          <a [routerLink]="['/']"><img src="assets/img/APLogo-20-20.png" class="mt-30" alt="Argentina Programa Logo" width="250px"></a>
+
+          <span class="login100-form-title p-b-15">
+            Registro rápido <br>
+            <span class="txt2">
+              Cree su cuenta facilmente llenando los siguientes campos.
+            </span>
+          </span>
+
+          <div class="alert alert-success text-center " role="alert" *ngIf="isSucced">
+            {{ mensaje }}
+           </div>
+
+           <div class="alert alert-danger text-center " role="alert" *ngIf="isError">
+             {{ mensaje }}
+           </div>
+
+           <div class="alert alert-warning text-center " role="alert" *ngIf="isWarning">
+            {{ mensaje }}
+          </div>
+
+          <div class="wrap-input100 validate-input" data-validate = "Se requiere que ingreses tu nombre">
+            <input class="input100 mayus" type="text" name="nombre" autocomplete="off"  [(ngModel)]="nombre">
+            <span class="focus-input100"></span>
+            <span class="label-input100"><i class="bi bi-person"></i> Nombre</span>
+          </div>
+
+          <div class="wrap-input100 validate-input" data-validate = "Se requiere que ingreses tu apellido">
+            <input class="input100 mayus" type="text" name="apellido" autocomplete="off"  [(ngModel)]="apellido">
+            <span class="focus-input100"></span>
+            <span class="label-input100"><i class="bi bi-person"></i> Apellido</span>
+          </div>
+
+          <div class="wrap-input100 validate-input" data-validate = "Se requiere un correo electrónico válido: ex@abc.xyz">
+            <input class="input100 " type="email" name="email" autocomplete="off"  [(ngModel)]="email">
+            <span class="focus-input100"></span>
+            <span class="label-input100"><i class="bi bi-at"></i> Email</span>
+          </div>
+
+
+          <div class="wrap-input100 validate-input" data-validate = "Se requiere que ingreses tu nombre de usuario">
+            <input class="input100" type="text" name="username" autocomplete="off" [(ngModel)]="nombreUsuario">
+            <span class="focus-input100"></span>
+            <span class="label-input100"><i class="bi bi-person-circle"></i> Nombre de usuario</span>
+          </div>
+
+
+          <div class="wrap-input100 validate-input" data-validate="Se requiere una contraseña">
+            <input class="input100" type="password" name="password" id="password" autocomplete="off" [(ngModel)]="password">
+            <span class="focus-input100"></span>
+            <span class="label-input100"><i class="bi bi-key"></i> Contraseña</span>
+          </div>
+
+          <div class="wrap-input100 validate-input" data-validate="Se requiere una contraseña">
+            <input class="input100" type="password" name="rpassword" id="rpassword" autocomplete="off" [(ngModel)]="rpassword">
+            <span class="focus-input100"></span>
+            <span class="label-input100"><i class="bi bi-key"></i> Repetir contraseña</span>
+          </div>
+
+          <div class="flex-sb-m w-full p-t-3 p-b-32">
+            <div class="contact100-form-checkbox">
+              <input class="input-checkbox100" id="ckb2" type="checkbox" name="showpasswordreg" (click)="cambiarTipo_reg()">
+              <label class="label-checkbox100" for="ckb2">
+             Mostrar contraseña
+              </label>
+            </div>
+
+            <div class="contact100-form-checkbox">
+              <input class="input-checkbox100" id="ckb1" type="checkbox" name="soy-profe">
+              <label class="label-checkbox100" for="ckb1">
+                Soy profesor de Argentina Programa
+              </label>
+            </div>
+          </div>
+
+
+          <div class="container-login100-form-btn">
+            <button class="login100-form-btn" [disabled]="!register.valid" *ngIf="!btn_load">
+              <i class="pr-2 bi bi-person-plus"></i> Registrate
+            </button>
+            <button *ngIf="btn_load" type="button" class="login100-form-btn mr-3" disabled>
+              <span class="spinner-grow spinner-grow-sm mr-2" role="status" aria-hidden="true"></span>
+              {{ mensaje_btn }}
+          </button>
+          </div>
+
+          <div class="text-center p-t-15 p-b-15 txt2">
+            <i class="pr-2 bi bi-person-bounding-box"></i> Ya tiene una cuenta? Mejor,
+            <a [routerLink]="['/iniciarsesion']" class="txt2">
+              inicia sesión
+            </a>
+          </div>
+        </div>
+      </form>
+
+      <div class="login100-more bp-center" style="background-image: url('assets/img/moto5.jpg');">
+      </div>
+    </div>
+  </div>
+</div>

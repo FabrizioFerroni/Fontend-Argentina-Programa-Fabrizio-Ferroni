@@ -1,0 +1,51 @@
+.btn-edit {
+  background-color: transparent;
+  border-color: transparent;
+  font-size: 20px;
+  vertical-align: middle;
+}
+
+.btn:disabled{
+  cursor: not-allowed !important;
+}
+
+button:disabled{
+  background-color: transparent !important;
+  cursor: not-allowed;
+}
+
+.mayusfirst {
+  text-transform: capitalize;
+}
+
+.text-primary {
+  color: #5c62ec !important;
+}
+
+.text-primary:hover {
+  color: #7b61ff !important;
+}
+
+.ml-auto{
+  margin-left: auto;
+}
+
+
+.button-contact{
+  background-color: #5c62ec;
+  border-color: #5c62ec;
+}
+
+.button-contact:hover, .button-contact:focus{
+  background-color: #7b61ff;
+  border-color: #7b61ff;
+  color: var(--white);
+}
+
+.form-select{
+  cursor: pointer;
+}
+
+.form-select option{
+  cursor: pointer;
+}

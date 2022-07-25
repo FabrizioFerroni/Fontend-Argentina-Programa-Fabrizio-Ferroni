@@ -1,0 +1,459 @@
+.mayusfirst{
+  text-transform: capitalize;
+}
+
+li {
+  list-style: none;
+}
+
+.ml-4{
+  margin-left: 1.5rem;
+}
+
+.mb-3{
+  margin-bottom: 1rem;
+}
+
+.text-primary{
+  color: #5c62ec !important;
+  text-decoration: none;
+}
+
+.text-primary:hover{
+  color: #7B61FF !important;
+}
+
+.text-justify{
+  text-align: justify;
+}
+
+.mt-2{
+  margin-top: 0.5rem;
+}
+
+
+:root{
+  --body: #171718;
+  /* --primary: #EC5C5C; */
+  --primary: #5c62ec;
+  --white: #fff;
+  --card: #1c1e22;
+  --separator: #26292d;
+  --secondary: #7B61FF;
+  /* --secondary: #FF6161; */
+  --social: #85bfd1;
+}
+
+button:disabled{
+  background-color: transparent !important;
+  cursor: not-allowed;
+}
+
+
+.form-file{
+  background-color: #1C1E22;
+  margin-bottom: 24px;
+  color: #A0A0A1;
+  margin-top: 8px;
+  height: 38x;
+}
+
+.form-file:hover, .form-file:focus{
+  background-color: #1C1E22;
+  color: #A0A0A1;
+  border: 1px solid var(--primary);
+
+}
+
+.mb-50{
+  margin-bottom: 0px;
+}
+.input-contact:read-only{
+  background-color: transparent !important;
+}
+
+.acd-card{
+  width: 67%;
+}
+
+
+.header{
+  background-attachment: fixed;
+  height: 100%;
+  max-width: 100%;
+  padding-bottom: 75px;
+  background-size: cover;
+}
+.btn-add{
+  background-color: transparent !important;
+  border-color: transparent !important;
+  color: white;
+  font-size: 25px !important;
+
+}
+.btn-add i{
+  font-size: 25px !important;
+}
+
+.btn-primary{
+  background-color: #5c62ec;
+  border-color: #5c62ec;
+}
+
+.btn-primary:hover{
+  background-color: #7B61FF;
+  border-color: #7B61FF;
+}
+
+.text-primary{
+   color: #5c62ec !important;
+}
+
+.a-edit{
+  color: #5c62ec !important;
+  cursor: pointer;
+}
+
+.a-edit:hover{
+  color: #7B61FF !important;
+}
+
+/* .a-edit i{
+  color: #5c62ec !important;
+}
+
+.a-edit i:hover {
+  color: #7B61FF !important;
+} */
+
+.a-add {
+  cursor: pointer;
+  background-color:#5c62ec !important;
+  padding: 8px;
+  border-radius: 8px;
+}
+
+.a-add:hover{
+  background-color: #7B61FF !important;
+
+}
+
+.a-edit{
+  cursor: pointer;
+  background-color:#5c62ec !important;
+  padding: 8px;
+  border-radius: 8px;
+
+}
+
+.a-edit:hover{
+  background-color: #7B61FF !important;
+
+}
+
+.btn-edit , .btn-edit2{
+  background-color: transparent;
+  border-color: transparent;
+  font-size: 20px;
+  vertical-align: middle;
+}
+
+.text-primary:hover{
+  color: #7B61FF !important;
+}
+
+.mt-10{
+  margin-top: 7rem;
+}
+
+.mt-16{
+  margin-top: 16rem;
+}
+
+.titulo i{
+  background-color: #5c62ec !important;
+  padding: 10px;
+  border-radius: 8px;
+}
+
+.titulo i:hover{
+  background-color: #7B61FF !important;
+}
+.containerFotos {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: space-around;
+  flex-direction: row;
+  width: 100%;
+}
+
+
+
+.proyectos-fotos {
+  /* width: 650px;
+  height: 400px; */
+  width: 1280px;
+  height: 600px;
+  position: relative ;
+  /* border: 1px solid; */
+  overflow: hidden;
+  margin:1em;
+  z-index: 1000;
+}
+
+.img-proyectos,
+.overlay {
+  position: absolute;
+  width: 100%;
+  height: 100%;
+  top: 0;
+  left: 0;
+  border-radius: 8px;
+}
+.overlay {
+  width: 100%;
+  height: 100%;
+  background: rgba(0, 0, 0, 0.5);
+  top: 100%;
+  transition:top 1s;
+  border-radius: 8px;
+}
+
+.proyectos-fotos:hover .overlay{
+  top:0%;
+}
+
+.overlay h3{
+  margin-top: 250px;
+}
+
+.overlay h3:hover{
+  color: #7B61FF;
+}
+.overlay a {
+  text-align: center;
+  line-height:40px;
+  color: white !important;
+  text-decoration: none;
+
+}
+
+.overlay i{
+  font-size: 18px
+}
+
+.overlay a:hover{
+  color: #7B61FF;
+}
+
+
+.p-parrafo{
+  margin-left: 0.3rem;
+}
+
+.mr-4{
+  margin-right: 2rem;
+}
+
+.ml-4{
+  margin-left: 2rem;
+}
+
+.mobile{
+  display: none;
+}
+
+.ct{
+  width: 198px;
+  height: 58px;
+}
+
+.test-btn{
+  background-color: transparent;
+  color: #fafafa;
+  border-color: #fafafa;
+}
+.test-btn:hover{
+  background-color: #FAFAFA;
+  color: black !important;
+  border-color: #FAFAFA;
+}
+
+/* .ir-arriba-2{
+  display:inline;
+  background-repeat:no-repeat;
+  font-size:25px;
+  border-radius: 15px;
+  background-color:#25D366;
+  cursor:pointer;
+  position:fixed;
+  bottom: 65px !important;
+  right:10px;
+  z-index: 1000;
+}
+
+.ir-arriba-2:hover, .ir-arriba-2:focus{
+  background-color: #128C7E
+} */
+
+
+.desktop{
+  /* margin-top: -50px; */
+  margin-bottom: -50px;
+}
+@media  (max-width: 479px){
+
+  .mb-50{
+    margin-bottom: -50px;
+  }
+
+  .mobile{
+    display: block;
+  }
+  .desktop{
+    display: none;
+  }
+  .mr-4{
+    margin-right: 0rem;
+    margin-bottom: -20px;
+    margin-top: 50px;
+  }
+
+  .ml-4{
+    margin-left: 0rem;
+    margin-top: -20px;
+    margin-bottom: -50px;
+  }
+
+  .mt-10{
+    display: inline-grid;
+    margin-top: 1rem;
+  }
+
+  .acd-btn{
+    margin-bottom: 1rem;
+    margin-left: 5rem;
+  }
+
+  .order-1{
+    margin-bottom: 1rem !important;
+  }
+
+  .mbs-2{
+    margin-bottom: -1rem  !important;
+  }
+  .order-2{
+    margin-bottom: 0rem !important;
+  }
+
+  .btn-edit{
+    /* margin-bottom: 1rem; */
+    margin-left: 3.5em;
+  }
+
+  .btn-edit:last-child{
+    margin-bottom: 0rem;
+    margin-left: 4.5rem;
+  }
+  .mt-16{
+    margin-top: 3rem;
+    display: inline-grid;
+  }
+
+  .p-parrafo{
+    margin-left: 1rem;
+  }
+.containerFotos{
+  width: 380px !important;
+}
+
+.img-proyectos{
+  object-fit: fill;
+
+}
+
+.proyectos-fotos{
+  height: 190px !important;
+}
+.overlay h3{
+  margin-top: 50px;
+}
+
+.github-btn{
+  width: 225% !important;
+}
+
+.acd-card{
+  width: 90%;
+}
+}
+
+@media (min-width: 756px) and (max-width: 768px){
+  .github-btn{
+    width: 0% !important;
+  }
+  .containerFotos{
+    width: 728px !important; /*530*/
+  }
+
+  .img-proyectos{
+    object-fit: fill;
+
+  }
+
+  .proyectos-fotos{
+    height: 364px; /*265*/
+  }
+  .overlay h3{
+    margin-top: 100px;
+  }
+
+  .github-btn{
+    width: 50% !important;
+  }
+}
+
+@media (min-width: 769px) and (max-width: 1024px){
+  .containerFotos{
+    width: 1024px !important;
+  }
+
+  .img-proyectos{
+    object-fit: fill;
+
+  }
+
+  .proyectos-fotos{
+    height: 512px;
+  }
+  .overlay h3{
+    margin-top: 200px;
+  }
+}
+
+@media (min-width: 1025px) and (max-width: 1366px){
+  .acd-card{
+    width: 85%;
+  }
+  .containerFotos{
+    width: 1280px !important;
+  }
+
+  .img-proyectos{
+    object-fit: fill;
+
+  }
+
+  .proyectos-fotos{
+    height: 683px;
+  }
+  .overlay h3{
+    margin-top: 300px;
+  }
+}
+
+@media (min-width: 2160px) and (max-width: 3840px){
+  .acd-card{
+    width: 50% !important;
+  }
+}

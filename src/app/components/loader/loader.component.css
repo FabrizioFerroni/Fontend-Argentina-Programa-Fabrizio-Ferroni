@@ -1,0 +1,14 @@
+.container-spinner{
+  min-width: 100vw;
+  min-height: 100vh;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-direction: column;
+z-index: 999;
+}
+
+.ir-arriba-2{
+  display: none;
+
+}

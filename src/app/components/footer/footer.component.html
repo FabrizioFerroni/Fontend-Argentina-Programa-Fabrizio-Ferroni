@@ -1,0 +1,48 @@
+<app-modal></app-modal>
+<!-- footer -->
+<footer>
+  <div class="footers container">
+    <div class="row">
+      <div class="col-md-3">
+        <p class="footer-title">Fabrizio DEV</p>
+      </div>
+      <div class="col-md-3">
+
+        <div class="footer-enlace">
+          <a [routerLink]="['/']" routerLinkActive="active" [routerLinkActiveOptions]="{exact: true}"
+            class="footer-enlace-a ">Inicio</a>
+          <a [routerLink]="['/quien-soy']" routerLinkActive="active" class="footer-enlace-a">Quien Soy</a>
+          <a [routerLink]="['/proyectos']" routerLinkActive="active" class="footer-enlace-a">Proyectos</a>
+        </div>
+      </div>
+      <div class="col-md-3">
+        <div class="footer-enlace">
+          <a [routerLink]="['/contactame']" routerLinkActive="active" class="footer-enlace-a">Contactame</a>
+
+          <ng-container *ngIf="!is_loged">
+            <a class="footer-enlace-a" [routerLink]="['/iniciarsesion']" routerLinkActive="active">Iniciar Sesion</a>
+          </ng-container>
+
+          <ng-container *ngIf="is_loged">
+            <a class="footer-enlace-a" [routerLink]="['/mi-perfil']" routerLinkActive="active">Mi Perfil</a>
+          </ng-container>
+
+          <a class="footer-enlace-a" data-bs-toggle="modal" data-bs-target="#subscribe">Subscribete</a>
+        </div>
+      </div>
+      <div class="col-md-3">
+        <p class="footer-social">Social</p>
+        <a href="https://github.com/FabrizioFerroni" target="_blank"    class="pr-10"><img src="assets/img/git_1.png"
+            alt="" class="footer-img" data-bs-toggle="tooltip" data-bs-placement="bottom" title="Github"></a>
+        <a href="https://instagram.com/fabriiferroni" target="_blank"  class="pr-10"><img src="assets/img/insta2_1.png"
+            alt="" class="footer-img-2" data-bs-toggle="tooltip" data-bs-placement="bottom" title="Instagram"></a>
+        <a href="https://linkedin.com/in/fabrizio-ferroni" target="_blank" ><img src="assets/img/linkedin.png" alt=""
+            class="footer-img" data-bs-toggle="tooltip" data-bs-placement="bottom" title="Linkedin"></a>
+      </div>
+    </div>
+  </div>
+  <div class="footer-copy">
+    <p class="footer-copy-p">© 2021 - {{ year }} Fabrizio DEV</p>
+  </div>
+</footer>
+<!-- fin footer -->

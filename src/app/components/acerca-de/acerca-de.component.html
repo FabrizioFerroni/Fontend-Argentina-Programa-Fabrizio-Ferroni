@@ -1,0 +1,1062 @@
+<ng-container *ngIf="isLoader">
+  <app-loader></app-loader>
+</ng-container>
+<ng-container *ngIf="!isLoader">
+  <app-nav></app-nav>
+<!-- acerca de -->
+<section id="acerca-de">
+  <div class="container-fluid m-6">
+    <ng-container *ngIf="about_me == true">
+      <div class="row">
+        <div class="col-md-4">
+          <img src="{{ acerca_de.imagenUrl }}" class="mi-img" alt="{{ acerca_de.titulo }}" title="{{ acerca_de.titulo }}">
+        </div>
+        <div class="col-md-8 pl-6-1">
+          <p class="p-title">{{ acerca_de.titulo }}</p>
+          <p class="p-parrafo">
+            <span class="sp-1" [innerText]="acerca_de.descripcion">
+            </span>
+          </p>
+          <a class="mail" href="mailto:{{ acerca_de.email }}">
+            {{ acerca_de.email }}
+          </a>
+          <div class="buttons-acd">
+            <ng-container *ngIf="is_loged == true && isProfesor == true || isAdmin == true">
+              <button class="mr-2 btn-edit text-primary float-end order-2" (click)="onDeleteacd(acerca_de.id)"><i
+                  class="bi bi-trash"></i> Borrar</button>
+              <button data-bs-toggle="modal" [attr.data-bs-target]="'#edit-acd-' + acerca_de.id"
+                class="mr-2 btn-edit text-primary float-end order-1"><i class="bi bi-pencil"></i> Editar</button>
+            </ng-container>
+          </div>
+        </div>
+      </div>
+    </ng-container>
+    <ng-container *ngIf="about_me == false">
+      <div class="row">
+        <div class="col-md-4">
+          <img src="../../../assets/img/no-image.jpg" class="mi-img" alt="Fabrizio Ferroni" title="Agregar imagen">
+        </div>
+        <div class="col-md-8 pl-6-1">
+          <p class="p-title">Agregar Nombre y Apellido</p>
+          <p class="p-parrafo">
+            <span class="sp-1">Agregar autobiografía.
+            </span>
+          </p>
+          Agregar <a class="mail" href="mailto:">
+            mail@personalejemplo.com.ar
+          </a>
+          <div class="buttons-acd" *ngIf="is_loged && isProfesor == true || isAdmin == true">
+            <!-- <ng-container *ngIf="is_loged == true"> -->
+            <button data-bs-toggle="modal" data-bs-target="#agr-acd" class="mr-2 btn-edit text-primary float-end"><i
+                class="bi bi-plus-lg"></i> Agregar</button>
+            <!-- </ng-container> -->
+          </div>
+        </div>
+      </div>
+    </ng-container>
+  </div>
+
+
+  <!-- acerca de modal -->
+  <!-- acerca de agg -->
+  <!-- Modal -->
+  <div class="modal fade" id="agr-acd" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1"
+  aria-labelledby="staticBackdropLabel" aria-hidden="true">
+  <div class="modal-dialog modal-dialog-centered ">
+    <div class="modal-content">
+        <form #addacd="ngForm" (ngSubmit)="onSubmitacd(addacd)" >
+          <div class="modal-header">
+              <h5 class="modal-title" id="exampleModalLabel"><i class="pr-2 bi bi-plus-lg"></i>
+                  Agregar Acerca De</h5>
+              <button type="button" class="outnone btn-close btn-close-white" data-bs-dismiss="modal"
+                  aria-label="Close" (click)="onResetacd()"></button>
+          </div>
+          <div class="modal-body">
+              <div class="container-fluid">
+
+               <label for="name" class="label-contact"><i class="bi bi-card-text"></i> Titulo</label>
+               <input type="text" name="titulo" id="titulo" [(ngModel)]="titulo_acd" class="mayusfirst form-control input-contact outnone" placeholder="Ingrese un titulo" required  autocomplete="off">
+
+               <label for="profile" class="label-contact"><i class="bi bi-image"></i> Foto</label>
+               <input class="outnone form-control form-file" required type="file" #myInput id="file-input" name="file" (change)="fileChangeEvent($event)" accept="image/gif, image/jpg, image/jpeg, image/png, image/webp">
+
+               <label for="descripcion" class="label-contact"><i class="bi bi-body-text"></i> Descripción</label>
+               <textarea name="descripcion" id="descripcion" [(ngModel)]="descripcion_acd" class="form-control text-contact outnone" placeholder="Ingrese la descripción"   cols="30" rows="10" required maxlength="1024" autocomplete="off"></textarea>
+
+               <label for="email" class="label-contact"><i class="bi bi-body-text"></i> Correo de contacto</label>
+               <input type="email" name="email" id="email" [(ngModel)]="email_acd" class="form-control input-contact outnone" placeholder="Ingrese un email" required  autocomplete="off">
+
+              </div>
+          </div>
+          <div class="modal-footer">
+              <div class="d-flex me-auto">
+                  <button type="button" class="mr-auto outnone btn btn-secondary" data-bs-dismiss="modal" (click)="onResetacd()"><i
+                          class="pr-2  bi bi-x-lg"></i> Cancelar</button>
+              </div>
+              <div class="d-flex">
+                  <button type="submit" *ngIf="!load_btn" class="outnone btn login-btn" [disabled]="!addacd.valid"><i
+                          class="pr-2 bi bi-plus-lg"></i> Agregar</button>
+
+                          <button *ngIf="load_btn" type="button" class="outnone btn login-btn" disabled>
+                           <span class="spinner-grow spinner-grow-sm mr-2" role="status" aria-hidden="true"></span>
+                           Agregando ...
+                       </button>
+              </div>
+          </div>
+         </form>
+      </div>
+  </div>
+  </div>
+  <!-- fin modal -->
+  <!-- fin acerca de agg -->
+
+    <!-- acerca de agg -->
+  <!-- Modal -->
+  <div class="modal fade" id="edit-acd-{{ acerca_de.id }}" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1"
+  aria-labelledby="staticBackdropLabel" aria-hidden="true">
+  <div class="modal-dialog modal-dialog-centered ">
+    <div class="modal-content">
+        <form #editacd="ngForm" (ngSubmit)="onEditacd(editacd)" >
+          <div class="modal-header">
+              <h5 class="modal-title" id="exampleModalLabel"><i class="pr-2 bi bi-pencil"></i>
+                  Editar Acerca De: {{ acerca_de.titulo }}</h5>
+              <button type="button" class="outnone btn-close btn-close-white" data-bs-dismiss="modal"
+                  aria-label="Close" (click)="onResetacd_edit()"></button>
+          </div>
+          <div class="modal-body">
+              <div class="container-fluid">
+
+               <label for="name" class="label-contact"><i class="bi bi-card-text"></i> Titulo</label>
+               <input type="text" name="titulo" id="titulo" [(ngModel)]="titulo_acd_edit" class="mayusfirst form-control input-contact outnone" placeholder="Ingrese un titulo" required  autocomplete="off">
+
+               <label for="profile" class="label-contact"><i class="bi bi-image"></i> Foto</label>
+               <input class="outnone form-control form-file" required type="file" #myInput id="file-input" name="file" (change)="fileChangeEvent($event)" accept="image/gif, image/jpg, image/jpeg, image/png, image/webp">
+
+               <label for="descripcion" class="label-contact"><i class="bi bi-body-text"></i> Descripción</label>
+               <textarea name="descripcion" id="descripcion" [(ngModel)]="descripcion_acd_edit" class="form-control text-contact outnone" placeholder="Ingrese la descripción"   cols="30" rows="10" required maxlength="1024" autocomplete="off"></textarea>
+
+
+               <label for="email" class="label-contact mt-4"><i class="bi bi-body-text"></i> Correo de contacto</label>
+               <input type="email" name="email" id="email" [(ngModel)]="email_acd_edit" class="form-control input-contact outnone" placeholder="Ingrese un email" required  autocomplete="off">
+
+              </div>
+          </div>
+          <div class="modal-footer">
+              <div class="d-flex me-auto">
+                  <button type="button" class="mr-auto outnone btn btn-secondary" data-bs-dismiss="modal" (click)="onResetacd_edit()"><i
+                          class="pr-2  bi bi-x-lg"></i> Cancelar</button>
+              </div>
+              <div class="d-flex">
+                  <button type="submit" *ngIf="!load_btn" class="outnone btn login-btn" [disabled]="!editacd.valid"><i
+                          class="pr-2 bi bi-plus-lg"></i> Editar</button>
+
+                          <button *ngIf="load_btn" type="button" class="outnone btn login-btn" disabled>
+                           <span class="spinner-grow spinner-grow-sm mr-2" role="status" aria-hidden="true"></span>
+                           Editando ...
+                       </button>
+              </div>
+          </div>
+         </form>
+      </div>
+  </div>
+  </div>
+  <!-- fin modal -->
+  <!-- fin acerca de agg -->
+</section>
+<!-- fin acerca de -->
+
+<!-- mis habilidades -->
+<section id="mis-habilidades">
+  <div class="container c-hab">
+    <div class="hability-header">
+      <p class="hability-p">
+        Mis Habilidades
+        <ng-container *ngIf="hability == true">
+          <ng-container *ngIf="is_loged == true && isProfesor == true || isAdmin == true">
+            <button class="btn-add" data-bs-toggle="modal" data-bs-target="#agr-hab" title="Agregar Proyecto"><i
+                class="bi bi-plus-circle"></i> Agregar</button>
+          </ng-container>
+        </ng-container>
+      </p>
+    </div>
+    <ng-container *ngIf="hability == true">
+    <div class="row">
+      <ng-container *ngFor="let habilidad of habilidades">
+        <div class="col-md-4">
+          <div class="card card-1">
+            <img src="{{ habilidad.imagenUrl }}" alt="" width="50">
+
+            <h3>{{ habilidad.titulo }}</h3>
+            <span>{{ habilidad.descripcion }}</span>
+
+            <div class="buttons-hab ">
+              <ng-container *ngIf="is_loged == true && isProfesor == true || isAdmin == true">
+                <button class="mr-2 btn-edit text-primary float-end order-2" (click)="borrar_hability(habilidad.id)"><i
+                    class="bi bi-trash"></i> Borrar</button>
+                <!-- <button data-bs-toggle="modal" [attr.data-bs-target]="'#edit-hab-' + habilidad.id"
+                  class="mr-2 btn-edit text-primary float-end order-1"><i class="bi bi-pencil"></i> Editar</button> -->
+
+                  <button data-bs-toggle="modal" (click)="onEditHability(habilidad.id)" [attr.data-bs-target]="'#edit-hab-' + habilidad.id"
+                  class="mr-2 btn-edit text-primary float-end order-1"><i class="bi bi-pencil"></i> Editar</button>
+              </ng-container>
+            </div>
+          </div>
+        </div>
+
+
+        <!-- editar modal -->
+        <!-- hability agg -->
+  <!-- Modal -->
+  <div class="modal fade" id="edit-hab-{{ habilidad.id }}" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1"
+  aria-labelledby="staticBackdropLabel" aria-hidden="true">
+  <div class="modal-dialog modal-dialog-centered ">
+    <div class="modal-content">
+        <form #edithab="ngForm" (ngSubmit)="edit_hability(edithab)" >
+          <div class="modal-header">
+              <h5 class="modal-title" id="exampleModalLabel"><i class="pr-2 bi bi-pencil"></i>
+                  Editar Habilidad: {{ habilidad.titulo }}</h5>
+              <button type="button" class="outnone btn-close btn-close-white" data-bs-dismiss="modal"
+                  aria-label="Close" (click)="onResethab_edit()"></button>
+          </div>
+          <div class="modal-body">
+              <div class="container-fluid">
+
+               <label for="name" class="label-contact"><i class="bi bi-card-text"></i> Titulo</label>
+               <input type="text" name="titulo" id="titulo" [(ngModel)]="titulo_hab_edit" class="mayusfirst form-control input-contact outnone" placeholder="Ingrese un titulo" required  autocomplete="off">
+
+               <label for="profile" class="label-contact"><i class="bi bi-image"></i> Foto</label>
+               <input class="outnone form-control form-file" required type="file" #myInput2  id="file-input" name="file" (change)="fileChangeEvent($event)" accept="image/gif, image/jpg, image/jpeg, image/png, image/webp">
+
+               <label for="descripcion" class="label-contact"><i class="bi bi-body-text"></i> Descripción</label>
+               <textarea name="descripcion" id="descripcion" [(ngModel)]="descripcion_hab_edit" class="form-control text-contact outnone" placeholder="Ingrese la descripción"   cols="30" rows="10" required maxlength="1024" autocomplete="off"></textarea>
+
+              </div>
+          </div>
+          <div class="modal-footer">
+              <div class="d-flex me-auto">
+                  <button type="button" class="mr-auto outnone btn btn-secondary" data-bs-dismiss="modal" (click)="onResethab_edit()"><i
+                          class="pr-2  bi bi-x-lg"></i> Cancelar</button>
+              </div>
+              <div class="d-flex">
+                  <button type="submit" *ngIf="!load_btn" class="outnone btn login-btn" [disabled]="!edithab.valid"><i
+                          class="pr-2 bi bi-pencil"></i> Editar</button>
+
+                          <button *ngIf="load_btn" type="button" class="outnone btn login-btn" disabled>
+                           <span class="spinner-grow spinner-grow-sm mr-2" role="status" aria-hidden="true"></span>
+                           Editando ...
+                       </button>
+              </div>
+          </div>
+         </form>
+      </div>
+  </div>
+  </div>
+  <!-- fin modal -->
+  <!-- fin hability agg -->
+  <!-- fin editar modal -->
+
+      </ng-container>
+    </div>
+    </ng-container>
+    <ng-container *ngIf="hability == false">
+      <div class="row">
+        <div class="col-md-12">
+          <div class="card card-1">
+            <img src="../../../assets/img/plus-circle.svg" width="45" height="45" fill="white" alt="">
+
+            <h3>Agregar Título</h3>
+            <span>Agregar descripción</span>
+            <div *ngIf="is_loged == true && isProfesor == true || isAdmin == true">
+              <button data-bs-toggle="modal" data-bs-target="#agr-hab" class="mr-2 btn-edit btn-edit2 text-primary float-start"><i
+                  class="bi bi-plus-lg"></i> Agregar</button>
+
+            </div>
+          </div>
+        </div>
+      </div>
+    </ng-container>
+
+
+
+          <!-- habilidad modal -->
+  <!-- hability agg -->
+  <!-- Modal -->
+  <div class="modal fade" id="agr-hab" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1"
+  aria-labelledby="staticBackdropLabel" aria-hidden="true">
+  <div class="modal-dialog modal-dialog-centered ">
+    <div class="modal-content">
+        <form #addhab="ngForm" (ngSubmit)="add_hability(addhab)" >
+          <div class="modal-header">
+              <h5 class="modal-title" id="exampleModalLabel"><i class="pr-2 bi bi-plus-lg"></i>
+                  Agregar Habilidad</h5>
+              <button type="button" class="outnone btn-close btn-close-white" data-bs-dismiss="modal"
+                  aria-label="Close" (click)="onResethab()"></button>
+          </div>
+          <div class="modal-body">
+              <div class="container-fluid">
+
+               <label for="name" class="label-contact"><i class="bi bi-card-text"></i> Titulo</label>
+               <input type="text" name="titulo" id="titulo" [(ngModel)]="titulo_hab" class="mayusfirst form-control input-contact outnone" placeholder="Ingrese un titulo" required  autocomplete="off">
+
+               <label for="profile" class="label-contact"><i class="bi bi-image"></i> Foto</label>
+               <input class="outnone form-control form-file" required type="file" #myInput2  id="file-input" name="file" (change)="fileChangeEvent($event)" accept="image/gif, image/jpg, image/jpeg, image/png, image/webp">
+
+               <label for="descripcion" class="label-contact"><i class="bi bi-body-text"></i> Descripción</label>
+               <textarea name="descripcion" id="descripcion" [(ngModel)]="descripcion_hab" class="form-control text-contact outnone" placeholder="Ingrese la descripción"   cols="30" rows="10" required maxlength="1024" autocomplete="off"></textarea>
+
+              </div>
+          </div>
+          <div class="modal-footer">
+              <div class="d-flex me-auto">
+                  <button type="button" class="mr-auto outnone btn btn-secondary" data-bs-dismiss="modal" (click)="onResethab()"><i
+                          class="pr-2  bi bi-x-lg"></i> Cancelar</button>
+              </div>
+              <div class="d-flex">
+                  <button type="submit" *ngIf="!load_btn" class="outnone btn login-btn" [disabled]="!addhab.valid"><i
+                          class="pr-2 bi bi-plus-lg"></i> Agregar</button>
+
+                          <button *ngIf="load_btn" type="button" class="outnone btn login-btn" disabled>
+                           <span class="spinner-grow spinner-grow-sm mr-2" role="status" aria-hidden="true"></span>
+                           Agregando ...
+                       </button>
+              </div>
+          </div>
+         </form>
+      </div>
+  </div>
+  </div>
+  <!-- fin modal -->
+  <!-- fin hability agg -->
+
+
+  </div>
+</section>
+<!-- fin habilidades -->
+
+<!-- experiencia -->
+<section class="experience pt-100 pb-100" id="experience">
+  <div class="container">
+    <div class="row">
+      <div class="col-md-8 mx-auto text-center">
+        <div class="section-title">
+          <h4>mi experiencia</h4>
+          <p>Mi viaje personal</p>
+          <div *ngIf="is_loged == true && isProfesor == true || isAdmin == true">
+            <button class=" btn-add-exp text-primary" data-bs-toggle="modal" data-bs-target="#agr-exp" title="Agregar Proyecto"><i class="bi bi-plus-lg"></i>Agregar</button>
+            </div>
+        </div>
+      </div>
+    </div>
+    <ng-container *ngIf="experience == true">
+      <div class="row">
+        <div class="col-md-12">
+          <div class="d-flex justify-content-center mb-3">
+            <span class="fecha">Actualidad</span>
+          </div>
+          <ul class="timeline-list">
+            <ng-container *ngFor="let exp of experiencia">
+              <!-- Single Experience -->
+              <li>
+                <div class="timeline_content">
+                  <span>{{ exp.periodo }}</span>
+                  <h4>{{ exp.titulo }}</h4>
+                  <p class="text-justify">{{ exp.descripcion }}
+                  </p>
+
+                  <div class="buttons-exp">
+                    <ng-container *ngIf="is_loged == true && isProfesor == true || isAdmin == true">
+                      <div class="desktop">
+                        <button class="mr-2 btn-edit text-primary float-end order-2" (click)="borrar_experience(exp.id)"><i
+                            class="bi bi-trash"></i> Borrar</button>
+                        <button data-bs-toggle="modal" (click)="onEditExperience(exp.id)" [attr.data-bs-target]="'#edit-exp-' + exp.id"
+                          class="mr-2 btn-edit text-primary float-end order-1"><i class="bi bi-pencil"></i>
+                          Editar</button>
+                      </div>
+                      <div class="movil">
+                        <button data-bs-toggle="modal" (click)="onEditExperience(exp.id)" [attr.data-bs-target]="'#edit-exp-' + exp.id"
+                          class="mr-2 btn-edit text-primary float-end order-1"><i class="bi bi-pencil"></i>
+                          Editar</button>
+                        <button class="mr-2 btn-edit text-primary float-end order-2" (click)="borrar_experience(exp.id)"><i
+                            class="bi bi-trash"></i> Borrar</button>
+                      </div>
+                    </ng-container>
+                  </div>
+
+
+                </div>
+                <!-- editar modal -->
+        <!-- experiencia edit -->
+  <!-- Modal -->
+  <div class="modal fade" id="edit-exp-{{ exp.id }}" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1"
+  aria-labelledby="staticBackdropLabel" aria-hidden="true">
+  <div class="modal-dialog modal-dialog-centered ">
+    <div class="modal-content">
+        <form #editexp="ngForm" (ngSubmit)="edit_exp(editexp)" >
+          <div class="modal-header">
+              <h5 class="modal-title" id="exampleModalLabel"><i class="pr-2 bi bi-pencil"></i>
+                  Editar Experiencia: {{ exp.titulo }}</h5>
+              <button type="button" class="outnone btn-close btn-close-white" data-bs-dismiss="modal"
+                  aria-label="Close" (click)="onResetexp_edit(exp.id)"></button>
+          </div>
+          <div class="modal-body">
+              <div class="container-fluid">
+
+                <label for="titulo_exp_edit" class="label-contact"><i class="bi bi-card-text"></i> Titulo</label>
+               <input type="text" name="titulo_exp_edit" id="titulo_exp_edit" [(ngModel)]="titulo_exp_edit" class="mayusfirst form-control input-contact outnone" placeholder="Ingrese un titulo" required  autocomplete="off">
+
+               <label for="descripcion_exp_edit" class="label-contact"><i class="bi bi-body-text"></i> Descripción</label>
+               <textarea name="descripcion_exp_edit" id="descripcion_exp_edit" [(ngModel)]="descripcion_exp_edit" class="form-control text-contact outnone" placeholder="Ingrese la descripción"   cols="30" rows="10" required maxlength="1024" autocomplete="off"></textarea>
+
+               <label for="periodo_desde_edit" class="label-contact"><i class="bi bi-calendar-date"></i> Periodo desde:</label>
+               <input type="month" name="periodo_desde" id="periodo_desde_edit" class="mayusfirst form-control input-contact outnone"[(ngModel)]="periodo_desde_edit" >
+
+               <label for="periodo_fin" class="label-contact"><i class="bi bi-calendar-date"></i> Periodo hasta:</label>
+               <input type="month" name="periodo_hasta" [id]="'periodo_fin_'+ exp.id" class="mayusfirst form-control input-contact outnone mb-0 mb-8p" [(ngModel)]="periodo_hasta_edit" >
+
+
+               <div class="form-check" style="cursor: pointer;">
+                <input class="outnone form-check-input" type="checkbox" value="" [id]="'actual2_' + exp.id"
+                  style="cursor: pointer;" (click)="actual_edit(exp.id)">
+                <label class="form-check-label" [for]="'actual2_'+ exp.id" style="cursor: pointer;">
+                  Actualmente en curso
+                </label>
+              </div>
+
+              </div>
+          </div>
+          <div class="modal-footer">
+              <div class="d-flex me-auto">
+                  <button type="button" class="mr-auto outnone btn btn-secondary" data-bs-dismiss="modal" (click)="onResetexp_edit(exp.id)"><i
+                          class="pr-2  bi bi-x-lg"></i> Cancelar</button>
+              </div>
+              <div class="d-flex">
+                  <button type="submit" *ngIf="!load_btn" class="outnone btn login-btn" [disabled]="!editexp.valid"><i
+                          class="pr-2 bi bi-pencil"></i> Editar</button>
+
+                          <button *ngIf="load_btn" type="button" class="outnone btn login-btn" disabled>
+                           <span class="spinner-grow spinner-grow-sm mr-2" role="status" aria-hidden="true"></span>
+                           Editando ...
+                       </button>
+              </div>
+          </div>
+         </form>
+      </div>
+  </div>
+  </div>
+  <!-- fin modal -->
+  <!-- fin hability agg -->
+  <!-- fin editar modal -->
+              </li>
+
+
+
+            </ng-container>
+          </ul>
+          <div class="d-flex justify-content-center mt-3">
+            <span class="fecha">1996</span>
+          </div>
+        </div>
+      </div>
+    </ng-container>
+    <ng-container *ngIf="experience == false">
+      <div class="d-flex justify-content-center">
+        <div class="timeline_content p-3">
+          <span>Agregar fecha</span>
+          <h4>Agregar título de experiencia</h4>
+          <p>Agregar descripcion de la experiencia</p>
+        <div *ngIf="is_loged == true && isProfesor == true || isAdmin == true">
+          <button class=" btn-add-exp text-primary float-start" data-bs-toggle="modal" data-bs-target="#agr-exp" title="Agregar Proyecto"><i class="bi bi-plus-lg"></i>Agregar</button>
+          </div>
+        </div>
+      </div>
+    </ng-container>
+  </div>
+
+    <!-- experiencie agg -->
+  <!-- Modal -->
+  <div class="modal fade" id="agr-exp" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1"
+  aria-labelledby="staticBackdropLabel" aria-hidden="true">
+  <div class="modal-dialog modal-dialog-centered ">
+    <div class="modal-content">
+        <form #addexp="ngForm" (ngSubmit)="add_experiencie(addexp)" >
+          <div class="modal-header">
+              <h5 class="modal-title" id="exampleModalLabel"><i class="pr-2 bi bi-plus-lg"></i>
+                  Agregar Experiencia</h5>
+              <button type="button" class="outnone btn-close btn-close-white" data-bs-dismiss="modal"
+                  aria-label="Close" (click)="onResetexp()"></button>
+          </div>
+          <div class="modal-body">
+              <div class="container-fluid">
+
+               <label for="name" class="label-contact"><i class="bi bi-card-text"></i> Titulo</label>
+               <input type="text" name="titulo" id="titulo" [(ngModel)]="titulo_exp" class="mayusfirst form-control input-contact outnone" placeholder="Ingrese un titulo" required  autocomplete="off">
+
+               <label for="descripcion" class="label-contact"><i class="bi bi-body-text"></i> Descripción</label>
+               <textarea name="descripcion" id="descripcion" [(ngModel)]="descripcion_exp" class="form-control text-contact outnone" placeholder="Ingrese la descripción"   cols="30" rows="10" required maxlength="1024" autocomplete="off"></textarea>
+
+               <label for="periodo" class="label-contact"><i class="bi bi-calendar-date"></i> Periodo desde:</label>
+               <input type="month" name="periodo_desde" id="periodo_desde" class="mayusfirst form-control input-contact outnone"[(ngModel)]="periodo_desde" >
+
+               <label for="periodo" class="label-contact"><i class="bi bi-calendar-date"></i> Periodo hasta:</label>
+               <input type="month" name="periodo_hasta" id="periodo_hasta" class="mayusfirst form-control input-contact outnone mb-0 mb-8p" [(ngModel)]="periodo_hasta" >
+               <!-- <input type="checkbox" name="actual" id="actual"> <label for="actual"> Actualmente en curso</label> -->
+
+               <div class="form-check" style="cursor: pointer;">
+                <input class="outnone form-check-input" type="checkbox" value="" id="flexCheckDefault"
+                  style="cursor: pointer;" (click)="actual()">
+                <label class="form-check-label" for="flexCheckDefault" style="cursor: pointer;">
+                  Actualmente en curso
+                </label>
+              </div>
+
+              </div>
+          </div>
+          <div class="modal-footer">
+              <div class="d-flex me-auto">
+                  <button type="button" class="mr-auto outnone btn btn-secondary" data-bs-dismiss="modal" (click)="onResetexp()"><i
+                          class="pr-2  bi bi-x-lg"></i> Cancelar</button>
+              </div>
+              <div class="d-flex">
+                  <button type="submit" *ngIf="!load_btn" class="outnone btn login-btn" [disabled]="!addexp.valid"><i
+                          class="pr-2 bi bi-plus-lg"></i> Agregar</button>
+
+                          <button *ngIf="load_btn" type="button" class="outnone btn login-btn" disabled>
+                           <span class="spinner-grow spinner-grow-sm mr-2" role="status" aria-hidden="true"></span>
+                           Agregando ...
+                       </button>
+              </div>
+          </div>
+         </form>
+      </div>
+  </div>
+  </div>
+  <!-- fin modal -->
+  <!-- fin experiencie agg -->
+</section>
+<!-- fin experiencia -->
+
+<!-- experiencia 2 -->
+<section id="experiencia-leng">
+  <div class="container">
+    <div class="">
+      <p class="hability-p">Mis experiencia con lenguajes de programación</p>
+    </div>
+    <!-- <ng-container *ngIf="experience_lang == true"> -->
+      <div class="row">
+        <ng-container *ngIf="lang_frontend == true">
+          <div class="col-md-6" >
+            <div class="row">
+              <div class="col-md-12">
+                <div class="card" >
+                  <div class="explang-header">
+                    <p class="p-title-explang pb-10">
+                      Frontend
+                        <span *ngIf="is_loged == true && isProfesor == true || isAdmin == true">
+                          <button class="float-end add-title " data-bs-toggle="modal" data-bs-target="#agr-front" title="Agregar Frontend">
+                            <i class='bx bx-plus-circle'></i>
+                            Agregar Nuevo
+                          </button>
+                        </span>
+                    </p>
+                  </div>
+                  <div class="explang-body" *ngFor="let front of frontend">
+                    <p class="pt-10" >
+                      <i class="{{ front.classicon }}"></i>
+                      {{ front.nombre }}
+                        <span *ngIf="is_loged == true && isProfesor == true || isAdmin == true">
+
+                          <button class="mr-2 btn-lang text-primary float-end order-2" (click)="borrar_frontend(front.id)"><i
+                            class="bi bi-trash"></i> Borrar</button>
+                            <button data-bs-toggle="modal" data-bs-toggle="modal" (click)="onEditFrontend(front.id)" [attr.data-bs-target]="'#edit-front-' + front.id"
+                            class="mr-2 btn-lang text-primary float-end order-1"><i class="bi bi-pencil"></i> Editar</button>
+                          </span>
+                    </p>
+                    <div class="progress">
+                      <div class="progress-bar explang-primary progress-bar-striped progress-bar-animated"
+                        role="progressbar" [attr.aria-valuenow]="front.porcentaje" aria-valuemin="0" aria-valuemax="100"  [ngStyle]="{'width': front.porcentaje+'%'}">{{ front.porcentaje }}%
+                      </div>
+                    </div>
+                     <!-- Modal -->
+  <div class="modal fade" id="edit-front-{{ front.id }}" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1"
+  aria-labelledby="staticBackdropLabel" aria-hidden="true">
+  <div class="modal-dialog modal-dialog-centered ">
+    <div class="modal-content">
+        <form #editfront="ngForm" (ngSubmit)="edit_front(editfront)" >
+          <div class="modal-header">
+              <h5 class="modal-title" id="exampleModalLabel"><i class="pr-2 bi text-white bi-pencil"></i>
+                  Editar Frontend: {{ front.nombre }}</h5>
+              <button type="button" class="outnone  btn-close btn-close-white" data-bs-dismiss="modal"
+                  aria-label="Close" (click)="onResetfront_edit(front.id)"></button>
+          </div>
+          <div class="modal-body">
+              <div class="container-fluid">
+                <label for="name" class="label-contact"><i class="bi text-white bi-card-text"></i> Titulo</label>
+               <input type="text" name="titulo" id="titulo" [(ngModel)]="titulo_front_edit" class="mayusfirst form-control input-contact outnone" placeholder="Ingrese un titulo" required  autocomplete="off">
+
+               <label for="descripcion" class="label-contact"><i class="bi text-white bi-tag"></i> Icono</label>
+               <input type="text" name="classicon" id="titulo" [(ngModel)]="icono_front_edit" class="form-control input-contact outnone mb-10" placeholder="Ingrese un icono" required  autocomplete="off">
+               <p><i class="bi text-white bi-info-circle"></i> Para que el icono se visualice por favor entra a esta dirección:  <a href="https://boxicons.com/" target="_blank" class="text-decoration-none text-primary">Boxicons</a> Por favor colocar por ejemplo: < i class=" <span class="text-danger">bx bxl-angular</span>"> <\ i> lo que esta en rojo es lo que tienee que colocar</p>
+
+               <label for="porcentaje" class="label-contact"><i class="bi text-white bi-percent"></i> Porcentaje:</label>
+               <input type="range" min="0" max="100" value="0" name="porcentaje_front_edit" step="5" [(ngModel)]="porcentaje_front_edit" class="slider" id="myRange" required onInput="$('#rangeval1').html($(this).val())">
+
+            <div class="text-center test">
+              <span id="rangeval1-{{ front.id }}" style="display: none;">0</span><span style="display: none;">%</span>
+              <span id="rangeval1-{{ front.id }}">{{ porcentaje_front_edit }}</span><span>%</span>
+            </div>
+
+              </div>
+          </div>
+          <div class="modal-footer">
+              <div class="d-flex me-auto">
+                  <button type="button" class="mr-auto outnone btn btn-secondary" data-bs-dismiss="modal" (click)="onResetfront_edit(front.id)"><i
+                          class="pr-2 text-white bi bi-x-lg"></i> Cancelar</button>
+              </div>
+              <div class="d-flex">
+                  <button type="submit" *ngIf="!load_btn" class="outnone btn login-btn" [disabled]="!editfront.valid"><i
+                          class="pr-2 text-white bi bi-pencil"></i> Editar</button>
+
+                          <button *ngIf="load_btn" type="button" class="outnone btn login-btn" disabled>
+                           <span class="spinner-grow spinner-grow-sm mr-2" role="status" aria-hidden="true"></span>
+                           Editando ...
+                       </button>
+              </div>
+          </div>
+         </form>
+      </div>
+  </div>
+  </div>
+  <!-- fin modal -->
+  <!-- fin hability agg -->
+  <!-- fin editar modal -->
+                  </div> <!-- fin explang-body -->
+                </div>
+              </div>
+            </div>
+          </div>
+
+
+        </ng-container>
+        <ng-container *ngIf="lang_frontend == false">
+          <div class="col-md-6">
+            <div class="row">
+              <div class="col-md-12">
+                <div class="d-flex  card">
+                  <div class="timeline_content exp-lang p-3">
+                    <span>
+                      <i class='bx bx-plus-circle'></i>
+                    </span>
+                    <h4>Agregar lenguaje Frontend</h4>
+                    <div *ngIf="is_loged == true && isProfesor == true || isAdmin == true">
+                    <!-- <button class=" btn-add-exp text-primary float-start" data-bs-target="#agr-front"><i class="bi bi-plus-lg"></i>Agregar</button> -->
+                    <button class=" btn-add-exp text-primary float-start" data-bs-toggle="modal" data-bs-target="#agr-front" title="Agregar Frontend"><i class="bi bi-plus-lg"></i>Agregar</button>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+
+          </div>
+        </ng-container>
+       <ng-container *ngIf="lang_backend == true">
+        <div class="col-md-6 backend">
+          <div class="row">
+            <div class="col-md-12">
+              <div class="card">
+                <div class="explang-header">
+                  <p class="p-title-explang pb-10">
+                    Backend
+                    <span *ngIf="is_loged == true && isProfesor == true || isAdmin == true">
+                      <button class="float-end add-title " data-bs-toggle="modal" data-bs-target="#agr-back" title="Agregar Backend">
+                        <i class='bx bx-plus-circle'></i>
+                        Agregar Nuevo
+                      </button>
+                    </span>
+                  </p>
+                </div>
+                <div class="explang-body" *ngFor="let back of backend">
+                  <p class="pt-10">
+                    <i class='{{ back.classicon }}'></i>
+                    {{ back.nombre }}
+                    <span *ngIf="is_loged == true && isProfesor == true || isAdmin == true">
+                    <button class="mr-2 btn-lang text-primary float-end order-2" (click)="borrar_backend(back.id)"><i
+                        class="bi bi-trash"></i> Borrar</button>
+                        <button data-bs-toggle="modal" data-bs-toggle="modal" (click)="onEditBackend(back.id)" [attr.data-bs-target]="'#edit-back-' + back.id"
+                        class="mr-2 btn-lang text-primary float-end order-1"><i class="bi bi-pencil"></i> Editar</button>
+                    </span>
+                  </p>
+                  <div class="progress">
+                    <div class="progress-bar explang-primary progress-bar-striped progress-bar-animated"
+                      role="progressbar" [attr.aria-valuenow]="back.porcentaje " aria-valuemin="0" aria-valuemax="100" [ngStyle]="{'width': back.porcentaje+'%'}">{{ back.porcentaje }}%
+                    </div>
+                  </div>
+                  <!-- Modal -->
+  <div class="modal fade" id="edit-back-{{ back.id }}" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1"
+  aria-labelledby="staticBackdropLabel" aria-hidden="true">
+  <div class="modal-dialog modal-dialog-centered ">
+    <div class="modal-content">
+        <form #editback="ngForm" (ngSubmit)="edit_back(editback)" >
+          <div class="modal-header">
+              <h5 class="modal-title" id="exampleModalLabel"><i class="pr-2 bi text-white bi-pencil"></i>
+                  Editar Frontend: {{ back.nombre }}</h5>
+              <button type="button" class="outnone  btn-close btn-close-white" data-bs-dismiss="modal"
+                  aria-label="Close" (click)="onResetback_edit(back.id)"></button>
+          </div>
+          <div class="modal-body">
+              <div class="container-fluid">
+                <label for="name" class="label-contact"><i class="bi text-white bi-card-text"></i> Titulo</label>
+               <input type="text" name="titulo" id="titulo" [(ngModel)]="titulo_back_edit" class="mayusfirst form-control input-contact outnone" placeholder="Ingrese un titulo" required  autocomplete="off">
+
+               <label for="descripcion" class="label-contact"><i class="bi text-white bi-tag"></i> Icono</label>
+               <input type="text" name="classicon" id="titulo" [(ngModel)]="icono_back_edit" class="form-control input-contact outnone mb-10" placeholder="Ingrese un icono" required  autocomplete="off">
+               <p><i class="bi text-white bi-info-circle"></i> Para que el icono se visualice por favor entra a esta dirección:  <a href="https://boxicons.com/" target="_blank" class="text-decoration-none text-primary">Boxicons</a> Por favor colocar por ejemplo: < i class=" <span class="text-danger">bx bxl-angular</span>"> <\ i> lo que esta en rojo es lo que tienee que colocar</p>
+
+               <label for="porcentaje" class="label-contact"><i class="bi text-white bi-percent"></i> Porcentaje:</label>
+               <input type="range" min="0" max="100" value="0" name="porcentaje_front_edit" step="5" [(ngModel)]="porcentaje_back_edit" class="slider" id="myRange" required onInput="$('#rangevalback').html($(this).val())">
+
+            <div class="text-center test">
+              <span id="rangeval1-{{ back.id }}" style="display: none;">0</span><span style="display: none;">%</span>
+              <span id="rangeval1-{{ back.id }}">{{ porcentaje_back_edit }}</span><span>%</span>
+            </div>
+
+              </div>
+          </div>
+          <div class="modal-footer">
+              <div class="d-flex me-auto">
+                  <button type="button" class="mr-auto outnone btn btn-secondary" data-bs-dismiss="modal" (click)="onResetback_edit(back.id)"><i
+                          class="pr-2 text-white bi bi-x-lg"></i> Cancelar</button>
+              </div>
+              <div class="d-flex">
+                  <button type="submit" *ngIf="!load_btn" class="outnone btn login-btn" [disabled]="!editback.valid"><i
+                          class="pr-2 text-white bi bi-pencil"></i> Editar</button>
+
+                          <button *ngIf="load_btn" type="button" class="outnone btn login-btn" disabled>
+                           <span class="spinner-grow spinner-grow-sm mr-2" role="status" aria-hidden="true"></span>
+                           Editando ...
+                       </button>
+              </div>
+          </div>
+         </form>
+      </div>
+  </div>
+  </div>
+  <!-- fin modal -->
+  <!-- fin hability agg -->
+  <!-- fin editar modal -->
+                </div> <!--Fin for backend-->
+              </div>
+            </div>
+          </div>
+        </div>
+       </ng-container>
+       <ng-container *ngIf="lang_backend == false">
+        <div class="col-md-6">
+          <div class="row">
+            <div class="col-md-12">
+              <div class="d-flex card">
+                <div class="timeline_content exp-lang p-3">
+                  <span>
+                    <i class='bx bx-plus-circle'></i>
+                  </span>
+                  <h4>Agregar lenguaje Backend</h4>
+                  <div *ngIf="is_loged == true && isProfesor == true || isAdmin == true">
+                    <button class=" btn-add-exp text-primary float-start" data-bs-toggle="modal" data-bs-target="#agr-back" title="Agregar Backend"><i class="bi bi-plus-lg"></i>Agregar</button>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </ng-container>
+      </div>
+  </div>
+
+      <!-- frontend agg -->
+  <!-- Modal -->
+  <div class="modal fade" id="agr-front" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1"
+  aria-labelledby="staticBackdropLabel" aria-hidden="true">
+  <div class="modal-dialog modal-dialog-centered ">
+    <div class="modal-content">
+        <form #addfront="ngForm" (ngSubmit)="add_frontend(addfront)" >
+          <div class="modal-header">
+              <h5 class="modal-title" id="exampleModalLabel"><i class="pr-2 bi bi-plus-lg"></i>
+                  Agregar Frontend</h5>
+              <button type="button" class="outnone btn-close btn-close-white" data-bs-dismiss="modal"
+                  aria-label="Close" (click)="onResetfront()"></button>
+          </div>
+          <div class="modal-body">
+              <div class="container-fluid">
+
+               <label for="name" class="label-contact"><i class="bi bi-card-text"></i> Titulo</label>
+               <input type="text" name="titulo" id="titulo" [(ngModel)]="titulo_front" class="mayusfirst form-control input-contact outnone" placeholder="Ingrese un titulo" required  autocomplete="off">
+
+               <label for="descripcion" class="label-contact"><i class="bi bi-tag"></i> Icono</label>
+               <input type="text" name="classicon" id="titulo" [(ngModel)]="icono_front" class="form-control input-contact outnone mb-10" placeholder="Ingrese un icono" required  autocomplete="off">
+               <p><i class="bi bi-info-circle"></i> Para que el icono se visualice por favor entra a esta dirección:  <a href="https://boxicons.com/" target="_blank" class="text-decoration-none text-primary">Boxicons</a> Por favor colocar por ejemplo: < i class=" <span class="text-danger">bx bxl-angular</span>"> <\ i> lo que esta en rojo es lo que tienee que colocar</p>
+
+               <label for="porcentaje" class="label-contact"><i class="bi bi-percent"></i> Porcentaje:</label>
+               <!-- <input type="range" name="porcentaje" id="porcentaje" class="form-range outnone" min="0" max="100" value="0"> -->
+               <!-- <div class="row">
+               <div class="col-md-10 w-94">
+                <input type="range" min="0" max="100" value="0" step="5" class="slider" id="myRange" onInput="$('#rangeval').html($(this).val())">
+              </div>
+              <div class="col-md-2 porcentaje">
+                <span id="rangeval">0</span><span>%</span>
+              </div>
+            </div> -->
+
+            <input type="range" min="0" max="100" value="0" name="porcentaje_front" step="5" [(ngModel)]="porcentaje_front" class="slider" id="myRange" onInput="$('#rangeval').html($(this).val())" required>
+            <div class="text-center test">
+              <span id="rangeval">0</span><span>%</span>
+            </div>
+
+              </div>
+          </div>
+          <div class="modal-footer">
+              <div class="d-flex me-auto">
+                  <button type="button" class="mr-auto outnone btn btn-secondary" data-bs-dismiss="modal" (click)="onResetfront()"><i
+                          class="pr-2  bi bi-x-lg"></i> Cancelar</button>
+              </div>
+              <div class="d-flex">
+                  <button type="submit" *ngIf="!load_btn" class="outnone btn login-btn" [disabled]="!addfront.valid"><i
+                          class="pr-2 bi bi-plus-lg"></i> Agregar</button>
+
+                          <button *ngIf="load_btn" type="button" class="outnone btn login-btn" disabled>
+                           <span class="spinner-grow spinner-grow-sm mr-2" role="status" aria-hidden="true"></span>
+                           Agregando ...
+                       </button>
+              </div>
+          </div>
+         </form>
+      </div>
+  </div>
+  </div>
+  <!-- fin modal -->
+  <!-- fin frontend agg -->
+
+   <!-- backend agg -->
+  <!-- Modal -->
+  <div class="modal fade" id="agr-back" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1"
+  aria-labelledby="staticBackdropLabel" aria-hidden="true">
+  <div class="modal-dialog modal-dialog-centered ">
+    <div class="modal-content">
+        <form #addback="ngForm" (ngSubmit)="add_backend(addback)" >
+          <div class="modal-header">
+              <h5 class="modal-title" id="exampleModalLabel"><i class="pr-2 bi bi-plus-lg"></i>
+                  Agregar Backend</h5>
+              <button type="button" class="outnone btn-close btn-close-white" data-bs-dismiss="modal"
+                  aria-label="Close" (click)="onResetback()"></button>
+          </div>
+          <div class="modal-body">
+              <div class="container-fluid">
+
+               <label for="name" class="label-contact"><i class="bi bi-card-text"></i> Titulo</label>
+               <input type="text" name="titulo" id="titulo" [(ngModel)]="titulo_back" class="mayusfirst form-control input-contact outnone" placeholder="Ingrese un titulo" required  autocomplete="off">
+
+               <label for="descripcion" class="label-contact"><i class="bi bi-tag"></i> Icono</label>
+               <input type="text" name="classicon" id="titulo" [(ngModel)]="icono_back" class="form-control input-contact outnone mb-10" placeholder="Ingrese un icono" required  autocomplete="off">
+               <p><i class="bi bi-info-circle"></i> Para que el icono se visualice por favor entra a esta dirección:  <a href="https://boxicons.com/" target="_blank" class="text-decoration-none text-primary">Boxicons</a> Por favor colocar por ejemplo: < i class=" <span class="text-danger">bx bxl-angular</span>"> <\ i> lo que esta en rojo es lo que tienee que colocar</p>
+
+               <label for="porcentaje" class="label-contact"><i class="bi bi-percent"></i> Porcentaje:</label>
+
+            <input type="range" min="0" max="100" value="0" name="porcentaje_back" step="5" [(ngModel)]="porcentaje_back" class="slider" id="myRange" onInput="$('#rangevalback').html($(this).val())" required>
+            <div class="text-center test">
+              <span id="rangevalback">0</span><span>%</span>
+            </div>
+
+              </div>
+          </div>
+          <div class="modal-footer">
+              <div class="d-flex me-auto">
+                  <button type="button" class="mr-auto outnone btn btn-secondary" data-bs-dismiss="modal" (click)="onResetback()"><i
+                          class="pr-2  bi bi-x-lg"></i> Cancelar</button>
+              </div>
+              <div class="d-flex">
+                  <button type="submit" *ngIf="!load_btn" class="outnone btn login-btn" [disabled]="!addback.valid"><i
+                          class="pr-2 bi bi-plus-lg"></i> Agregar</button>
+
+                          <button *ngIf="load_btn" type="button" class="outnone btn login-btn" disabled>
+                           <span class="spinner-grow spinner-grow-sm mr-2" role="status" aria-hidden="true"></span>
+                           Agregando ...
+                       </button>
+              </div>
+          </div>
+         </form>
+      </div>
+  </div>
+  </div>
+  <!-- fin modal -->
+  <!-- fin frontend agg -->
+</section>
+<!-- fin experiencia 2 -->
+
+<!-- mis servicios -->
+<section id="services">
+  <div class="container c-hab service-c">
+    <div class="">
+      <p class="hability-p">
+        Mis Servicios
+        <ng-container *ngIf="services == true">
+          <ng-container *ngIf="is_loged == true && isProfesor == true || isAdmin == true">
+            <button class="btn-add" data-bs-toggle="modal" data-bs-target="#agr-serv" title="Agregar Servicio"><i
+                class="bi bi-plus-circle"></i> Agregar</button>
+          </ng-container>
+        </ng-container>
+      </p>
+    </div>
+    <ng-container *ngIf="services == true">
+      <div class="row">
+
+        <div class="col-md-4" *ngFor="let serv of servicios">
+          <div class="card card-1 service-card">
+            <img src="{{ serv.imagenUrl }}" alt="" class="service-img">
+            <h3 class="service-title">{{ serv.titulo }}</h3>
+            <span>{{ serv.descripcion }}</span>
+
+
+            <div class="buttons-serv">
+              <ng-container *ngIf="is_loged == true  && isProfesor == true || isAdmin == true">
+                <button class="mr-2 btn-edit text-primary float-end order-2" (click)="borrar_service(serv.id)"><i
+                    class="bi bi-trash"></i> Borrar</button>
+                <button data-bs-toggle="modal" data-bs-toggle="modal" (click)="onEditService(serv.id)" [attr.data-bs-target]="'#edit-serv-' + serv.id"
+                  class="mr-2 btn-edit text-primary float-end order-1"><i class="bi bi-pencil"></i>
+                  Editar</button>
+              </ng-container>
+            </div>
+          </div>
+          <!-- Modal -->
+  <div class="modal fade" id="edit-serv-{{ serv.id }}" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1"
+  aria-labelledby="staticBackdropLabel" aria-hidden="true">
+  <div class="modal-dialog modal-dialog-centered ">
+    <div class="modal-content">
+        <form #editserv="ngForm" (ngSubmit)="edit_service(editserv)" >
+          <div class="modal-header">
+              <h5 class="modal-title" id="exampleModalLabel"><i class="pr-2 bi text-white bi-pencil"></i>
+                  Editar Servicio: {{ serv.titulo }}</h5>
+              <button type="button" class="outnone  btn-close btn-close-white" data-bs-dismiss="modal"
+                  aria-label="Close" (click)="onResetserv_edit()"></button>
+          </div>
+          <div class="modal-body">
+              <div class="container-fluid">
+                <label for="name" class="label-contact"><i class="bi bi-card-text"></i> Titulo</label>
+               <input type="text" name="titulo" id="titulo" [(ngModel)]="titulo_serv_edit" class="mayusfirst form-control input-contact outnone" placeholder="Ingrese un titulo" required  autocomplete="off">
+
+               <label for="foto" class="label-contact"><i class="bi bi-image"></i> Imagen</label>
+               <input class="outnone form-control form-file" required type="file" #myInput3  id="file-input" name="file" (change)="fileChangeEvent($event)" accept="image/gif, image/jpg, image/jpeg, image/png, image/webp">
+
+               <label for="descripcion" class="label-contact"><i class="bi bi-body-text"></i> Descripción</label>
+               <textarea name="descripcion" id="descripcion" [(ngModel)]="descripcion_serv_edit" class="form-control text-contact outnone" placeholder="Ingrese la descripción"   cols="30" rows="10" required maxlength="1024" autocomplete="off"></textarea>
+              </div>
+          </div>
+          <div class="modal-footer">
+              <div class="d-flex me-auto">
+                  <button type="button" class="mr-auto outnone btn btn-secondary" data-bs-dismiss="modal" (click)="onResetserv_edit()"><i
+                          class="pr-2 text-white bi bi-x-lg"></i> Cancelar</button>
+              </div>
+              <div class="d-flex">
+                  <button type="submit" *ngIf="!load_btn" class="outnone btn login-btn" [disabled]="!editserv.valid"><i
+                          class="pr-2 text-white bi bi-pencil"></i> Editar</button>
+
+                          <button *ngIf="load_btn" type="button" class="outnone btn login-btn" disabled>
+                           <span class="spinner-grow spinner-grow-sm mr-2" role="status" aria-hidden="true"></span>
+                           Editando ...
+                       </button>
+              </div>
+          </div>
+         </form>
+      </div>
+  </div>
+  </div>
+  <!-- fin modal -->
+  <!-- fin hability agg -->
+  <!-- fin editar modal -->
+        </div> <!-- fin for service-->
+      </div>
+    </ng-container>
+    <ng-container *ngIf="services == false">
+      <div class="row">
+        <div class="col-md-12">
+          <div class="card service-add card-1 service-card">
+            <img src="../../../assets/img/plus-circle.svg" alt="" class="service-img">
+            <h3 class="service-title">Agregar título del servicio</h3>
+            <span>Agregar descripción del servicio</span>
+
+
+            <div class="buttons-serv">
+              <ng-container *ngIf="is_loged == true && isProfesor == true || isAdmin == true">
+                <div class="desktop">
+                  <button data-bs-toggle="modal" data-bs-target="#"
+                    class="mr-2 btn-edit text-primary float-end order-1" data-bs-toggle="modal" data-bs-target="#agr-serv" title="Agregar Servicio"><i class="bi bi-plus-lg"></i>
+                    Agregar</button>
+                </div>
+                <div class="movil">
+                  <button data-bs-toggle="modal" data-bs-target="#"
+                    class="mr-2 btn-edit text-primary float-end order-1" data-bs-toggle="modal" data-bs-target="#agr-serv" title="Agregar Servicio"><i class="bi bi-plus-lg"></i>
+                    Agregar</button>
+                </div>
+              </ng-container>
+            </div>
+          </div>
+        </div>
+      </div>
+    </ng-container>
+  </div>
+
+    <!-- services agg -->
+  <!-- Modal -->
+  <div class="modal fade" id="agr-serv" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1"
+  aria-labelledby="staticBackdropLabel" aria-hidden="true">
+  <div class="modal-dialog modal-dialog-centered ">
+    <div class="modal-content">
+        <form #addserv="ngForm" (ngSubmit)="add_service(addserv)" >
+          <div class="modal-header">
+              <h5 class="modal-title" id="exampleModalLabel"><i class="pr-2 bi bi-plus-lg"></i>
+                  Agregar Servicio</h5>
+              <button type="button" class="outnone btn-close btn-close-white" data-bs-dismiss="modal"
+                  aria-label="Close" (click)="onResetserv()"></button>
+          </div>
+          <div class="modal-body">
+              <div class="container-fluid">
+
+               <label for="name" class="label-contact"><i class="bi bi-card-text"></i> Titulo</label>
+               <input type="text" name="titulo" id="titulo" [(ngModel)]="titulo_serv" class="mayusfirst form-control input-contact outnone" placeholder="Ingrese un titulo" required  autocomplete="off">
+
+               <label for="foto" class="label-contact"><i class="bi bi-image"></i> Imagen</label>
+               <input class="outnone form-control form-file" required type="file" #myInput3  id="file-input" name="file" (change)="fileChangeEvent($event)" accept="image/gif, image/jpg, image/jpeg, image/png, image/webp">
+
+               <label for="descripcion" class="label-contact"><i class="bi bi-body-text"></i> Descripción</label>
+               <textarea name="descripcion" id="descripcion" [(ngModel)]="descripcion_serv" class="form-control text-contact outnone" placeholder="Ingrese la descripción"   cols="30" rows="10" required maxlength="1024" autocomplete="off"></textarea>
+
+
+              </div>
+          </div>
+          <div class="modal-footer">
+              <div class="d-flex me-auto">
+                  <button type="button" class="mr-auto outnone btn btn-secondary" data-bs-dismiss="modal" (click)="onResetserv()"><i
+                          class="pr-2  bi bi-x-lg"></i> Cancelar</button>
+              </div>
+              <div class="d-flex">
+                  <button type="submit" *ngIf="!load_btn" class="outnone btn login-btn" [disabled]="!addserv.valid"><i
+                          class="pr-2 bi bi-plus-lg"></i> Agregar</button>
+
+                          <button *ngIf="load_btn" type="button" class="outnone btn login-btn" disabled>
+                           <span class="spinner-grow spinner-grow-sm mr-2" role="status" aria-hidden="true"></span>
+                           Agregando ...
+                       </button>
+              </div>
+          </div>
+         </form>
+      </div>
+  </div>
+  </div>
+  <!-- fin modal -->
+  <!-- fin services agg -->
+</section>
+
+<a class="ir-arriba" data-bs-toggle="tooltip" data-bs-placement="left" title="Ir arriba">
+  <span class="fa-stack">
+    <i class="fa fa-arrow-up fa-stack-1x fa-inverse"></i>
+  </span>
+</a>
+<app-footer></app-footer>
+</ng-container>

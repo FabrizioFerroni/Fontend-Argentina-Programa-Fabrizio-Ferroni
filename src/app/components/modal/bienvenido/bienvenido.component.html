@@ -1,0 +1,75 @@
+<!-- Modal -->
+<div class="modal fade" id="bienvenido" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1"
+aria-labelledby="staticBackdropLabel" aria-hidden="true">
+  <div class="modal-dialog modal-dialog-centered ">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="exampleModalLabel"><i class="pr-2 bi bi-emoji-smile"></i>
+            Bienvenido a mi portfolio web</h5>
+        <button type="button" class="outnone btn-close btn-close-white" data-bs-dismiss="modal"
+            aria-label="Close"></button>
+    </div>
+    <div class="modal-body">
+      <h6 class="text-left">Hola estimado, te doy la bienvenida a mi portfolio web.</h6>
+      <span>
+        El mismo fue desarrollado para el programa de
+        <br>
+      <div class="text-center">
+        <img src="assets/img/APLogo-20-20.png" width="100px"> <!--en la sección de --> #YoProgramo.
+      </div>
+      </span>
+     <!-- <div class="text-center"> -->
+      <p>Este portfolio fue hecho con:</p>
+      <ul>
+        <li class="mb-3">
+          <img src="assets/img/logos/angular.svg" width="100px" >
+          <span class="ml-4">para el frontend</span>
+        </li>
+        <li class="mb-3">
+          <img src="assets/img/logos/spring-boot.svg" width="100px" >
+          <!-- y
+          <img src="assets/img/logos/java.svg" width="100px"> -->
+          <span class="ml-4">para el backend</span>
+        </li>
+        <li class="mb-3">
+          <img src="assets/img/logos/mysql-horizontal.svg" width="100px" >
+          <span class="ml-4">para la base de datos</span>
+        </li>
+      </ul>
+    <p>Y se hizo su correcto deploy en lo siguiente:</p>
+      <ul>
+        <li class="mb-3">
+          <img src="assets/img/logos/cpanel.svg" width="100px" >
+          <span class="ml-4">para alojar el frontend</span>
+        </li>
+        <li class="mb-3">
+          <img src="assets/img/logos/heroku.svg" width="100px" >
+          <span class="ml-4">para alojar el backend</span>
+        </li>
+        <li class="mb-3">
+          <img src="assets/img/logos/clever-cloud.svg" width="100px" >
+          <span class="ml-4">para alojar la base de datos</span>
+        </li>
+        <li class="mb-3">
+          <img src="assets/img/logos/aws-s3.svg" width="100px" >
+          <span class="ml-4">para alojar las imagenes y documentos</span>
+        </li>
+      </ul>
+      <p class="text-justify pt-2">
+        Si eres profesor de <span>Argentina Programa</span> y no estas registrado puedes <a class="text-primary" [routerLink]="['registrarse']">registrarte aquí</a> o si ya tiene cuenta, por favor <a class="text-primary" [routerLink]="['/iniciarsesion']">inicia sesión</a> para poder hacer el crud correspondiente al proyecto.
+      </p>
+       <p class="text-justify">
+        Si no eres profesor, de igual forma te puedes <a class="text-primary"  [routerLink]="['/registrarse']">registrar aquí</a> o si ya tiene cuenta, mejor <a class="text-primary" [routerLink]="['/iniciarsesion']">inicia sesión</a> para poder descargar mi cv.
+       </p>
+      <h6>Espero que disfrutes ver mi portfolio 🥰🥰</h6>
+    </div>
+    <div class="modal-footer">
+    <div class="d-flex">
+        <button type="button" class="outnone btn login-btn" data-bs-dismiss="modal" >  Aceptar</button>
+    </div>
+    </div>
+    </div>
+  </div>
+</div>
+<!-- fin modal -->
+
