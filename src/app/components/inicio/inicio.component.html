@@ -34,7 +34,7 @@
           </ng-container>
           <ng-container *ngIf="is_loged == true">
               <div *ngFor="let cv of cvs">
-                <a href="{{ cv.cvURL }}" download="{{ cv.nombredown }}"
+                <a href="{{ cv.cvURL }}?nombre={{ cv.nombredown }}" download="{{ cv.nombredown }}"
               class="outnone download-btn btn" (click)="dcv_home(cv.id)"><i class="bi bi-cloud-download"></i> Descargar mi CV</a>
               </div>
           </ng-container>
