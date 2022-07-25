@@ -415,7 +415,8 @@ button:disabled{
 
 @media (min-width: 769px) and (max-width: 1024px){
   .containerFotos{
-    width: 1024px !important;
+    width: 800px !important;
+    /* width: 1024px !important; */
   }
 
   .img-proyectos{
