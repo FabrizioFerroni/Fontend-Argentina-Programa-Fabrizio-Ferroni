@@ -75,7 +75,6 @@ export class InicioComponent implements OnInit {
   cvs: any = [];
 
   cvUrl!: string;
-  id_cv!:number;
   cvnombreDown!: string;
   @ViewChild('myInput') myInputVariable!: ElementRef;
 
@@ -321,7 +320,6 @@ export class InicioComponent implements OnInit {
     this._portfolioService.cv().subscribe(
       res => {
         this.cvs = res;
-        this.id_cv = res.id
       },
       err => {
         console.log(err);
