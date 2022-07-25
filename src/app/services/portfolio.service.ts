@@ -24,7 +24,7 @@ export class PortfolioService {
   }
 
 
-  contador(payload: any): Observable<any>{
+  contador(payload: any): Observable<any> {
     return this._http.post("http://localhost/contador_visitas_php_avanzado/contador/registrar_visita.php", payload);
   }
 
@@ -143,6 +143,11 @@ export class PortfolioService {
     console.log('File', file);
     console.log('FormData: ', fd);
     return this._http.post(this.url + 'cargar-cv', fd, { headers: headers });
+  }
+
+  del_cv(id: number, token: string): Observable<any> {
+    let headers = new HttpHeaders({ 'Authorization': 'Bearer ' + token });
+    return this._http.delete(this.url + 'cv/' + id + '/eliminar', { headers: headers });
   }
 
 

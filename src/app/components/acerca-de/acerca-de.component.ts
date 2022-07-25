@@ -40,8 +40,8 @@ export class AcercaDeComponent implements OnInit {
   lang_frontend: boolean = true;
   lang_backend: boolean = true;
 
-  experience_1 = true;
-  experience_2 = true;
+  // experience_1 = true;
+  // experience_2 = true;
   experience_lang = true;
   services = true;
   lang_java = true;

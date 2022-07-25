@@ -4,6 +4,7 @@ import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
 import swal from 'sweetalert2';
 import { isEmpty } from 'rxjs';
+import { TokenService } from 'src/app/services/token.service';
 
 declare var jQuery: any;
 declare var $: any;
@@ -17,6 +18,10 @@ declare var iziToast: any;
 export class ContactameComponent implements OnInit {
   isLoader: boolean = true
   load_btn: boolean = false;
+  is_loged: boolean = false;
+  isAdmin!: boolean;
+  isProfesor!: boolean;
+  token!: string;
   phone: any;
   subject: any;
   is_open = true;
@@ -37,7 +42,8 @@ export class ContactameComponent implements OnInit {
   constructor(
     private _portfolioService: PortfolioService,
     private _router: Router,
-    private titleService: Title
+    private titleService: Title,
+    private tokenService:TokenService
   ) {
     titleService.setTitle('Contactame - Fabrizio Dev - Argentina Programa #YoProgramo')
   }
@@ -56,6 +62,17 @@ export class ContactameComponent implements OnInit {
         }
       }
     )
+
+    if (this.tokenService.isLogged()) {
+      this.is_loged = true;
+      this.token = this.tokenService.getToken();
+      this.isAdmin = this.tokenService.IsAdmin();
+      this.isProfesor = this.tokenService.IsProfesor();
+      console.log(this.isAdmin);
+      console.log(this.isProfesor);
+    }
+
+
     this.load_data();
     this.phone_form = '';
     this.subject_form = '';

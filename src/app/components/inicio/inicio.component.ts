@@ -200,6 +200,54 @@ export class InicioComponent implements OnInit {
     })
   }
 
+  borrar_cv(id: number) {
+    console.log(id);
+    swal.fire({
+      title: '¿Estas seguro que quieres eliminar esto?',
+      text: "¡No podrás revertir esto!",
+      icon: 'warning',
+      showCancelButton: true,
+      confirmButtonColor: '#5c62ec',
+      cancelButtonColor: '#d33',
+      confirmButtonText: 'Sí, borralo!',
+      cancelButtonText: 'Cancelar',
+      customClass: {
+        cancelButton: 'outnone',
+        confirmButton: 'outnone',
+      }
+    }).then((result) => {
+      if (result.isConfirmed) {
+        this._portfolioService.del_cv(id, this.token).subscribe(
+          res => {
+            swal.fire({
+              title: 'Eliminado!',
+              text: res.mensaje,
+              icon: 'success',
+              confirmButtonText: 'Aceptar',
+              confirmButtonColor: '#5c62ec',
+              customClass: {
+                confirmButton: 'outnone'
+              }
+            });
+          },
+          err => {
+            console.log(err);
+            swal.fire({
+              title: 'Hubo un error!',
+              text: err.error.mensaje,
+              icon: 'error',
+              confirmButtonText: 'Aceptar',
+              confirmButtonColor: '#5c62ec',
+              customClass: {
+                confirmButton: 'outnone'
+              }
+            })
+          }
+        );
+      }
+    })
+  }
+
   borrar_acercade(id: number) {
     console.log(id);
 

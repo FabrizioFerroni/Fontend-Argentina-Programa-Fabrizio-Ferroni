@@ -48,12 +48,14 @@
                 Enviando mail ...
             </button>
             </form>
+           <ng-container *ngIf="is_loged == true && isProfesor == true || isAdmin == true">
             <div class="buttons-cont d-flex mt-3 ml-auto">
               <button class="mr-2 btn-edit text-primary float-end order-2" (click)="borrar_datos()"><i
                   class="bi bi-trash"></i> Borrar</button>
               <button data-bs-toggle="modal" data-bs-target="#edit-form-contact"
                 class="mr-2 btn-edit text-primary float-end order-1"><i class="bi bi-pencil"></i> Editar</button>
             </div>
+           </ng-container>
           </div>
 
         </div>
