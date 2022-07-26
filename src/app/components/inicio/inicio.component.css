@@ -1,4 +1,4 @@
-.mayusfirst{
+.mayusfirst {
   text-transform: capitalize;
 }
 
@@ -6,33 +6,33 @@ li {
   list-style: none;
 }
 
-.ml-4{
+.ml-4 {
   margin-left: 1.5rem;
 }
 
-.mb-3{
+.mb-3 {
   margin-bottom: 1rem;
 }
 
-.text-primary{
+.text-primary {
   color: #5c62ec !important;
   text-decoration: none;
 }
 
-.text-primary:hover{
+.text-primary:hover {
   color: #7B61FF !important;
 }
 
-.text-justify{
+.text-justify {
   text-align: justify;
 }
 
-.mt-2{
+.mt-2 {
   margin-top: 0.5rem;
 }
 
 
-:root{
+:root {
   --body: #171718;
   /* --primary: #EC5C5C; */
   --primary: #5c62ec;
@@ -44,13 +44,13 @@ li {
   --social: #85bfd1;
 }
 
-button:disabled{
+button:disabled {
   background-color: transparent !important;
   cursor: not-allowed;
 }
 
 
-.form-file{
+.form-file {
   background-color: #1C1E22;
   margin-bottom: 24px;
   color: #A0A0A1;
@@ -58,63 +58,67 @@ button:disabled{
   height: 38x;
 }
 
-.form-file:hover, .form-file:focus{
+.form-file:hover,
+.form-file:focus {
   background-color: #1C1E22;
   color: #A0A0A1;
   border: 1px solid var(--primary);
 
 }
 
-.mb-50{
+.mb-50 {
   margin-bottom: 0px;
 }
-.input-contact:read-only{
+
+.input-contact:read-only {
   background-color: transparent !important;
 }
 
-.acd-card{
+.acd-card {
   width: 67%;
 }
 
 
-.header{
+.header {
   background-attachment: fixed;
   height: 100%;
   max-width: 100%;
   padding-bottom: 75px;
   background-size: cover;
 }
-.btn-add{
+
+.btn-add {
   background-color: transparent !important;
   border-color: transparent !important;
   color: white;
   font-size: 25px !important;
 
 }
-.btn-add i{
+
+.btn-add i {
   font-size: 25px !important;
 }
 
-.btn-primary{
+.btn-primary {
   background-color: #5c62ec;
   border-color: #5c62ec;
 }
 
-.btn-primary:hover{
+.btn-primary:hover {
   background-color: #7B61FF;
   border-color: #7B61FF;
 }
 
-.text-primary{
-   color: #5c62ec !important;
+.text-primary {
+  color: #5c62ec !important;
 }
 
-.a-edit{
+.a-edit {
   color: #5c62ec !important;
   cursor: pointer;
 }
 
-.a-edit:hover{
+.a-edit:hover {
   color: #7B61FF !important;
 }
 
@@ -128,63 +132,69 @@ button:disabled{
 
 .a-add {
   cursor: pointer;
-  background-color:#5c62ec !important;
+  background-color: #5c62ec !important;
   padding: 8px;
   border-radius: 8px;
 }
 
-.a-add:hover{
+.a-add:hover {
   background-color: #7B61FF !important;
 
 }
 
-.a-edit{
+.a-edit {
   cursor: pointer;
-  background-color:#5c62ec !important;
+  background-color: #5c62ec !important;
   padding: 8px;
   border-radius: 8px;
 
 }
 
-.a-edit:hover{
+.a-edit:hover {
   background-color: #7B61FF !important;
 
 }
 
-.btn-edit , .btn-edit2{
+.btn-edit,
+.btn-edit2 {
   background-color: transparent;
   border-color: transparent;
   font-size: 20px;
   vertical-align: middle;
 }
 
-.text-primary:hover{
+.text-primary:hover {
   color: #7B61FF !important;
 }
 
-.mt-10{
+.mt-10 {
   margin-top: 7rem;
 }
 
-.mt-16{
+.mt-16 {
   margin-top: 16rem;
 }
 
-.titulo i{
+.titulo i {
   background-color: #5c62ec !important;
   padding: 10px;
   border-radius: 8px;
 }
 
-.titulo i:hover{
+.titulo i:hover {
   background-color: #7B61FF !important;
 }
+
 .containerFotos {
   display: flex;
   flex-wrap: wrap;
   justify-content: space-around;
   flex-direction: row;
   width: 100%;
+}
+
+.ml-3 {
+  margin-left: 1.5rem;
 }
 
 
@@ -194,10 +204,10 @@ button:disabled{
   height: 400px; */
   width: 1280px;
   height: 600px;
-  position: relative ;
+  position: relative;
   /* border: 1px solid; */
   overflow: hidden;
-  margin:1em;
+  margin: 1em;
   z-index: 1000;
 }
 
@@ -210,70 +220,73 @@ button:disabled{
   left: 0;
   border-radius: 8px;
 }
+
 .overlay {
   width: 100%;
   height: 100%;
   background: rgba(0, 0, 0, 0.5);
   top: 100%;
-  transition:top 1s;
+  transition: top 1s;
   border-radius: 8px;
 }
 
-.proyectos-fotos:hover .overlay{
-  top:0%;
+.proyectos-fotos:hover .overlay {
+  top: 0%;
 }
 
-.overlay h3{
+.overlay h3 {
   margin-top: 250px;
 }
 
-.overlay h3:hover{
+.overlay h3:hover {
   color: #7B61FF;
 }
+
 .overlay a {
   text-align: center;
-  line-height:40px;
+  line-height: 40px;
   color: white !important;
   text-decoration: none;
 
 }
 
-.overlay i{
+.overlay i {
   font-size: 18px
 }
 
-.overlay a:hover{
+.overlay a:hover {
   color: #7B61FF;
 }
 
 
-.p-parrafo{
+.p-parrafo {
   margin-left: 0.3rem;
 }
 
-.mr-4{
+.mr-4 {
   margin-right: 2rem;
 }
 
-.ml-4{
+.ml-4 {
   margin-left: 2rem;
 }
 
-.mobile{
+.mobile {
   display: none;
 }
 
-.ct{
+.ct {
   width: 198px;
   height: 58px;
 }
 
-.test-btn{
+.test-btn {
   background-color: transparent;
   color: #fafafa;
   border-color: #fafafa;
 }
-.test-btn:hover{
+
+.test-btn:hover {
   background-color: #FAFAFA;
   color: black !important;
   border-color: #FAFAFA;
@@ -295,166 +308,191 @@ button:disabled{
 .ir-arriba-2:hover, .ir-arriba-2:focus{
   background-color: #128C7E
 } */
+.w-198{
+  width: 198px;
+}
 
-
-.desktop{
+.desktop {
   /* margin-top: -50px; */
   margin-bottom: -50px;
 }
-@media  (max-width: 479px){
 
-  .mb-50{
+@media (max-width: 479px) {
+
+  .ml-3 {
+    margin-bottom: -160px;
+    margin-left: -165px;
+  }
+
+  .mbb-50 {
+    margin-bottom: 50px;
+  }
+
+  .mb-50 {
     margin-bottom: -50px;
   }
 
-  .mobile{
+  .mobile {
     display: block;
   }
-  .desktop{
+
+  .desktop {
     display: none;
   }
-  .mr-4{
+
+  .mr-4 {
     margin-right: 0rem;
     margin-bottom: -20px;
     margin-top: 50px;
   }
 
-  .ml-4{
+  .ml-4 {
     margin-left: 0rem;
     margin-top: -20px;
     margin-bottom: -50px;
   }
 
-  .mt-10{
+  .mt-10 {
     display: inline-grid;
     margin-top: 1rem;
   }
 
-  .acd-btn{
+  .acd-btn {
     margin-bottom: 1rem;
     margin-left: 5rem;
   }
 
-  .order-1{
+  .order-1 {
     margin-bottom: 1rem !important;
   }
 
-  .mbs-2{
-    margin-bottom: -1rem  !important;
+  .mbs-2 {
+    margin-bottom: -1rem !important;
   }
-  .order-2{
+
+  .order-2 {
     margin-bottom: 0rem !important;
   }
 
-  .btn-edit{
+  .btn-edit {
     /* margin-bottom: 1rem; */
     margin-left: 3.5em;
   }
 
-  .btn-edit:last-child{
+  .btn-edit:last-child {
     margin-bottom: 0rem;
     margin-left: 4.5rem;
   }
-  .mt-16{
+
+  .mt-16 {
     margin-top: 3rem;
     display: inline-grid;
   }
 
-  .p-parrafo{
+  .p-parrafo {
     margin-left: 1rem;
   }
-.containerFotos{
-  width: 380px !important;
-}
 
-.img-proyectos{
-  object-fit: fill;
-
-}
-
-.proyectos-fotos{
-  height: 190px !important;
-}
-.overlay h3{
-  margin-top: 50px;
-}
-
-.github-btn{
-  width: 225% !important;
-}
-
-.acd-card{
-  width: 90%;
-}
-}
-
-@media (min-width: 756px) and (max-width: 768px){
-  .github-btn{
-    width: 0% !important;
-  }
-  .containerFotos{
-    width: 728px !important; /*530*/
+  .containerFotos {
+    width: 380px !important;
   }
 
-  .img-proyectos{
+  .img-proyectos {
     object-fit: fill;
 
   }
 
-  .proyectos-fotos{
-    height: 364px; /*265*/
+  .proyectos-fotos {
+    height: 190px !important;
   }
-  .overlay h3{
+
+  .overlay h3 {
+    margin-top: 50px;
+  }
+
+  .github-btn {
+    width: 225% !important;
+  }
+
+  .acd-card {
+    width: 90%;
+  }
+}
+
+@media (min-width: 756px) and (max-width: 768px) {
+  .github-btn {
+    width: 0% !important;
+  }
+
+  .containerFotos {
+    width: 728px !important;
+    /*530*/
+  }
+
+  .img-proyectos {
+    object-fit: fill;
+
+  }
+
+  .proyectos-fotos {
+    height: 364px;
+    /*265*/
+  }
+
+  .overlay h3 {
     margin-top: 100px;
   }
 
-  .github-btn{
+  .github-btn {
     width: 50% !important;
   }
 }
 
-@media (min-width: 769px) and (max-width: 1024px){
-  .containerFotos{
+@media (min-width: 769px) and (max-width: 1024px) {
+  .containerFotos {
     width: 800px !important;
     /* width: 1024px !important; */
   }
 
-  .img-proyectos{
+  .img-proyectos {
     object-fit: fill;
 
   }
 
-  .proyectos-fotos{
+  .proyectos-fotos {
     height: 512px;
   }
-  .overlay h3{
+
+  .overlay h3 {
     margin-top: 200px;
   }
 }
 
-@media (min-width: 1025px) and (max-width: 1366px){
-  .acd-card{
+@media (min-width: 1025px) and (max-width: 1366px) {
+  .acd-card {
     width: 85%;
   }
-  .containerFotos{
+
+  .containerFotos {
     width: 1280px !important;
   }
 
-  .img-proyectos{
+  .img-proyectos {
     object-fit: fill;
 
   }
 
-  .proyectos-fotos{
+  .proyectos-fotos {
     height: 683px;
   }
-  .overlay h3{
+
+  .overlay h3 {
     margin-top: 300px;
   }
 }
 
-@media (min-width: 2160px) and (max-width: 3840px){
-  .acd-card{
+@media (min-width: 2160px) and (max-width: 3840px) {
+  .acd-card {
     width: 50% !important;
   }
 }

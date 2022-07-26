@@ -224,6 +224,7 @@ export class InicioComponent implements OnInit {
       if (result.isConfirmed) {
         this._portfolioService.del_cv(id, this.token).subscribe(
           res => {
+
             swal.fire({
               title: 'Eliminado!',
               text: res.mensaje,
@@ -234,6 +235,7 @@ export class InicioComponent implements OnInit {
                 confirmButton: 'outnone'
               }
             });
+            this.cv_home();
           },
           err => {
             console.log(err);
