@@ -317,7 +317,23 @@ button:disabled {
   margin-bottom: -50px;
 }
 
+.movil-none{
+  display: none !important;
+}
+
+.desktop-none{
+  display: block !important;
+}
+
 @media (max-width: 479px) {
+
+  .movil-none{
+    display: block !important;
+  }
+
+  .desktop-none{
+    display: none !important;
+  }
 
   .ml-3 {
     margin-bottom: -160px;
@@ -420,6 +436,14 @@ button:disabled {
 }
 
 @media (min-width: 756px) and (max-width: 768px) {
+  .movil-none{
+    display: block !important;
+  }
+
+  .desktop-none{
+    display: none !important;
+  }
+
   .github-btn {
     width: 0% !important;
   }
@@ -449,6 +473,12 @@ button:disabled {
 }
 
 @media (min-width: 769px) and (max-width: 1024px) {
+
+  .desktop-none{
+    display: block !important;
+  }
+
+
   .containerFotos {
     width: 800px !important;
     /* width: 1024px !important; */
@@ -469,6 +499,13 @@ button:disabled {
 }
 
 @media (min-width: 1025px) and (max-width: 1366px) {
+  .movil-none{
+    display: none !important;
+  }
+
+  .desktop-none{
+    display: block !important;
+  }
   .acd-card {
     width: 85%;
   }
@@ -492,6 +529,13 @@ button:disabled {
 }
 
 @media (min-width: 2160px) and (max-width: 3840px) {
+  .movil-none{
+    display: none !important;
+  }
+
+  .desktop-none{
+    display: block !important;
+  }
   .acd-card {
     width: 50% !important;
   }
