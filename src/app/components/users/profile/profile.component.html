@@ -3,169 +3,201 @@
 </ng-container>
 
 <ng-container *ngIf="isLoader == false">
-<app-nav></app-nav>
-<app-modal></app-modal>
-<section id="profile">
-  <div class="container profile">
-    <div class="row">
-      <div class="col-md-4">
-        <ng-container *ngIf="profile.avatar">
-          <img src="{{ profile.avatar }}" class="mi-img" alt="{{ profile.nombre }} {{ profile.apellido }}"
-          title="{{ profile.nombre }} {{ profile.apellido }}">
-        </ng-container>
-        <ng-container *ngIf="!profile.avatar">
-          <img src="../../../../assets/img/default_user.webp" class="mi-img" alt="{{ profile.nombre }} {{ profile.apellido }}"
-          title="{{ profile.nombre }} {{ profile.apellido }}">
-        </ng-container>
-      </div>
-      <div class="col-md-8 profiles">
-        <div class="row">
-          <div class="col-md-6">
-            <span class="label">Nombre: </span>
-            <br>
-            <span class="props">{{ profile.nombre }}</span>
-          </div>
-          <div class="col-md-6">
-            <span class="label">Apellido: </span>
-          <br>
-          <span class="props" >{{ profile.apellido }}</span>
-          </div>
-          <div class="col-md-6 mit-4">
-            <span class="label">Correo Electrónico: </span>
-            <br>
-            <span class="props">{{ profile.email }}</span>
-          </div>
-          <div class="col-md-6 mit-4">
-            <span class="label">Usuario: </span>
-            <br>
-            <span class="props">{{ profile.nombreUsuario }}</span>
-          </div>
+  <app-nav></app-nav>
+  <app-modal></app-modal>
+  <section id="profile">
+    <div class="container profile">
+      <div class="row">
+        <div class="col-md-4">
+          <ng-container *ngIf="profile.avatar">
+            <img src="{{ profile.avatar }}" class="mi-img" alt="{{ profile.nombre }} {{ profile.apellido }}"
+              title="{{ profile.nombre }} {{ profile.apellido }}">
+          </ng-container>
+          <ng-container *ngIf="!profile.avatar">
+            <img src="../../../../assets/img/default_user.webp" class="mi-img"
+              alt="{{ profile.nombre }} {{ profile.apellido }}" title="{{ profile.nombre }} {{ profile.apellido }}">
+          </ng-container>
         </div>
-        <ng-container *ngIf="isLogged == true">
-          <div class="buttons">
-            <button class="mr-2 btn-edit text-primary float-end order-2" (click)="borrar_usuario(profile.id)"><i class="bi bi-trash"></i> Borrar</button>
-          <button  data-bs-toggle="modal" [attr.data-bs-target]="'#edit-user-'+profile.id"
-            class="mr-2 btn-edit text-primary float-end order-1"><i class="bi bi-pencil"></i> Editar</button>
+        <div class="col-md-8 profiles">
+          <div class="row">
+            <div class="col-md-6">
+              <span class="label">Nombre: </span>
+              <br>
+              <span class="props">{{ profile.nombre }}</span>
+            </div>
+            <div class="col-md-6">
+              <span class="label">Apellido: </span>
+              <br>
+              <span class="props">{{ profile.apellido }}</span>
+            </div>
+            <div class="col-md-6 mit-4">
+              <span class="label">Correo Electrónico: </span>
+              <br>
+              <span class="props">{{ profile.email }}</span>
+            </div>
+            <div class="col-md-6 mit-4">
+              <span class="label">Usuario: </span>
+              <br>
+              <span class="props">{{ profile.nombreUsuario }}</span>
+            </div>
           </div>
-        </ng-container>
+          <ng-container *ngIf="isLogged == true">
+            <div class="buttons">
+              <button class="mr-2 btn-edit text-primary float-end order-2" (click)="borrar_usuario(profile.id)"><i
+                  class="bi bi-trash"></i> Borrar</button>
+              <button data-bs-toggle="modal" [attr.data-bs-target]="'#edit-user-'+profile.id"
+                class="mr-2 btn-edit text-primary float-end order-1"><i class="bi bi-pencil"></i> Editar</button>
+            </div>
+          </ng-container>
+        </div>
       </div>
     </div>
-  </div>
 
-  <!-- acerca de edit -->
-  <!-- Modal -->
-  <div class="modal fade" id="edit-user-{{ profile.id }}" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1"
-  aria-labelledby="staticBackdropLabel" aria-hidden="true">
-  <div class="modal-dialog modal-dialog-centered ">
-    <div class="modal-content">
-        <form #edituser="ngForm" (ngSubmit)="onEdit_user(edituser)" >
-          <div class="modal-header">
+    <!-- acerca de edit -->
+    <!-- Modal -->
+    <div class="modal fade" id="edit-user-{{ profile.id }}" data-bs-backdrop="static" data-bs-keyboard="false"
+      tabindex="-1" aria-labelledby="staticBackdropLabel" aria-hidden="true">
+      <div class="modal-dialog modal-dialog-centered ">
+        <div class="modal-content">
+          <form #edituser="ngForm" (ngSubmit)="onEdit_user(edituser)">
+            <div class="modal-header">
               <h5 class="modal-title" id="exampleModalLabel"><i class="pr-2 bi bi-pencil"></i>
-                  Editar Usuario: {{ profile.nombre }}  {{ profile.apellido }}</h5>
-              <button type="button" class="outnone btn-close btn-close-white" data-bs-dismiss="modal"
-                  aria-label="Close" (click)="onResetedit()"></button>
-          </div>
-          <div class="modal-body">
+                Editar Usuario: {{ profile.nombre }} {{ profile.apellido }}</h5>
+              <button type="button" class="outnone btn-close btn-close-white" data-bs-dismiss="modal" aria-label="Close"
+                (click)="onResetedit()"></button>
+            </div>
+            <div class="modal-body">
               <div class="container-fluid">
 
-               <label for="nombre" class="label-contact"><i class="bi bi-person"></i> Nombre</label>
-               <input type="text" name="nombre" id="nombre" [(ngModel)]="nombre" class="form-control input-contact outnone" placeholder="Ingrese un nombre" required  autocomplete="off">
+                <label for="nombre" class="label-contact"><i class="bi bi-person"></i> Nombre</label>
+                <input type="text" name="nombre" id="nombre" [(ngModel)]="nombre"
+                  class="form-control input-contact outnone" placeholder="Ingrese un nombre" required
+                  autocomplete="off">
 
 
-               <label for="apellido" class="label-contact"><i class="bi bi-person"></i> Apellido</label>
-               <input type="text" name="apellido" id="apellido" [(ngModel)]="apellido" class="form-control input-contact outnone" placeholder="Ingrese un apellido" required  autocomplete="off">
+                <label for="apellido" class="label-contact"><i class="bi bi-person"></i> Apellido</label>
+                <input type="text" name="apellido" id="apellido" [(ngModel)]="apellido"
+                  class="form-control input-contact outnone" placeholder="Ingrese un apellido" required
+                  autocomplete="off">
 
-               <label for="email" class="label-contact"><i class="bi bi-at"></i> Email</label>
-               <input type="email" name="email" id="email" readonly [(ngModel)]="email" class="form-control input-contact outnone" placeholder="Ingrese un correo electrónico valido" required  autocomplete="off">
+                <label for="email" class="label-contact"><i class="bi bi-at"></i> Email</label>
+                <input type="email" name="email" id="email" readonly [(ngModel)]="email"
+                  class="form-control input-contact outnone" placeholder="Ingrese un correo electrónico valido" required
+                  autocomplete="off">
 
-               <label for="usuario" class="label-contact"><i class="bi bi-person-circle"></i> Usuario</label>
-               <input type="text" name="usuario" id="usuario" readonly [(ngModel)]="nombreUsuario" class="form-control input-contact outnone" placeholder="Ingrese un usuario valido" required  autocomplete="off">
+                <label for="usuario" class="label-contact"><i class="bi bi-person-circle"></i> Usuario</label>
+                <input type="text" name="usuario" id="usuario" readonly [(ngModel)]="nombreUsuario"
+                  class="form-control input-contact outnone" placeholder="Ingrese un usuario valido" required
+                  autocomplete="off">
 
 
 
 
-               <label for="profile" class="label-contact"><i class="bi bi-image"></i> Foto</label>
-               <input class="outnone form-control form-file" required type="file" #myInput id="file-input" name="file" (change)="fileChangeEvent($event)" accept="image/gif, image/jpg, image/jpeg, image/png, image/webp">
+                <label for="profile" class="label-contact"><i class="bi bi-image"></i> Foto</label>
+                <input class="outnone form-control form-file" required type="file" #myInput id="file-input" name="file"
+                  (change)="fileChangeEvent($event)" accept="image/gif, image/jpg, image/jpeg, image/png, image/webp">
 
               </div>
-          </div>
-          <div class="modal-footer">
+            </div>
+            <div class="modal-footer">
               <div class="d-flex me-auto">
-                  <button type="button" class="mr-auto outnone btn btn-secondary" data-bs-dismiss="modal" (click)="onResetedit()"><i
-                          class="pr-2  bi bi-x-lg"></i> Cancelar</button>
+                <button type="button" class="mr-auto outnone btn btn-secondary" data-bs-dismiss="modal"
+                  (click)="onResetedit()"><i class="pr-2  bi bi-x-lg"></i> Cancelar</button>
               </div>
               <div class="d-flex">
-                  <button type="submit" *ngIf="!load_btn" class="outnone btn login-btn" [disabled]="!edituser.valid"><i
-                          class="pr-2 bi bi-pencil"></i> Editar</button>
+                <button type="submit" *ngIf="!load_btn" class="outnone btn login-btn" [disabled]="!edituser.valid"><i
+                    class="pr-2 bi bi-pencil"></i> Editar</button>
 
-                          <button *ngIf="load_btn" type="button" class="outnone btn login-btn" disabled>
-                           <span class="spinner-grow spinner-grow-sm mr-2" role="status" aria-hidden="true"></span>
-                           Editando ...
-                       </button>
-              </div>
-          </div>
-         </form>
-      </div>
-  </div>
-  </div>
-  <!-- fin modal -->
-  <!-- fin acerca de edit -->
-</section>
-<section id="downloads">
-  <div class="container ">
-    <div class="row ">
-      <div class="col-md-12 ">
-        <div class="">
-          <div class="header">
-            <h1 class="title">Mis Descargas</h1>
-          </div>
-          <ng-container *ngIf="isDonwload == true">
-            <div class="body ">
-              <div class="row">
-                <div class="col-md-3 d-flex mb-4" *ngFor="let ddcv of dcv" >
-                    <div class="card m15a w-85">
-                    <div class="card-body">
-                      <h5 class="card-title text-center">{{ ddcv.nombreCv }}</h5>
-                      <p class="card-text text-center">Fecha de descarga: <br> <span class="text-primary">{{ ddcv.fdescarga }}</span></p>
-                      <a href="{{ ddcv.ruta }}" download="{{ ddcv.nombredown }}" class="outnone btn btn-primary d-flex justify-content-center"><i class="pr-2 bi bi-cloud-download"></i> Volver a descargar</a>
-                    </div>
-                  </div>
-
-                </div>
+                <button *ngIf="load_btn" type="button" class="outnone btn login-btn" disabled>
+                  <span class="spinner-grow spinner-grow-sm mr-2" role="status" aria-hidden="true"></span>
+                  Editando ...
+                </button>
               </div>
             </div>
-          </ng-container>
-
-          <ng-container *ngIf="isDonwload == false">
-            <div class="">
-              <div class="body ">
-                <div class="row">
-                  <div class="col-md-12 d-flex mb-4">
-                      <div class="card bgc m15a w-85">
-                      <div class="card-body">
-                        <h5 class="card-title text-center">Aun no tienes descargado ningun cv</h5>
-                        <div class="text-center">
-                          <img class="mt-4 mb-4" src="assets/img/error.svg" alt="no hay" width="100px">
-                        </div>
-                        <a [routerLink]="['/']" class="outnone btn btn-primary d-flex justify-content-center"><i class="pr-2 bi bi-cloud-download"></i> Ir a descargar</a>
-                      </div>
-                    </div>
-
-                  </div>
-                </div>
-              </div>
-            </div>
-          </ng-container>
-
+          </form>
         </div>
       </div>
     </div>
-  </div>
-</section>
-<a class="ir-arriba" data-bs-toggle="tooltip" data-bs-placement="left" title="Ir arriba">
-  <span class="fa-stack">
-    <i class="fa fa-arrow-up fa-stack-1x fa-inverse"></i>
-  </span>
-</a>
-<app-footer></app-footer>
+    <!-- fin modal -->
+    <!-- fin acerca de edit -->
+  </section>
+  <section id="downloads">
+    <div class="container ">
+      <div class="row ">
+        <div class="col-md-12 ">
+          <div class="">
+            <div class="header">
+              <h1 class="title">Mis Descargas</h1>
+            </div>
+            <ng-container *ngIf="isDonwload == true">
+              <div class="body ">
+                <div class="desktop-profile">
+                  <div class="row">
+                    <div class="col-md-3 d-flex mb-4" *ngFor="let ddcv of dcv">
+                      <div class="card m15a w-85">
+                        <div class="card-body">
+                          <h5 class="card-title text-center">{{ ddcv.nombreCv }}</h5>
+                          <p class="card-text text-center">Fecha de descarga: <br> <span class="text-primary">{{
+                              ddcv.fdescarga }}</span></p>
+                          <a href="{{ ddcv.ruta }}?nombre={{ ddcv.nombredown }}" download="{{ ddcv.nombredown }}"
+                            class="outnone btn btn-primary d-flex justify-content-center"><i
+                              class="pr-2 bi bi-cloud-download"></i> Volver a descargar</a>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+
+                <div class="mobile-profile">
+                  <div class="row">
+                    <div class="col-md-3 d-flex mb-4" *ngFor="let ddcv of dcv">
+                      <div class="card m15a w-85">
+                        <div class="card-body">
+                          <h5 class="card-title text-center">{{ ddcv.nombreCv }}</h5>
+                          <p class="card-text text-center">Fecha de descarga: <br> <span class="text-primary">{{
+                              ddcv.fdescarga }}</span></p>
+                          <a href="{{ ddcv.rutaMovil }}"
+                            class="outnone btn btn-primary d-flex justify-content-center"><i
+                              class="pr-2 bi bi-cloud-download"></i> Volver a descargar</a>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </ng-container>
+
+            <ng-container *ngIf="isDonwload == false">
+              <div class="">
+                <div class="body ">
+                  <div class="row">
+                    <div class="col-md-12 d-flex mb-4">
+                      <div class="card bgc m15a w-85">
+                        <div class="card-body">
+                          <h5 class="card-title text-center">Aun no tienes descargado ningun cv</h5>
+                          <div class="text-center">
+                            <img class="mt-4 mb-4" src="assets/img/error.svg" alt="no hay" width="100px">
+                          </div>
+                          <a [routerLink]="['/']" class="outnone btn btn-primary d-flex justify-content-center"><i
+                              class="pr-2 bi bi-cloud-download"></i> Ir a descargar</a>
+                        </div>
+                      </div>
+
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </ng-container>
+
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+  <a class="ir-arriba" data-bs-toggle="tooltip" data-bs-placement="left" title="Ir arriba">
+    <span class="fa-stack">
+      <i class="fa fa-arrow-up fa-stack-1x fa-inverse"></i>
+    </span>
+  </a>
+  <app-footer></app-footer>
 </ng-container>

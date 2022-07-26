@@ -12,6 +12,9 @@ align-items: center;
 padding: 11px;
 }
 
+.mobile-profile{
+  display: none
+}
 
 button:disabled{
   background-color: transparent !important;
@@ -87,6 +90,14 @@ button:disabled{
   @media  (max-width: 479px){
   .w-85{
     width: 85%;
+  }
+
+  .desktop-profile{
+    display: none;
+  }
+
+  .mobile-profile{
+    display: block;
   }
 
   .mit-4{

@@ -317,9 +317,9 @@ button:disabled {
   margin-bottom: -50px;
 }
 
-.desktop-2{
-  display: block !important;
-}
+/* .desktop-2{
+  display: block;
+} */
 
 @media (max-width: 479px) {
   .ml-3 {
@@ -335,12 +335,16 @@ button:disabled {
     margin-bottom: -50px;
   }
 
-  .mobile, .mobile-2 {
+  .mobile-2{
+    display: inline-block;
+  }
+
+  .mobile {
     display: block;
   }
 
   .desktop, .desktop-2 {
-    display: none;
+    display: none !important;
   }
 
   .mr-4 {

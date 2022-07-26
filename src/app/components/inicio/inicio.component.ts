@@ -608,10 +608,10 @@ export class InicioComponent implements OnInit {
           NombreCv: this.titulo_cv,
           DescripcionCv: this.descripcion_cv,
         };
-        this.load_btn = true;
+        this.load_btn_cv = true;
         this._portfolioService.post_cv_data(this.data, this.file, this.token).subscribe(
           res => {
-            this.load_btn = false;
+            this.load_btn_cv = false;
             $('#agr-head-init-cv').modal('hide');
             $('.modal-backdrop').removeClass('show');
             this.cv_home();
@@ -627,6 +627,7 @@ export class InicioComponent implements OnInit {
             this.myInputVariable.nativeElement.value = "";
           },
           err => {
+            this.load_btn_cv = false;
             iziToast.error({
               title: 'Error',
               message: err.error.message,

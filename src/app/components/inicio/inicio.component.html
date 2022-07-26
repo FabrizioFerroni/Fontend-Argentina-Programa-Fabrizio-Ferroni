@@ -39,7 +39,7 @@
                 class="outnone download-btn desktop-2 btn w-198" (click)="dcv_home(cv.id)"><i class="bi bi-cloud-download"></i>
                 Descargar mi CV</a>
 
-                <a href="{{ cv.cvUrlMovil }}" download="{{ cv.nombredown }}"
+                <a href="{{ cv.cvUrlMovil }}"
                 class="outnone download-btn mobile-2 btn w-198" (click)="dcv_home(cv.id)"><i class="bi bi-cloud-download"></i>
                 Descargar mi CV</a>
               <span *ngIf="isAdmin == true && is_loged == true">
