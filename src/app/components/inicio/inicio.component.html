@@ -36,11 +36,11 @@
           <ng-container *ngIf="is_loged == true">
             <div class="mbb-50" *ngFor="let cv of cvs">
               <a href="{{ cv.cvURL }}?nombre={{ cv.nombredown }}" download="{{ cv.nombredown }}"
-                class="outnone download-btn movil-none btn w-198" (click)="dcv_home(cv.id)"><i class="bi bi-cloud-download"></i>
+                class="outnone download-btn desktop btn w-198" (click)="dcv_home(cv.id)"><i class="bi bi-cloud-download"></i>
                 Descargar mi CV</a>
 
-                <a href="{{ cv.cvUrlMovil }}}" download="{{ cv.nombredown }}"
-                class="outnone download-btn desktop-none btn w-198" (click)="dcv_home(cv.id)"><i class="bi bi-cloud-download"></i>
+                <a href="{{ cv.cvUrlMovil }}" download="{{ cv.nombredown }}"
+                class="outnone download-btn mobile btn w-198" (click)="dcv_home(cv.id)"><i class="bi bi-cloud-download"></i>
                 Descargar mi CV</a>
               <span *ngIf="isAdmin == true && is_loged == true">
                 <button class="ml-3 outnone download-btn btn" (click)="borrar_cv(cv.id)"><i class="bi bi-trash"></i> Borrar

@@ -328,11 +328,11 @@ button:disabled {
 @media (max-width: 479px) {
 
   .movil-none{
-    display: block !important;
+    display: none !important;
   }
 
   .desktop-none{
-    display: none !important;
+    display: block !important;
   }
 
   .ml-3 {
@@ -437,11 +437,11 @@ button:disabled {
 
 @media (min-width: 756px) and (max-width: 768px) {
   .movil-none{
-    display: block !important;
+    display: none !important;
   }
 
   .desktop-none{
-    display: none !important;
+    display: block !important;
   }
 
   .github-btn {
