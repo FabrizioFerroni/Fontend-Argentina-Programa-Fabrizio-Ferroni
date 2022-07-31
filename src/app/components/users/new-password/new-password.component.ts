@@ -49,11 +49,11 @@ export class NewPasswordComponent implements OnInit {
     @Inject(DOCUMENT) private _document: Document,
     private titleService: Title
 
-  ) {  }
+  ) { }
 
   ngOnInit(): void {
     moment.locale('es');
-console.log(this.username);
+    console.log(this.username);
 
     let body = this._document.body;
     let script = this._renderer2.createElement('script');
@@ -77,9 +77,7 @@ console.log(this.username);
 
     this.activatedRoute.params.subscribe(params => {
       this.tokenPassword = params['tokenPassword'];
-    }
-
-    );
+    });
 
     this.emailService.getTokenPassword(this.tokenPassword).subscribe(
       res => {
@@ -109,7 +107,7 @@ console.log(this.username);
     var duration = moment.duration(now.diff(creado)).asHours();
     console.log("Tiempo valido del token: ", duration);
 
-    if(duration >= 24){
+    if (duration >= 24) {
       this.emailService.invalidtoken(this.tokenPassword).subscribe(
         err => {
           swal.fire({

@@ -243,6 +243,14 @@ export class AcercaDeComponent implements OnInit {
     )
   }
 
+  validate(email: string) {
+    return String(email)
+      .toLowerCase()
+      .match(
+        /^(([^<>()[\]\\.,;:\s@"]+(\.[^<>()[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/
+      );
+  }
+
   onSubmitacd(addacd: any) {
     this.titulo_acd = this.titulo_acd.trim().toLowerCase().replace(/\w\S*/g, (w) => (w.replace(/^\w/, (c) => c.toUpperCase())));
     this.data = {
@@ -258,35 +266,43 @@ export class AcercaDeComponent implements OnInit {
           message: 'Debe subir una imagen para guardar el apartado Acerca de mi'
         });
       } else {
-        this.load_btn = true;
-        this._portfolioService.post_acd_data(this.data, this.file, this.token).subscribe(
-          res => {
-            console.log(res);
-            this.about_me = true;
-            $('#agr-acd').modal('hide');
-            $('.modal-backdrop').removeClass('show');
-            this.onResetacd();
-            iziToast.success({
-              title: 'ÉXITO',
-              position: 'topRight',
-              message: res.mensaje
-            });
-            this.load_btn = false;
-            this.titulo_acd = '';
-            this.descripcion_acd = '';
-            this.email_acd = '';
-            this.myInputVariable.nativeElement.value = "";
-            this.acerca_de_acd();
-          },
-          err => {
-            console.log(err);
-            iziToast.error({
-              title: 'ERROR',
-              position: 'topRight',
-              message: err.error.mensaje
-            });
-          }
-        )
+        if (this.validate(this.email_acd)) {
+          this.load_btn = true;
+          this._portfolioService.post_acd_data(this.data, this.file, this.token).subscribe(
+            res => {
+              console.log(res);
+              this.about_me = true;
+              $('#agr-acd').modal('hide');
+              $('.modal-backdrop').removeClass('show');
+              this.onResetacd();
+              iziToast.success({
+                title: 'ÉXITO',
+                position: 'topRight',
+                message: res.mensaje
+              });
+              this.load_btn = false;
+              this.titulo_acd = '';
+              this.descripcion_acd = '';
+              this.email_acd = '';
+              this.myInputVariable.nativeElement.value = "";
+              this.acerca_de_acd();
+            },
+            err => {
+              console.log(err);
+              iziToast.error({
+                title: 'ERROR',
+                position: 'topRight',
+                message: err.error.mensaje
+              });
+            }
+          )
+        } else {
+          iziToast.warning({
+            title: 'ADVERTENCIA',
+            position: 'topRight',
+            message: 'El correo electrónico ingresado: ' + this.email_acd + ' no es válido'
+          });
+        }
       }
     }
   }
@@ -320,34 +336,42 @@ export class AcercaDeComponent implements OnInit {
           message: 'Debe subir una imagen para guardar el apartado Acerca de mi'
         });
       } else {
-        this.load_btn = true;
-        this._portfolioService.update_acd_data(this.acd_id, this.data, this.file, this.token).subscribe(
-          res => {
-            console.log(res);
-            $('#edit-acd-' + this.acd_id).modal('hide');
-            $('.modal-backdrop').removeClass('show');
-            this.onResetacd();
-            iziToast.success({
-              title: 'ÉXITO',
-              position: 'topRight',
-              message: res.mensaje
-            });
-            this.load_btn = false;
-            this.titulo_acd_edit = '';
-            this.descripcion_acd_edit = '';
-            this.email_acd_edit = '';
-            this.myInputVariable.nativeElement.value = "";
-            this.acerca_de_acd();
-          },
-          err => {
-            console.log(err);
-            iziToast.error({
-              title: 'ERROR',
-              position: 'topRight',
-              message: err.error.mensaje
-            });
-          }
-        )
+        if (this.validate(this.email_acd_edit)) {
+          this.load_btn = true;
+          this._portfolioService.update_acd_data(this.acd_id, this.data, this.file, this.token).subscribe(
+            res => {
+              console.log(res);
+              $('#edit-acd-' + this.acd_id).modal('hide');
+              $('.modal-backdrop').removeClass('show');
+              this.onResetacd();
+              iziToast.success({
+                title: 'ÉXITO',
+                position: 'topRight',
+                message: res.mensaje
+              });
+              this.load_btn = false;
+              this.titulo_acd_edit = '';
+              this.descripcion_acd_edit = '';
+              this.email_acd_edit = '';
+              this.myInputVariable.nativeElement.value = "";
+              this.acerca_de_acd();
+            },
+            err => {
+              console.log(err);
+              iziToast.error({
+                title: 'ERROR',
+                position: 'topRight',
+                message: err.error.mensaje
+              });
+            }
+          )
+        } else {
+          iziToast.warning({
+            title: 'ADVERTENCIA',
+            position: 'topRight',
+            message: 'El correo electrónico ingresado: ' + this.email_acd_edit + ' no es válido'
+          });
+        }
       }
     }
   }
@@ -706,38 +730,38 @@ export class AcercaDeComponent implements OnInit {
       periodoHasta: this.periodo_hasta
     }
 
-    if(addexp.valid){
+    if (addexp.valid) {
       this.load_btn = true;
-    this._portfolioService.post_experiencia_data(this.data, this.token).subscribe(
-      res => {
-        console.log(res);
-        $('#agr-exp').modal('hide');
-        $('.modal-backdrop').removeClass('show');
-        this.experiencia_acd();
-        this.titulo_exp = '';
-        this.descripcion_exp = '';
-        this.periodo_desde = '';
-        this.periodo_hasta = '';
-        this.onResetexp();
-        this.load_btn = false;
-        iziToast.success({
-          title: 'ÉXITO',
-          position: 'topRight',
-          message: res.mensaje
-        });
-      },
-      err => {
-        console.log(err);
-        this.load_btn = false;
-        iziToast.error({
-          title: 'ERROR',
-          position: 'topRight',
-          message: err.error.mensaje
-        });
-      }
+      this._portfolioService.post_experiencia_data(this.data, this.token).subscribe(
+        res => {
+          console.log(res);
+          $('#agr-exp').modal('hide');
+          $('.modal-backdrop').removeClass('show');
+          this.experiencia_acd();
+          this.titulo_exp = '';
+          this.descripcion_exp = '';
+          this.periodo_desde = '';
+          this.periodo_hasta = '';
+          this.onResetexp();
+          this.load_btn = false;
+          iziToast.success({
+            title: 'ÉXITO',
+            position: 'topRight',
+            message: res.mensaje
+          });
+        },
+        err => {
+          console.log(err);
+          this.load_btn = false;
+          iziToast.error({
+            title: 'ERROR',
+            position: 'topRight',
+            message: err.error.mensaje
+          });
+        }
 
-    )
-    }else{
+      )
+    } else {
       console.log("El formulario no es valido");
 
     }
@@ -1390,7 +1414,7 @@ export class AcercaDeComponent implements OnInit {
         this._portfolioService.put_services_data(this.id_serv, this.data, this.file, this.token).subscribe(
           res => {
             this.load_btn = false;
-            $('#edit-serv-'+ this.id_serv).modal('hide');
+            $('#edit-serv-' + this.id_serv).modal('hide');
             $('.modal-backdrop').removeClass('show');
             this.titulo_serv_edit = this.titulo_serv_edit
             this.descripcion_serv_edit = this.descripcion_serv_edit;

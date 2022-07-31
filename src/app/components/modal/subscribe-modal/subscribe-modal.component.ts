@@ -26,58 +26,64 @@ export class SubscribeModalComponent implements OnInit {
   ngOnInit(): void {
   }
 
+
+  validate(email: string) {
+    return String(email)
+      .toLowerCase()
+      .match(
+        /^(([^<>()[\]\\.,;:\s@"]+(\.[^<>()[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/
+      );
+  }
+
   onSubmit(subscribe: any) {
-    this.load_btn = true;
-    this.subs = {
-      nombre: this.nombre,
-      email: this.email
-    }
-    this.portfolioService.post_sub(this.subs).subscribe(
-      res => {
-        iziToast.success({
-          title: 'Gracias por suscribirte 😁',
-          message: res.mensaje,
-          position: 'topRight'
-        });
-        this.load_btn = false;
-        this.nombre = '';
-        this.email = '';
-          $('#subscribe').modal('hide');
-          $('.modal-backdrop').removeClass('show');
-        // swal.fire({
-        //   title: 'Gracias 😁',
-        //   text: res.mensaje,
-        //   icon: 'success',
-        //   showCancelButton: false,
-        //   confirmButtonColor: '#5c62ec',
-        //   cancelButtonColor: '#d33',
-        //   confirmButtonText: 'Aceptar',
-        //   cancelButtonText: 'Cancelar',
-        //   customClass: {
-        //     cancelButton: 'outnone',
-        //     confirmButton: 'outnone',
-        //   }
-        // }).then((result) => {
-        //   this.load_btn = false;
-        //   $('#subscribe').modal('hide');
-        //   $('.modal-backdrop').removeClass('show');
-        // })
 
-
-      },
-      err => {
-        this.load_btn = false;
-        iziToast.error({
-          title: 'Error',
-          message: err.mensaje,
-          position: 'topRight'
+    if(subscribe.valid){
+      if (this.validate(this.email)) {
+        this.subs = {
+          nombre: this.nombre,
+          email: this.email
+        }
+        this.load_btn = true;
+        this.portfolioService.post_sub(this.subs).subscribe(
+          res => {
+            iziToast.success({
+              title: 'Gracias por suscribirte 😁',
+              message: res.mensaje,
+              position: 'topRight'
+            });
+            this.load_btn = false;
+            this.nombre = '';
+            this.email = '';
+            $('#subscribe').modal('hide');
+            $('.modal-backdrop').removeClass('show');
+          },
+          err => {
+            this.load_btn = false;
+            iziToast.error({
+              title: 'Error',
+              message: err.mensaje,
+              position: 'topRight'
+            });
+          }
+        );
+      } else {
+        iziToast.warning({
+          title: 'ADVERTENCIA',
+          position: 'topRight',
+          message: 'El correo electrónico ingresado: ' + this.email + ' no es válido'
         });
       }
-    );
+    }else{
+      iziToast.warning({
+        title: 'ADVERTENCIA',
+        message: 'Debes llenar todos los campos',
+        position: 'topRight',
+      });
+    }
 
   }
 
-  resetSus():void {
+  resetSus(): void {
     this.nombre = '';
     this.email = '';
   }

@@ -34,6 +34,19 @@ export class AuthService {
     return this._http.get(this.url + 'usuario');
   }
 
+  public getTokenPassword(token: string): Observable<any> {
+    return this._http.get(this.url + 'getidwithtoken_user/' + token);
+  }
+
+  public get_verify(token: string): Observable<any>{
+    return this._http.get(this.url + 'verifyuser/' + token);
+  }
+
+  public resendtoken(token: string): Observable<any>{
+    return this._http.get(this.url + 'resendtoken/' + token);
+  }
+
+
   public refresh(dto: JwtDTO): Observable<JwtDTO> {
     return this._http.post<JwtDTO>(this.url + 'refresh', dto);
   }

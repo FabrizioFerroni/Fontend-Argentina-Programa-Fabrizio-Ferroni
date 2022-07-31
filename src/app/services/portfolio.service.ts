@@ -377,6 +377,16 @@ export class PortfolioService {
 
   }
 
+  get_fields_contact(token: string): Observable<any>{
+    let headers = new HttpHeaders({ 'Authorization': 'Bearer ' + token });
+    return this._http.get(this.url + 'fieldcontact', { headers: headers });
+  }
+
+  put_fields_contact(id: number, data: any, token: string): Observable<any>{
+    let headers = new HttpHeaders({ 'Authorization': 'Bearer ' + token });
+    return this._http.put(this.url + 'fieldcontact/' + id + '/editar', data, { headers: headers });
+  }
+
   getidwithtoken(token: string): Observable<any> {
     return this._http.get(this.url + 'getidwithtoken/' + token)
   }
@@ -384,14 +394,4 @@ export class PortfolioService {
   unsuscribe(id: number): Observable<any> {
     return this._http.delete(this.url + 'suscriptor/' + id + '/borrar')
   }
-
-
-  // Datos locales
-
-  // users(): Observable<any> {
-  //   return this._http.get('../../assets/sql/usuarios.json');
-  // }
-
-
-
 }

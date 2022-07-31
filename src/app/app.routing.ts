@@ -21,6 +21,7 @@ const appRoute: Routes = [
   { path: 'contactame', component: ContactameComponent },
   { path: 'mi-perfil', component: ProfileComponent },
   { path: 'iniciarsesion', component: LoginComponent },
+  { path: 'iniciarsesion/verificarusuario/:tokenVerify', component: LoginComponent },
   { path: 'registrarse', component: RegisterComponent },
   { path: 'olvide-mi-contrasena', component: RecoveryComponent },
   { path: 'cambiar-contrasena/:tokenPassword', component: NewPasswordComponent },

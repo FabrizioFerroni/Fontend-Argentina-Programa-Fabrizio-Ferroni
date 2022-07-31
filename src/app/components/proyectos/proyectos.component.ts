@@ -31,8 +31,10 @@ export class ProyectosComponent implements OnInit {
   file: any = undefined;
   load_btn: boolean = false;
   @ViewChild('myInput') myInputVariable!: ElementRef;
-  regxurl: string = "(https?:\/\/(?:www\.|(?!www))[a-zA-Z0-9][a-zA-Z0-9-]+[a-zA-Z0-9]\.[^\s]{2,}|www\.[a-zA-Z0-9][a-zA-Z0-9-]+[a-zA-Z0-9]\.[^\s]{2,}|https?:\/\/(?:www\.|(?!www))[a-zA-Z0-9]+\.[^\s]{2,}|www\.[a-zA-Z0-9]+\.[^\s]{2,})";
-  regxurl2: string = "(https?:\/\/(?:www\.|(?!www))[a-zA-Z0-9][a-zA-Z0-9-]+[a-zA-Z0-9]\.[^\s]{2,}|www\.[a-zA-Z0-9][a-zA-Z0-9-]+[a-zA-Z0-9]\.[^\s]{2,}|https?:\/\/(?:www\.|(?!www))[a-zA-Z0-9]+\.[^\s]{2,}|www\.[a-zA-Z0-9]+\.[^\s]{2,})";
+  // regxurl: string = "(https?:\/\/(?:www\.|(?!www))[a-zA-Z0-9][a-zA-Z0-9-]+[a-zA-Z0-9]\.[^\s]{2,}|www\.[a-zA-Z0-9][a-zA-Z0-9-]+[a-zA-Z0-9]\.[^\s]{2,}|https?:\/\/(?:www\.|(?!www))[a-zA-Z0-9]+\.[^\s]{2,}|www\.[a-zA-Z0-9]+\.[^\s]{2,})";
+  regxurl: string = "(https?:\/\/(?:www\.|(?!www))[a-zA-Z0-9][a-zA-Z0-9-]+[a-zA-Z0-9]\.[^\s]{2,}|https?:\/\/(?:www\.|(?!www))[a-zA-Z0-9])";
+  regxurl2: string = "(https?:\/\/(?:www\.|(?!www))[a-zA-Z0-9][a-zA-Z0-9-]+[a-zA-Z0-9]\.[^\s]{2,}|https?:\/\/(?:www\.|(?!www))[a-zA-Z0-9])";
+  // regxurl2: string = "(https?:\/\/(?:www\.|(?!www))[a-zA-Z0-9][a-zA-Z0-9-]+[a-zA-Z0-9]\.[^\s]{2,}|www\.[a-zA-Z0-9][a-zA-Z0-9-]+[a-zA-Z0-9]\.[^\s]{2,}|https?:\/\/(?:www\.|(?!www))[a-zA-Z0-9]+\.[^\s]{2,}|www\.[a-zA-Z0-9]+\.[^\s]{2,})";
 
   // Proyectos
   id!: any;
@@ -192,8 +194,8 @@ export class ProyectosComponent implements OnInit {
     this.titulo = this.titulo.trim().toLowerCase().replace(/\w\S*/g, (w) => (w.replace(/^\w/, (c) => c.toUpperCase())));
     var regex = new RegExp(this.regxurl);
     if (!this.link_demo.match(regex) && !this.link_github.match(regex)) {
-      iziToast.error({
-        title: 'ERROR',
+      iziToast.warning({
+        title: 'ADVERTENCIA',
         position: 'topRight',
         message: 'La url ingresada de Github: ' + this.link_github + ' no es correcta y la de Demo: ' + this.link_demo + ' tampoco son correctas'
       });
@@ -294,8 +296,8 @@ export class ProyectosComponent implements OnInit {
     // console.log(editproy.form.value);
 
     if (!ld.match(regex2) && !lg.match(regex2)) {
-      iziToast.error({
-        title: 'ERROR',
+      iziToast.warning({
+        title: 'ADVERTENCIA',
         position: 'topRight',
         message: 'La url ingresada de Github: ' + lg + ' no es correcta y la de Demo: ' + ld + ' tampoco son correctas'
       });
@@ -364,8 +366,8 @@ export class ProyectosComponent implements OnInit {
 
         } else {
 
-          iziToast.error({
-            title: 'ERROR',
+          iziToast.warning({
+            title: 'ADVERTENCIA',
             position: 'topRight',
             message: 'La url ingresada: ' + lg + ' no es correcta'
           });
@@ -374,8 +376,8 @@ export class ProyectosComponent implements OnInit {
 
       } else {
         console.log("Fail en link demo: ", ld);
-        iziToast.error({
-          title: 'ERROR',
+        iziToast.warning({
+          title: 'ADVERTENCIA',
           position: 'topRight',
           message: 'La url ingresada: ' + ld + ' no es correcta'
         });

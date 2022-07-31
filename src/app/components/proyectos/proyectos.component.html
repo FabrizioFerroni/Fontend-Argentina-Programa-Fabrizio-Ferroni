@@ -25,7 +25,7 @@
         <img src="{{ project.imagenUrl  }}" class="card-img-top proyectos-img-card" alt="...">
         <div class="card-body">
             <h5 class="card-title float-start text-primary-custom">{{ project.titulo }}</h5>
-            <p class="card-text">
+            <p class="card-text ulpb-15">
               <small class="text-muted act-proyectos float-end" >
                 Última actualización: {{ upd(project.editedAt) }}
               </small>
@@ -38,8 +38,8 @@
 
                 <div class="buttons-proy">
                   <div class="buttons-pro">
-                    <a href="{{ project.link_demo }}" class="outnone btn btn-primary btn-viewmore"  target="_blank"><i class="bi bi-box-arrow-up-right"></i> Ver Demo</a>
-                    <a href="{{ project.link_github }}" class="ml-2 outnone btn btn-github "  target="_blank"><i class="bi bi-github"></i> Ver Repositorio</a>
+                    <a href="{{ project.link_demo }}" class="outnone btn btn-primary btn-viewmore"  target="_blank" rel="nofollow noopener noreferrer"><i class="bi bi-box-arrow-up-right"></i> Ver Demo</a>
+                    <a href="{{ project.link_github }}" class="ml-2 outnone btn btn-github "  target="_blank" rel="nofollow noopener noreferrer"><i class="bi bi-github"></i> Ver Repositorio</a>
                   </div>
                   <div class="buttons-serv">
                     <ng-container *ngIf="is_loged == true && isAdmin == true || isProfesor == true">

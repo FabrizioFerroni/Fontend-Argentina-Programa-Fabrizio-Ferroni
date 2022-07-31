@@ -86,16 +86,16 @@
                 <label for="phone_form" class="label-contact"> ¿Mostrar número de telefóno?</label>
                 <select name="phone_form" [(ngModel)]="phone_form" class="form-select input-contact outnone" required>
                   <option value="" selected disabled>Seleccione una opción</option>
-                  <option value="si">Sí</option>
-                  <option value="no">No</option>
+                  <option value="true">Sí</option>
+                  <option value="false">No</option>
                 </select>
 
                 <label for="subject_form" class="label-contact">¿Mostrar el asunto?</label>
                 <select name="subject_form" [(ngModel)]="subject_form" class="form-select input-contact outnone"
                   required>
                   <option value="" selected disabled>Seleccione una opción</option>
-                  <option value="si">Sí</option>
-                  <option value="no">No</option>
+                  <option value="true">Sí</option>
+                  <option value="false">No</option>
                 </select>
 
 
@@ -107,7 +107,11 @@
                     class="pr-2  bi bi-x-lg"></i> Cancelar</button>
               </div>
               <div class="d-flex">
-                <button type="submit" class="outnone btn login-btn"><i class="pr-2 bi bi-pencil"></i> Editar</button>
+                <button *ngIf="!load_btn_edit" type="submit" class="outnone btn login-btn" [disabled]="!editcontactForm.valid"><i class="pr-2 bi bi-pencil"></i> Editar</button>
+                <button *ngIf="load_btn_edit" type="button" class="outnone btn login-btn" disabled>
+                  <span class="spinner-grow spinner-grow-sm mr-2" role="status" aria-hidden="true"></span>
+                  Editando ...
+              </button>
               </div>
             </div>
           </form>

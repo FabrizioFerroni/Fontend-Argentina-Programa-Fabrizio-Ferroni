@@ -14,6 +14,8 @@
 
 }
 
+
+
 .error {
   border: 1px solid #DC3545;
   color: #DC3545;
@@ -104,7 +106,9 @@ button:disabled{
 }
 
 @media (max-width: 420px) {
-
+  .ulpb-15{
+    padding-bottom: 15px;
+  }
   /* .proyectos-card {
     width: 250% !important;
   } */
@@ -126,6 +130,9 @@ button:disabled{
 }
 
 @media (min-width: 421px) and (max-width: 479px) {
+  .ulpb-15{
+    padding-bottom: 15px;
+  }
   .proyectos-card {
     width: 250% !important;
   }

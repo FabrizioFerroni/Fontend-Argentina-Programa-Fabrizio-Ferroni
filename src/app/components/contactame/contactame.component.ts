@@ -23,14 +23,19 @@ export class ContactameComponent implements OnInit {
   isAdmin!: boolean;
   isProfesor!: boolean;
   token!: string;
-  phone: any;
-  subject: any;
+  phone: boolean = false;
+  subject: boolean = false;
   is_open = true;
-  tel: any;
-  asu: any;
-  phone_form: any;
-  subject_form: any;
+  tel: boolean = false;
+  asu: boolean = false;
+  phone_form!: string;
+  subject_form!: string;
+  phone_formb!: boolean;
+  subject_formb!: boolean;
   data: any = {}
+
+  nombre_campo!: string;
+  load_btn_edit: boolean = false;
 
   // contacto
   nombre!: string;
@@ -39,12 +44,13 @@ export class ContactameComponent implements OnInit {
   mensaje!: string;
   telefono!: string;
   asunto!: string
+  id: number = 1;
 
   constructor(
     private _portfolioService: PortfolioService,
     private _router: Router,
     private titleService: Title,
-    private tokenService:TokenService,
+    private tokenService: TokenService,
     private _renderer2: Renderer2,
     @Inject(DOCUMENT) private _document: Document,
   ) {
@@ -81,42 +87,58 @@ export class ContactameComponent implements OnInit {
       console.log(this.isProfesor);
     }
 
-
-    this.load_data();
-    this.phone_form = '';
-    this.subject_form = '';
+    this.get_camps();
   }
 
-  load_data() {
-    this.tel = localStorage.getItem('phone');
-    this.asu = localStorage.getItem('subject');
-
-    if (this.tel == 'Mostrar') {
-      this.phone = true;
-      this.phone_form = 'si';
-    } else {
-      this.phone = false;
-      this.phone_form = 'no';
-    }
-    if (this.asu == 'Mostrar') {
-      this.subject = true;
-      this.subject_form = 'si';
-    } else {
-      this.subject = false;
-      this.subject_form = 'no';
-    }
+  validate(email: string) {
+    return String(email)
+      .toLowerCase()
+      .match(
+        /^(([^<>()[\]\\.,;:\s@"]+(\.[^<>()[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/
+      );
   }
 
+  get_camps(): void {
+    this._portfolioService.get_fields_contact(this.token).subscribe(
+      res => {
+        this.nombre_campo = res[0].nameTelsub;
+        this.phone_form = res[0].op1;
+        if (res[0].op1 == true) {
+          this.phone = true;
+          this.tel = true;
+          this.phone_formb = true;
+          this.phone_form = "true";
+        } else {
+          this.phone = false;
+          this.tel = false;
+          this.phone_formb = false;
+          this.phone_form = "false";
+        }
+        this.subject_form = res[0].op2;
+        if (res[0].op2 == true) {
+          this.subject = true;
+          this.asu = true;
+          this.subject_form = "true";
+          this.subject_formb = true;
+        } else {
+          this.subject = false;
+          this.asu = false;
+          this.subject_form = "false";
+          this.subject_formb = false;
+        }
+      },
+      err => {
+        console.log(err);
+
+      }
+    )
+  }
 
   send_email(sendmail: any) {
     this.nombre = this.nombre.trim().toLowerCase().replace(/\w\S*/g, (w) => (w.replace(/^\w/, (c) => c.toUpperCase())));
     this.apellido = this.apellido.trim().toLowerCase().replace(/\w\S*/g, (w) => (w.replace(/^\w/, (c) => c.toUpperCase())));
-
-    this.tel = localStorage.getItem('phone');
-    this.asu = localStorage.getItem('subject');
-
     if (sendmail.valid) {
-      if (this.tel == 'Mostrar' && this.asu == 'Mostrar') {
+      if (this.tel == true && this.asu == true) {
         if (this.telefono == undefined || this.telefono == '' && this.asunto == undefined || this.asunto == '') {
           iziToast.warning({
             title: 'ADVERTENCIA',
@@ -145,7 +167,7 @@ export class ContactameComponent implements OnInit {
         }
       }
 
-      if (this.tel != "Mostrar" && this.asu == "Mostrar") {
+      if (this.tel != true && this.asu == true) {
         if (this.asunto == undefined || this.asunto == '') {
           iziToast.warning({
             title: 'ADVERTENCIA',
@@ -164,7 +186,7 @@ export class ContactameComponent implements OnInit {
 
       }
 
-      if (this.tel == "Mostrar" && this.asu != "Mostrar") {
+      if (this.tel == true && this.asu != true) {
         if (this.telefono == undefined || this.telefono == '') {
           iziToast.warning({
             title: 'ADVERTENCIA',
@@ -183,7 +205,7 @@ export class ContactameComponent implements OnInit {
 
       }
 
-      if (this.tel != "Mostrar" && this.asu != "Mostrar") {
+      if (this.tel != true && this.asu != true) {
         if (this.nombre == undefined || this.nombre == '' && this.apellido == undefined || this.apellido == '' && this.email == undefined || this.email == '' && this.mensaje == undefined || this.mensaje == '') {
           iziToast.warning({
             title: 'ADVERTENCIA',
@@ -201,39 +223,42 @@ export class ContactameComponent implements OnInit {
 
       }
 
-      // this.data = {
-      //   nombre: this.nombre,
-      //   apellido: this.apellido,
-      //   email: this.email,
-      //   subject: this.asunto,
-      //   telefono: this.telefono,
-      //   mensaje: this.mensaje
-      // }
 
-      this.load_btn = true;
-      this._portfolioService.send_email(this.data).subscribe(
-        res => {
-          console.log(res);
-          this.load_btn = false;
-          this.resetForm();
-          iziToast.success({
-            title: 'GRACIAS 😁',
-            message: res.mensaje,
-            position: 'topRight',
-          });
 
-        },
-        err => {
-          console.log(err);
-          this.load_btn = false;
-          iziToast.error({
-            title: 'LO SIENTO 😣',
-            message: err.error.error,
-            position: 'topRight',
-          });
+      if (this.validate(this.email)) {
+        this.load_btn = true;
+        this._portfolioService.send_email(this.data).subscribe(
+          res => {
+            console.log(res);
+            this.load_btn = false;
+            this.resetForm();
+            iziToast.success({
+              title: 'GRACIAS 😁',
+              message: res.mensaje,
+              position: 'topRight',
+            });
 
-        }
-      )
+          },
+          err => {
+            console.log(err);
+            this.load_btn = false;
+            iziToast.error({
+              title: 'LO SIENTO 😣',
+              message: err.error.error,
+              position: 'topRight',
+            });
+
+          }
+        )
+      } else {
+        iziToast.warning({
+          title: 'ADVERTENCIA',
+          position: 'topRight',
+          message: 'El correo electrónico ingresado: ' + this.email + ' no es válido'
+        });
+      }
+
+
     } else {
       iziToast.warning({
         title: 'ADVERTENCIA',
@@ -256,48 +281,45 @@ export class ContactameComponent implements OnInit {
 
 
   editcontact(editcontactForm: any) {
-    if (editcontactForm.valid) {
-      if (this.phone_form == 'si') {
-        this.phone = true;
-        localStorage.setItem('phone', 'Mostrar');
-        this.phone_form = 'si';
-
-      } else {
-        this.phone = false;
-        localStorage.setItem('phone', 'No mostrar');
-        this.phone_form = 'no';
-
-      }
-      if (this.subject_form == 'si') {
-        this.subject = true;
-        localStorage.setItem('subject', 'Mostrar');
-        this.subject_form = 'si';
-
-      } else {
-        this.subject = false;
-        localStorage.setItem('subject', 'No mostrar');
-        this.subject_form = 'no';
-
-      }
-      $('#edit-form-contact').modal('hide');
-      $('.modal-backdrop').removeClass('show');
-
-      iziToast.success({
-        title: 'Correcto',
-        position: 'topRight',
-        message: 'Se guardaron los datos'
-      });
+    if (this.phone_form == 'true') {
+      this.phone_formb = true;
     } else {
-      // swal.fire({
-      //   title: 'Los campos no pueden estar vacíos',
-      //   icon: 'warning',
-      //   confirmButtonColor: '#5c62ec',
-      //   confirmButtonText: 'Aceptar',
-      //   customClass: {
-      //     confirmButton: 'outnone',
-      //   }
-      // })
+      this.phone_formb = false;
+    }
 
+    if (this.subject_form == 'true') {
+      this.subject_formb = true;
+    } else {
+      this.subject_formb = false;
+    }
+
+    if (editcontactForm.valid) {
+      this.data = {
+        nameTelsub: this.nombre_campo,
+        op1: this.phone_formb,
+        op2: this.subject_formb
+      };
+
+      this.load_btn_edit = true;
+      this._portfolioService.put_fields_contact(this.id, this.data, this.token).subscribe(
+        res => {
+          $('#edit-form-contact').modal('hide');
+          $('.modal-backdrop').removeClass('show');
+          this.load_btn_edit = false;
+          console.log(res);
+          this.get_camps();
+          iziToast.success({
+            title: 'Correcto',
+            position: 'topRight',
+            message: 'Se guardaron los datos'
+          });
+        },
+        err => {
+          console.log(err);
+          this.load_btn_edit = false;
+        }
+      )
+    } else {
       iziToast.warning({
         title: 'Advertencia',
         position: 'topRight',
@@ -306,17 +328,10 @@ export class ContactameComponent implements OnInit {
     }
   }
 
-  succes_msg() {
-    iziToast.success({
-      title: 'Correcto',
-      position: 'topRight',
-      message: 'Se guardaron los datos'
-    });
-  }
-
   reset() {
-    this.subject_form = '';
-    this.phone_form = '';
+    this.get_camps();
+    $('#edit-form-contact').modal('hide');
+    $('.modal-backdrop').removeClass('show');
   }
 
   borrar_datos() {
@@ -335,24 +350,34 @@ export class ContactameComponent implements OnInit {
       }
     }).then((result) => {
       if (result.isConfirmed) {
-        localStorage.removeItem('phone');
-        localStorage.removeItem('subject');
-        this.subject_form = '';
-        this.phone_form = '';
-        swal.fire({
-          title: 'Eliminado!',
-          text: 'El apartado contacto fue limpiado con éxito.',
-          icon: 'success',
-          confirmButtonText: 'Aceptar',
-          confirmButtonColor: '#5c62ec',
-          customClass: {
-            confirmButton: 'outnone'
+        this.data = {
+          nameTelsub: this.nombre_campo,
+          op1: false,
+          op2: false
+        };
+
+        this._portfolioService.put_fields_contact(this.id, this.data, this.token).subscribe(
+          res => {
+            console.log(res);
+            this.get_camps();
+
+            swal.fire({
+              title: 'Eliminado!',
+              text: 'Se borraron las modificaciones con éxito.',
+              icon: 'success',
+              confirmButtonText: 'Aceptar',
+              confirmButtonColor: '#5c62ec',
+              customClass: {
+                confirmButton: 'outnone'
+              }
+            })
+          },
+          err => {
+            console.log(err);
           }
-        }).then((result) => {
-          if (result.isConfirmed) {
-            window.location.reload();
-          }
-        })
+        )
+
+
       }
     })
 

@@ -5,7 +5,10 @@ import { LoginUsuario } from './../../../models/login-usuario';
 import { AuthService } from './../../../services/auth.service';
 import { TokenService } from './../../../services/token.service';
 import { Component, Inject, OnInit, Renderer2 } from '@angular/core';
-import { Router } from '@angular/router';
+import { Router, ActivatedRoute } from '@angular/router';
+import swal from 'sweetalert2';
+import * as moment from 'moment';
+
 
 declare var jQuery: any;
 declare var $: any;
@@ -31,6 +34,7 @@ export class LoginComponent implements OnInit {
   isError: boolean = false;
   mensaje!: string;
   mensaje_btn: string = 'Iniciando sesión...';
+  tokenVerify!: string;
 
   constructor(
     private tokenService: TokenService,
@@ -39,12 +43,14 @@ export class LoginComponent implements OnInit {
     private portfolioService: PortfolioService,
     private _renderer2: Renderer2,
     @Inject(DOCUMENT) private _document: Document,
-    private titleService: Title
+    private titleService: Title,
+    private activatedRoute: ActivatedRoute,
   ) {
     titleService.setTitle('Inciar sesión - Fabrizio Dev - Argentina Programa #YoProgramo')
   }
 
   ngOnInit(): void {
+    moment.locale('es');
     let body = this._document.body;
     let script = this._renderer2.createElement('script');
     script.type = 'application/javascript';
@@ -71,6 +77,144 @@ export class LoginComponent implements OnInit {
       this.router.navigate(['/']);
     }
     $('.modal-backdrop').removeClass('modal-backdrop');
+
+    this.activatedRoute.params.subscribe(params => {
+      this.tokenVerify = params['tokenVerify'];
+    });
+
+
+
+    if(this.tokenVerify != null){
+
+      this.authService.getTokenPassword(this.tokenVerify).subscribe(
+        res =>{
+          this.upd(res.creado);
+        },
+        err =>{
+          this.tokennotvalid(err.error.mensaje);
+        }
+      )
+
+    }
+  }
+
+
+
+  upd(creado: any): any {
+    var now;
+    now = moment();
+    var duration = moment.duration(now.diff(creado)).asHours();
+    console.log("Tiempo valido del token: ", duration);
+
+    if (duration >= 24) {
+      swal.fire({
+        title: "Token expirado",
+        text: 'Por favor vuelve a pedir un nuevo token',
+        icon: 'error',
+        showCancelButton: false,
+        confirmButtonColor: '#5c62ec',
+        cancelButtonColor: '#d33',
+        confirmButtonText: 'Pedir nuevo token',
+        cancelButtonText: 'Cancelar',
+        customClass: {
+          cancelButton: 'outnone',
+          confirmButton: 'outnone',
+        }
+      }).then((result) => {
+        if (result.isConfirmed) {
+          this.authService.resendtoken(this.tokenVerify).subscribe(
+            res => {
+              swal.fire({
+                title: "Se te ha mandado un nuevo enlace de verificación",
+                text: res.mensaje,
+                icon: 'success',
+                showCancelButton: false,
+                confirmButtonColor: '#5c62ec',
+                cancelButtonColor: '#d33',
+                confirmButtonText: 'Aceptar',
+                cancelButtonText: 'Cancelar',
+                customClass: {
+                  cancelButton: 'outnone',
+                  confirmButton: 'outnone',
+                }
+              }).then((result) => {
+                if (result.isConfirmed) {
+                  this.router.navigate(['/']);
+                }
+              })
+            }
+          )
+        }
+      })
+
+    } else{
+      this.authService.get_verify(this.tokenVerify).subscribe(
+        res =>{
+          swal.fire({
+            title: "Cuenta validada con éxito",
+            text: res.mensaje,
+            icon: 'success',
+            showCancelButton: false,
+            confirmButtonColor: '#5c62ec',
+            cancelButtonColor: '#d33',
+            confirmButtonText: 'Aceptar',
+            cancelButtonText: 'Cancelar',
+            customClass: {
+              cancelButton: 'outnone',
+              confirmButton: 'outnone',
+            }
+          }).then((result) => {
+            if (result.isConfirmed) {
+              this.router.navigate(['/iniciarsesion']);
+              console.log("Usuario verificado");
+
+            }
+          })
+        },
+        err => {
+          swal.fire({
+            title: "Hubo un error",
+            text: err.error.mensaje,
+            icon: 'error',
+            showCancelButton: false,
+            confirmButtonColor: '#5c62ec',
+            cancelButtonColor: '#d33',
+            confirmButtonText: 'Aceptar',
+            cancelButtonText: 'Cancelar',
+            customClass: {
+              cancelButton: 'outnone',
+              confirmButton: 'outnone',
+            }
+          }).then((result) => {
+            if (result.isConfirmed) {
+              this.router.navigate(['/']);
+              console.log("Usuario no verificado");
+            }
+          })
+        }
+      )
+    }
+  }
+
+  tokennotvalid(mensaje: string): void {
+    swal.fire({
+      title: "Por favor verifica el token",
+      text: mensaje,
+      icon: 'warning',
+      showCancelButton: false,
+      confirmButtonColor: '#5c62ec',
+      cancelButtonColor: '#d33',
+      confirmButtonText: 'Aceptar',
+      cancelButtonText: 'Cancelar',
+      customClass: {
+        cancelButton: 'outnone',
+        confirmButton: 'outnone',
+      }
+    }).then((result) => {
+      if (result.isConfirmed) {
+        this.router.navigate(['/']);
+      }
+    })
   }
 
   cambiarTipo(){
