@@ -21,6 +21,7 @@
   <link href="https://unpkg.com/boxicons@2.1.1/css/boxicons.min.css" rel="stylesheet">
   <!--===============================================================================================-->
   <link rel="stylesheet" href="assets/css/main.css">
+  <link rel="stylesheet" href="assets/css/progress.css">
   <!--===============================================================================================-->
   <!-- LOGIN V2 -->
   <!--===============================================================================================-->
@@ -53,7 +54,16 @@
 </head>
 
 <body>
+  <header>
+    <div id="progress-bar"><span></span></div>
+  </header>
   <app-root></app-root>
+
+  <a class="ir-arriba" data-bs-toggle="tooltip" data-bs-placement="left" title="Ir arriba">
+    <span class="fa-stack">
+      <i class="fa fa-arrow-up fa-stack-1x fa-inverse"></i>
+    </span>
+  </a>
 
   <!-- scripts -->
   <!-- LOGIN V2 -->
@@ -89,6 +99,7 @@
   <script src="assets/js/iziToast.min.js"></script>
   <!--===============================================================================================-->
   <script src="assets/js/script.js"></script>
+  <script src="assets/js/progress.js"></script>
   <!--===============================================================================================-->
 </body>
 

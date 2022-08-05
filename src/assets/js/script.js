@@ -16,14 +16,14 @@ $(document).ready(function () {
   });
 })
 
-$(document).ready(function () { irArriba(); }); //Hacia arriba
+// $(document).ready(function () { irArriba(); }); //Hacia arriba
 
 function irArriba() {
   $('.ir-arriba').hide();
   $('.ir-arriba').click(function () {
     $('body,html').animate({
       scrollTop: 0
-    }, 1000)
+    }) /*, 1000 */
   });
   $(window).scroll(function () {
     if ($(this).scrollTop() > 200) {
@@ -34,5 +34,6 @@ function irArriba() {
     }
   });
 }
+
 
 
